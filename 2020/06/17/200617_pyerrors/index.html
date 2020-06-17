@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>Linear Discriminant Analysis - zyzisyz</title>
+  <title>美化Python异常信息 - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-06-14 00:00">
-      2020年6月14日 凌晨
+    <time datetime="2020-06-17 00:00">
+      2020年6月17日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      673 字
+      29 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      1
        分钟
     </span>
   
@@ -216,46 +216,11 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>线性判别分析（Linear Discriminant Analysis，LDA）是一种经典的线性分类方法。LDA是一种有监督的线性分类算法。LDA的基本思想是将数据投影到低维空间后，使得：<strong>同一类数据尽可能接近，不同类数据尽可能疏远</strong>。在对新样本进行分类时，将其投影到同样的低维空间上，再根据投影点的位置来确定新样本的类别。</p>
-<p><img src="https://wx1.sbimg.cn/2020/06/14/lda.png" srcset="/img/loading.gif" alt="avatar"></p>
-<p>值得一提的是，LDA 可从贝时斯决策理论的角度来阐释，并可证明，当两类数据同先验、满足高斯分布且协方差相等时，LDA 可达到最优分类。</p>
-<h2 id="Fisher-discriminant-criterion"><a href="#Fisher-discriminant-criterion" class="headerlink" title="Fisher discriminant criterion"></a>Fisher discriminant criterion</h2><ol>
-<li>$X_i$ 表示 $i$ 类示例的集合</li>
-<li>$N$ 表示有 $N$ 类，且第 $i$ 类的样本数为 $N_i$</li>
-<li>$n$ 表示总共有 $n$ 个数据</li>
-<li>$\mu_i$ 表示 $i$ 类示例的均值向量，$\mu$ 表示总的均值向量</li>
-<li>$\Sigma_i$ 表示 $i$ 类示例的协方差矩阵</li>
-<li>$S_w$ 表示类内散度矩阵（within-class scatter matrix）</li>
-<li>$S_b$ 表示类间散度矩阵（between-class scatter matrix）</li>
-<li>$S_t$ 表示全局散度矩阵</li>
-<li>$w$ 为变换矩阵</li>
-<li>$J(w)$ 是最大目标Fisher判别准则</li>
-</ol>
-<p>$$\boldsymbol{\mu_i} = \frac{1}{N_i} \sum_{\boldsymbol{x} \in X_i}\boldsymbol{x}$$</p>
-<p>$$\Sigma_i = \sum_{\boldsymbol{x} \in X_i}(\boldsymbol{x}-\boldsymbol{\mu_i})(\boldsymbol{x}-\boldsymbol{\mu_i})^T$$</p>
-<p>$$S_w = \sum^N_{i=1}S_{w_i} = \sum^N_{i=1}\Sigma_i = \sum^N_{i=1}\sum_{\boldsymbol{x} \in X_i}(\boldsymbol{x}-\boldsymbol{\mu_i})(\boldsymbol{x}-\boldsymbol{\mu_i})^T$$</p>
-<p>$$S_b = S_t - S_w = \sum^N_{i=1}N_i(\boldsymbol{\mu_i}-\boldsymbol{\mu})(\boldsymbol{\mu_i}-\boldsymbol{\mu})^T$$</p>
-<p>$$S_t = S_b + S_w =\sum_{i=1}^{n}(\boldsymbol{x_i}-\boldsymbol{\mu})(\boldsymbol{x_i}-\boldsymbol{\mu})^T$$</p>
-<p>$$J(w) = \frac{w^TS_bw}{w^TS_ww}$$</p>
-<p>优化目标推导过程</p>
-<p>$$ \frac{\mathrm{d}J(w)}{\mathrm{d}w} = 0 $$</p>
-<p>$$<br>\frac{\mathrm{d}J(w)}{\mathrm{d}w} = \frac{\mathrm{d}}{\mathrm{d}w}(\frac{w^TS_bw}{w^TS_ww}) =<br>$$</p>
-<p><img src="https://wx2.sbimg.cn/2020/06/14/lda_s.png" srcset="/img/loading.gif" alt="avatar"></p>
-<p>多分类 LDA 可以有多种实现方法：使用 $S_b$, $S_w$ , $S_t$ 三者中的任何两个即可</p>
-<h2 id="LDA-算法的训练流程"><a href="#LDA-算法的训练流程" class="headerlink" title="LDA 算法的训练流程"></a>LDA 算法的训练流程</h2><ol>
-<li>计算类内散度矩阵 $S_w$</li>
-<li>计算类间散度矩阵 $S_b$</li>
-<li>计算矩阵 $S_w^{-1}S_b$</li>
-<li>计算矩阵 $S_w^{-1}S_b$ 的特征值与特征向量，按从小到大的顺序选取前 $d$ 个特征值和对应的 $d$ 个特征向量，得到投影矩阵 $w$</li>
-</ol>
-<h2 id="sklearn包-LDA-的使用"><a href="#sklearn包-LDA-的使用" class="headerlink" title="sklearn包 LDA 的使用"></a>sklearn包 LDA 的使用</h2><h2 id="LDA-Python-代码实现"><a href="#LDA-Python-代码实现" class="headerlink" title="LDA Python 代码实现"></a>LDA Python 代码实现</h2><h2 id="相关论文"><a href="#相关论文" class="headerlink" title="相关论文"></a>相关论文</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="http://wangd.cslt.org/teach/speech-processing/3.2-SA-LDA.ppt" target="_blank" rel="noopener">CSLT-THU王东老师PPT-Static Analysis: LDA</a></p>
-<p>[2] <a href="">西瓜书-线性判别分析</a></p>
-<p>[3] <a href="http://166.111.134.19:7777/mlbook/" target="_blank" rel="noopener">CSLT-THU王东老师-现代机器学习导论</a></p>
-<p>[4] <a href="https://mp.weixin.qq.com/s/PZpEtcdiPUxIv6M3sGOaGA" target="_blank" rel="noopener">机器学习实验室微信公众号-数学推导LDA线性判别分析</a></p>
-<p>[5] <a href="https://www.cnblogs.com/timlong/p/11403709.html" target="_blank" rel="noopener">博客园-LDA</a></p>
-<p>[6] <a href="https://zhuanlan.zhihu.com/p/79696530" target="_blank" rel="noopener">知乎-线性判别分析LDA原理及推导过程（非常详细）</a></p>
-<p>[7] <a href="https://www.bilibili.com/video/BV15t411v7Pg?p=7" target="_blank" rel="noopener">THU袁博老师数据挖掘课程-数据预处理PPT</a></p>
-<p>[8] <a href="https://zhuanlan.zhihu.com/p/33742983" target="_blank" rel="noopener">知乎-Fisher判别分析(Fisher Discriminant Analysis)</a></p>
+              <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Github链接<a href="https://github.com/onelivesleft/PrettyErrors" target="_blank" rel="noopener">PrettyErrors</a></p>
+<pre><code class="hljs bash">python -m pip install pretty_errors
+python -m pretty_errors</code></pre>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://zhuanlan.zhihu.com/p/100234650" target="_blank" rel="noopener">知乎-一行代码简化Python异常信息</a></p>
 
             </article>
             <hr>
@@ -265,7 +230,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/backends/">backends</a>
+                      <a class="hover-with-bg" href="/categories/toolkit/">toolkit</a>
                     
                   </div>
                 
@@ -273,9 +238,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                      <a class="hover-with-bg" href="/tags/%E5%BC%80%E5%8F%91/">开发</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+                      <a class="hover-with-bg" href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%88%E7%8E%87/">效率</a>
                     
                   </div>
                 
@@ -286,18 +253,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/06/17/200617_pyerrors/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">美化Python异常信息</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/06/12/002_flow/">
-                        <span class="hidden-mobile">flow 模型</span>
+                      <a href="/2020/06/14/200614_Linear_Discriminant_Analysis/">
+                        <span class="hidden-mobile">Linear Discriminant Analysis</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -436,7 +397,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Linear Discriminant Analysis&nbsp;",
+        "美化Python异常信息&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

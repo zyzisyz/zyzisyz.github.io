@@ -172,12 +172,18 @@
                 
 
 <div class="list-group">
-  <p class="h4">共计 16 篇文章</p>
+  <p class="h4">共计 17 篇文章</p>
   <hr>
   
     
       
       <p class="h5">2020</p>
+    
+    <a href="/2020/06/17/200617_pyerrors/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">美化Python异常信息</span>
+      <span style="float: right;">06-17</span>
+    </a>
+  
     
     <a href="/2020/06/14/200614_Linear_Discriminant_Analysis/" class="list-group-item list-group-item-action">
       <span class="archive-post-title">Linear Discriminant Analysis</span>
@@ -232,13 +238,19 @@
       <span style="float: right;">06-08</span>
     </a>
   
-    
-    <a href="/2020/06/01/001_speech_note/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Speech领域专业名词（持续更新）</span>
-      <span style="float: right;">06-01</span>
-    </a>
-  
 </div>
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/archives/2020/06/page/2/">2</a><a class="extend next" rel="next" href="/archives/2020/06/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 

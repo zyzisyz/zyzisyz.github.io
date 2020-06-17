@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>美化Python异常信息</title>
+    <link href="/2020/06/17/200617_pyerrors/"/>
+    <url>/2020/06/17/200617_pyerrors/</url>
+    
+    <content type="html"><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Github链接<a href="https://github.com/onelivesleft/PrettyErrors" target="_blank" rel="noopener">PrettyErrors</a></p><pre><code class="hljs bash">python -m pip install pretty_errorspython -m pretty_errors</code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://zhuanlan.zhihu.com/p/100234650" target="_blank" rel="noopener">知乎-一行代码简化Python异常信息</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>toolkit</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>开发</tag>
+      
+      <tag>工具</tag>
+      
+      <tag>效率</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Linear Discriminant Analysis</title>
     <link href="/2020/06/14/200614_Linear_Discriminant_Analysis/"/>
     <url>/2020/06/14/200614_Linear_Discriminant_Analysis/</url>
