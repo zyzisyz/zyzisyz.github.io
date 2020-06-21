@@ -4,7 +4,7 @@
   
   
   <entry>
-    <title>美化Python异常信息</title>
+    <title>美化 Python 异常信息</title>
     <link href="/2020/06/17/200617_pyerrors/"/>
     <url>/2020/06/17/200617_pyerrors/</url>
     
@@ -33,11 +33,36 @@
   
   
   <entry>
+    <title>计算机网络复习</title>
+    <link href="/2020/06/17/200621_computer_network/"/>
+    <url>/2020/06/17/200621_computer_network/</url>
+    
+    <content type="html"><![CDATA[<h2 id="工作装备"><a href="#工作装备" class="headerlink" title="工作装备"></a>工作装备</h2><ol><li>物理层：中继器，集线器</li><li>数据链路：网桥，交换机</li><li>网络层：路由器 </li><li>传输层： 网关</li></ol><h2 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h2><ol><li>物理层： RJ45 、 CLOCK 、 IEEE802.3</li><li>数据链路： PPP 、 FR 、 HDLC 、 VLAN 、 MAC</li><li>网络层： IP 、 ICMP 、 ARP 、 RARP 、 OSPF 、 IPX 、 RIP 、 IGRP</li><li>传输层： TCP 、 UDP 、 SPX</li><li>会话层： NFS 、 SQL 、 NETBIOS 、 RPC</li><li>表示层： JPEG 、 MPEG 、 ASII</li><li>应用层： FTP 、 DNS 、 Telnet 、 SMTP 、 HTTP 、 WWW 、 NFS</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>面试</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Linear Discriminant Analysis</title>
     <link href="/2020/06/14/200614_Linear_Discriminant_Analysis/"/>
     <url>/2020/06/14/200614_Linear_Discriminant_Analysis/</url>
     
-    <content type="html"><![CDATA[<p>线性判别分析（Linear Discriminant Analysis，LDA）是一种经典的线性分类方法。LDA是一种有监督的线性分类算法。LDA的基本思想是将数据投影到低维空间后，使得：<strong>同一类数据尽可能接近，不同类数据尽可能疏远</strong>。在对新样本进行分类时，将其投影到同样的低维空间上，再根据投影点的位置来确定新样本的类别。</p><p><img src="https://wx1.sbimg.cn/2020/06/14/lda.png" alt="avatar"></p><p>值得一提的是，LDA 可从贝时斯决策理论的角度来阐释，并可证明，当两类数据同先验、满足高斯分布且协方差相等时，LDA 可达到最优分类。</p><h2 id="Fisher-discriminant-criterion"><a href="#Fisher-discriminant-criterion" class="headerlink" title="Fisher discriminant criterion"></a>Fisher discriminant criterion</h2><ol><li>$X_i$ 表示 $i$ 类示例的集合</li><li>$N$ 表示有 $N$ 类，且第 $i$ 类的样本数为 $N_i$</li><li>$n$ 表示总共有 $n$ 个数据</li><li>$\mu_i$ 表示 $i$ 类示例的均值向量，$\mu$ 表示总的均值向量</li><li>$\Sigma_i$ 表示 $i$ 类示例的协方差矩阵</li><li>$S_w$ 表示类内散度矩阵（within-class scatter matrix）</li><li>$S_b$ 表示类间散度矩阵（between-class scatter matrix）</li><li>$S_t$ 表示全局散度矩阵</li><li>$w$ 为变换矩阵</li><li>$J(w)$ 是最大目标Fisher判别准则</li></ol><p>$$\boldsymbol{\mu_i} = \frac{1}{N_i} \sum_{\boldsymbol{x} \in X_i}\boldsymbol{x}$$</p><p>$$\Sigma_i = \sum_{\boldsymbol{x} \in X_i}(\boldsymbol{x}-\boldsymbol{\mu_i})(\boldsymbol{x}-\boldsymbol{\mu_i})^T$$</p><p>$$S_w = \sum^N_{i=1}S_{w_i} = \sum^N_{i=1}\Sigma_i = \sum^N_{i=1}\sum_{\boldsymbol{x} \in X_i}(\boldsymbol{x}-\boldsymbol{\mu_i})(\boldsymbol{x}-\boldsymbol{\mu_i})^T$$</p><p>$$S_b = S_t - S_w = \sum^N_{i=1}N_i(\boldsymbol{\mu_i}-\boldsymbol{\mu})(\boldsymbol{\mu_i}-\boldsymbol{\mu})^T$$</p><p>$$S_t = S_b + S_w =\sum_{i=1}^{n}(\boldsymbol{x_i}-\boldsymbol{\mu})(\boldsymbol{x_i}-\boldsymbol{\mu})^T$$</p><p>$$J(w) = \frac{w^TS_bw}{w^TS_ww}$$</p><p>优化目标推导过程</p><p>$$ \frac{\mathrm{d}J(w)}{\mathrm{d}w} = 0 $$</p><p>$$<br>\frac{\mathrm{d}J(w)}{\mathrm{d}w} = \frac{\mathrm{d}}{\mathrm{d}w}(\frac{w^TS_bw}{w^TS_ww}) =<br>$$</p><p><img src="https://wx2.sbimg.cn/2020/06/14/lda_s.png" alt="avatar"></p><p>多分类 LDA 可以有多种实现方法：使用 $S_b$, $S_w$ , $S_t$ 三者中的任何两个即可</p><h2 id="LDA-算法的训练流程"><a href="#LDA-算法的训练流程" class="headerlink" title="LDA 算法的训练流程"></a>LDA 算法的训练流程</h2><ol><li>计算类内散度矩阵 $S_w$</li><li>计算类间散度矩阵 $S_b$</li><li>计算矩阵 $S_w^{-1}S_b$</li><li>计算矩阵 $S_w^{-1}S_b$ 的特征值与特征向量，按从小到大的顺序选取前 $d$ 个特征值和对应的 $d$ 个特征向量，得到投影矩阵 $w$</li></ol><h2 id="sklearn包-LDA-的使用"><a href="#sklearn包-LDA-的使用" class="headerlink" title="sklearn包 LDA 的使用"></a>sklearn包 LDA 的使用</h2><h2 id="LDA-Python-代码实现"><a href="#LDA-Python-代码实现" class="headerlink" title="LDA Python 代码实现"></a>LDA Python 代码实现</h2><h2 id="相关论文"><a href="#相关论文" class="headerlink" title="相关论文"></a>相关论文</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="http://wangd.cslt.org/teach/speech-processing/3.2-SA-LDA.ppt" target="_blank" rel="noopener">CSLT-THU王东老师PPT-Static Analysis: LDA</a></p><p>[2] <a href="">西瓜书-线性判别分析</a></p><p>[3] <a href="http://166.111.134.19:7777/mlbook/" target="_blank" rel="noopener">CSLT-THU王东老师-现代机器学习导论</a></p><p>[4] <a href="https://mp.weixin.qq.com/s/PZpEtcdiPUxIv6M3sGOaGA" target="_blank" rel="noopener">机器学习实验室微信公众号-数学推导LDA线性判别分析</a></p><p>[5] <a href="https://www.cnblogs.com/timlong/p/11403709.html" target="_blank" rel="noopener">博客园-LDA</a></p><p>[6] <a href="https://zhuanlan.zhihu.com/p/79696530" target="_blank" rel="noopener">知乎-线性判别分析LDA原理及推导过程（非常详细）</a></p><p>[7] <a href="https://www.bilibili.com/video/BV15t411v7Pg?p=7" target="_blank" rel="noopener">THU袁博老师数据挖掘课程-数据预处理PPT</a></p><p>[8] <a href="https://zhuanlan.zhihu.com/p/33742983" target="_blank" rel="noopener">知乎-Fisher判别分析(Fisher Discriminant Analysis)</a></p>]]></content>
+    <content type="html"><![CDATA[<p>线性判别分析（Linear Discriminant Analysis，LDA）是一种经典的线性分类方法。LDA是一种有监督的线性分类算法。LDA的基本思想是将数据投影到低维空间后，使得：<strong>同一类数据尽可能接近，不同类数据尽可能疏远</strong>。在对新样本进行分类时，将其投影到同样的低维空间上，再根据投影点的位置来确定新样本的类别。</p><p><img src="https://wx1.sbimg.cn/2020/06/14/lda.png" srcset="/img/loading.gif" alt="avatar"></p><p>值得一提的是，LDA 可从贝时斯决策理论的角度来阐释，并可证明，当两类数据同先验、满足高斯分布且协方差相等时，LDA 可达到最优分类。</p><h2 id="Fisher-discriminant-criterion"><a href="#Fisher-discriminant-criterion" class="headerlink" title="Fisher discriminant criterion"></a>Fisher discriminant criterion</h2><ol><li>$X_i$ 表示 $i$ 类示例的集合</li><li>$N$ 表示有 $N$ 类，且第 $i$ 类的样本数为 $N_i$</li><li>$n$ 表示总共有 $n$ 个数据</li><li>$\mu_i$ 表示 $i$ 类示例的均值向量，$\mu$ 表示总的均值向量</li><li>$\Sigma_i$ 表示 $i$ 类示例的协方差矩阵</li><li>$S_w$ 表示类内散度矩阵（within-class scatter matrix）</li><li>$S_b$ 表示类间散度矩阵（between-class scatter matrix）</li><li>$S_t$ 表示全局散度矩阵</li><li>$w$ 为变换矩阵</li><li>$J(w)$ 是最大目标Fisher判别准则</li></ol><p>$$\boldsymbol{\mu_i} = \frac{1}{N_i} \sum_{\boldsymbol{x} \in X_i}\boldsymbol{x}$$</p><p>$$\Sigma_i = \sum_{\boldsymbol{x} \in X_i}(\boldsymbol{x}-\boldsymbol{\mu_i})(\boldsymbol{x}-\boldsymbol{\mu_i})^T$$</p><p>$$S_w = \sum^N_{i=1}S_{w_i} = \sum^N_{i=1}\Sigma_i = \sum^N_{i=1}\sum_{\boldsymbol{x} \in X_i}(\boldsymbol{x}-\boldsymbol{\mu_i})(\boldsymbol{x}-\boldsymbol{\mu_i})^T$$</p><p>$$S_b = S_t - S_w = \sum^N_{i=1}N_i(\boldsymbol{\mu_i}-\boldsymbol{\mu})(\boldsymbol{\mu_i}-\boldsymbol{\mu})^T$$</p><p>$$S_t = S_b + S_w =\sum_{i=1}^{n}(\boldsymbol{x_i}-\boldsymbol{\mu})(\boldsymbol{x_i}-\boldsymbol{\mu})^T$$</p><p>$$J(w) = \frac{w^TS_bw}{w^TS_ww}$$</p><p>优化目标推导过程</p><p>$$ \frac{\mathrm{d}J(w)}{\mathrm{d}w} = 0 $$</p><p>$$<br>\frac{\mathrm{d}J(w)}{\mathrm{d}w} = \frac{\mathrm{d}}{\mathrm{d}w}(\frac{w^TS_bw}{w^TS_ww}) =<br>$$</p><p><img src="https://wx2.sbimg.cn/2020/06/14/lda_s.png" srcset="/img/loading.gif" alt="avatar"></p><p>多分类 LDA 可以有多种实现方法：使用 $S_b$, $S_w$ , $S_t$ 三者中的任何两个即可</p><h2 id="LDA-算法的训练流程"><a href="#LDA-算法的训练流程" class="headerlink" title="LDA 算法的训练流程"></a>LDA 算法的训练流程</h2><ol><li>计算类内散度矩阵 $S_w$</li><li>计算类间散度矩阵 $S_b$</li><li>计算矩阵 $S_w^{-1}S_b$</li><li>计算矩阵 $S_w^{-1}S_b$ 的特征值与特征向量，按从小到大的顺序选取前 $d$ 个特征值和对应的 $d$ 个特征向量，得到投影矩阵 $w$</li></ol><h2 id="sklearn包-LDA-的使用"><a href="#sklearn包-LDA-的使用" class="headerlink" title="sklearn包 LDA 的使用"></a>sklearn包 LDA 的使用</h2><pre><code class="hljs Python"><span class="hljs-keyword">from</span> sklearn.discriminant_analysis <span class="hljs-keyword">import</span> LinearDiscriminantAnalysis <span class="hljs-keyword">as</span> LDAlda = LDA(solver=<span class="hljs-string">'svd'</span>, n_components=LDA_components)<span class="hljs-comment"># fit</span>lda.fit(train_data, train_label)<span class="hljs-comment"># transform</span>train_data = lda.transform(train_data)test_data = lda.transform(test_data)</code></pre><h2 id="LDA-Python-代码实现"><a href="#LDA-Python-代码实现" class="headerlink" title="LDA Python 代码实现"></a>LDA Python 代码实现</h2><h2 id="相关论文"><a href="#相关论文" class="headerlink" title="相关论文"></a>相关论文</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="http://wangd.cslt.org/teach/speech-processing/3.2-SA-LDA.ppt" target="_blank" rel="noopener">CSLT-THU王东老师PPT-Static Analysis: LDA</a></p><p>[2] <a href="">西瓜书-线性判别分析</a></p><p>[3] <a href="http://166.111.134.19:7777/mlbook/" target="_blank" rel="noopener">CSLT-THU王东老师-现代机器学习导论</a></p><p>[4] <a href="https://mp.weixin.qq.com/s/PZpEtcdiPUxIv6M3sGOaGA" target="_blank" rel="noopener">机器学习实验室微信公众号-数学推导LDA线性判别分析</a></p><p>[5] <a href="https://www.cnblogs.com/timlong/p/11403709.html" target="_blank" rel="noopener">博客园-LDA</a></p><p>[6] <a href="https://zhuanlan.zhihu.com/p/79696530" target="_blank" rel="noopener">知乎-线性判别分析LDA原理及推导过程（非常详细）</a></p><p>[7] <a href="https://www.bilibili.com/video/BV15t411v7Pg?p=7" target="_blank" rel="noopener">THU袁博老师数据挖掘课程-数据预处理PPT</a></p><p>[8] <a href="https://zhuanlan.zhihu.com/p/33742983" target="_blank" rel="noopener">知乎-Fisher判别分析(Fisher Discriminant Analysis)</a></p>]]></content>
     
     
     <categories>
