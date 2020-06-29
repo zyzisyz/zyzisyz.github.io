@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-07-01 00:00">
-      2020年7月1日 凌晨
+    <time datetime="2020-06-30 00:00">
+      2020年6月30日 凌晨
     </time>
   </div>
 
@@ -218,7 +218,7 @@
             <article class="markdown-body">
               <h3 id="频率-Frequency-amp-幅度-Magnitude-amp-相位-Phase"><a href="#频率-Frequency-amp-幅度-Magnitude-amp-相位-Phase" class="headerlink" title="频率 Frequency &amp; 幅度 Magnitude &amp; 相位 Phase"></a>频率 Frequency &amp; 幅度 Magnitude &amp; 相位 Phase</h3><h3 id="音高-Pitch-amp-音量-Loudness-amp-音色-Timbre"><a href="#音高-Pitch-amp-音量-Loudness-amp-音色-Timbre" class="headerlink" title="音高 Pitch &amp; 音量 Loudness &amp; 音色 Timbre"></a>音高 Pitch &amp; 音量 Loudness &amp; 音色 Timbre</h3><h3 id="分贝-dB"><a href="#分贝-dB" class="headerlink" title="分贝 dB"></a>分贝 dB</h3><h3 id="模数转换-Analog-to-Digital-Conversion，ADC"><a href="#模数转换-Analog-to-Digital-Conversion，ADC" class="headerlink" title="模数转换 Analog to Digital Conversion，ADC"></a>模数转换 Analog to Digital Conversion，ADC</h3><h3 id="音素-Phoneme"><a href="#音素-Phoneme" class="headerlink" title="音素 Phoneme"></a>音素 Phoneme</h3><p>描述一种语言的基本单位被称为音素Phoneme，例如BRYAN这个词就可以看做是由B, R, AY, AX, N五个音素构成的。英语中大概有50多个音素，可以用50几个HMM state来表示这些音素。</p>
 <h3 id="掩蔽效应-Masking-Effects"><a href="#掩蔽效应-Masking-Effects" class="headerlink" title="掩蔽效应 Masking Effects"></a>掩蔽效应 Masking Effects</h3><h3 id="频谱图-Spectrogram"><a href="#频谱图-Spectrogram" class="headerlink" title="频谱图 Spectrogram"></a>频谱图 Spectrogram</h3><h3 id="声学模型-Acoustic-model"><a href="#声学模型-Acoustic-model" class="headerlink" title="声学模型 Acoustic model"></a>声学模型 Acoustic model</h3><p>语音中很多发音都是连在一起的，很难区分，所以一般用左中右三个HMM state来描述一个音素。举例来说BRYAN这个词中的R音素就变成了用B-R, R, R-AY三个HMM state来表示。这样BRYAN这个词根据上下文就需要15个state了，根据所有单词的上下文总共大概需要几千个HMM state，这种方式属于context dependent模型中的三音素triphone模式。这个HMM state的个数在各家语音识别系统中都不一样，是一个需要调的参数。所以声学模型就是如何设置HMM state。</p>
-<h3 id="语音模型-Language-Model-LM"><a href="#语音模型-Language-Model-LM" class="headerlink" title="语音模型 Language Model, LM"></a>语音模型 Language Model, LM</h3><h3 id="帧-Frame"><a href="#帧-Frame" class="headerlink" title="帧 Frame"></a>帧 Frame</h3><h3 id="隐马尔可夫模型-Hidden-Markov-Model-HMM"><a href="#隐马尔可夫模型-Hidden-Markov-Model-HMM" class="headerlink" title="隐马尔可夫模型 Hidden Markov Model, HMM"></a>隐马尔可夫模型 Hidden Markov Model, HMM</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://mp.weixin.qq.com/s/_jK4eTdboU9A-E785FUBJg" target="_blank" rel="noopener">CSLT微信公众号-语音识别基础：（一）语音是什么</a></p>
+<h3 id="语音模型-Language-Model-LM"><a href="#语音模型-Language-Model-LM" class="headerlink" title="语音模型 Language Model, LM"></a>语音模型 Language Model, LM</h3><h3 id="Lexicon"><a href="#Lexicon" class="headerlink" title="Lexicon"></a>Lexicon</h3><h3 id="帧-Frame"><a href="#帧-Frame" class="headerlink" title="帧 Frame"></a>帧 Frame</h3><h3 id="chunk"><a href="#chunk" class="headerlink" title="chunk"></a>chunk</h3><h3 id="隐马尔可夫模型-Hidden-Markov-Model-HMM"><a href="#隐马尔可夫模型-Hidden-Markov-Model-HMM" class="headerlink" title="隐马尔可夫模型 Hidden Markov Model, HMM"></a>隐马尔可夫模型 Hidden Markov Model, HMM</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://mp.weixin.qq.com/s/_jK4eTdboU9A-E785FUBJg" target="_blank" rel="noopener">CSLT微信公众号-语音识别基础：（一）语音是什么</a></p>
 <p>[2] <a href="https://mp.weixin.qq.com/s/XRTCCcEdmQTk4XitVo8U2Q" target="_blank" rel="noopener">CSLT微信公众号-语音识别基础：（二）语音识别方法</a></p>
 
             </article>
@@ -238,6 +238,8 @@
                     <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AF%AD%E9%9F%B3/">语音</a>
                     
                   </div>
                 
