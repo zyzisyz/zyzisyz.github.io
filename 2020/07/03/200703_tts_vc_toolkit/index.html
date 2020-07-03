@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>Speech领域专业名词（持续更新） - zyzisyz</title>
+  <title>【毕业要紧】 TTS &amp; VC Resources - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-06-30 00:00">
-      2020年6月30日 凌晨
+    <time datetime="2020-07-03 00:00">
+      2020年7月3日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      358 字
+      217 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      3
        分钟
     </span>
   
@@ -216,12 +216,15 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h3 id="频率-Frequency-amp-幅度-Magnitude-amp-相位-Phase"><a href="#频率-Frequency-amp-幅度-Magnitude-amp-相位-Phase" class="headerlink" title="频率 Frequency &amp; 幅度 Magnitude &amp; 相位 Phase"></a>频率 Frequency &amp; 幅度 Magnitude &amp; 相位 Phase</h3><h3 id="音高-Pitch-amp-音量-Loudness-amp-音色-Timbre"><a href="#音高-Pitch-amp-音量-Loudness-amp-音色-Timbre" class="headerlink" title="音高 Pitch &amp; 音量 Loudness &amp; 音色 Timbre"></a>音高 Pitch &amp; 音量 Loudness &amp; 音色 Timbre</h3><h3 id="分贝-dB"><a href="#分贝-dB" class="headerlink" title="分贝 dB"></a>分贝 dB</h3><h3 id="模数转换-Analog-to-Digital-Conversion，ADC"><a href="#模数转换-Analog-to-Digital-Conversion，ADC" class="headerlink" title="模数转换 Analog to Digital Conversion，ADC"></a>模数转换 Analog to Digital Conversion，ADC</h3><h3 id="音素-Phoneme"><a href="#音素-Phoneme" class="headerlink" title="音素 Phoneme"></a>音素 Phoneme</h3><p>描述一种语言的基本单位被称为音素Phoneme，例如BRYAN这个词就可以看做是由B, R, AY, AX, N五个音素构成的。英语中大概有50多个音素，可以用50几个HMM state来表示这些音素。</p>
-<h3 id="掩蔽效应-Masking-Effects"><a href="#掩蔽效应-Masking-Effects" class="headerlink" title="掩蔽效应 Masking Effects"></a>掩蔽效应 Masking Effects</h3><h3 id="频谱图-Spectrogram"><a href="#频谱图-Spectrogram" class="headerlink" title="频谱图 Spectrogram"></a>频谱图 Spectrogram</h3><h3 id="声学模型-Acoustic-model"><a href="#声学模型-Acoustic-model" class="headerlink" title="声学模型 Acoustic model"></a>声学模型 Acoustic model</h3><p>语音中很多发音都是连在一起的，很难区分，所以一般用左中右三个HMM state来描述一个音素。举例来说BRYAN这个词中的R音素就变成了用B-R, R, R-AY三个HMM state来表示。这样BRYAN这个词根据上下文就需要15个state了，根据所有单词的上下文总共大概需要几千个HMM state，这种方式属于context dependent模型中的三音素triphone模式。这个HMM state的个数在各家语音识别系统中都不一样，是一个需要调的参数。所以声学模型就是如何设置HMM state。</p>
-<h3 id="语音模型-Language-Model-LM"><a href="#语音模型-Language-Model-LM" class="headerlink" title="语音模型 Language Model, LM"></a>语音模型 Language Model, LM</h3><h3 id="Lexicon"><a href="#Lexicon" class="headerlink" title="Lexicon"></a>Lexicon</h3><h3 id="帧-Frame"><a href="#帧-Frame" class="headerlink" title="帧 Frame"></a>帧 Frame</h3><h3 id="chunk"><a href="#chunk" class="headerlink" title="chunk"></a>chunk</h3><h3 id="隐马尔可夫模型-Hidden-Markov-Model-HMM"><a href="#隐马尔可夫模型-Hidden-Markov-Model-HMM" class="headerlink" title="隐马尔可夫模型 Hidden Markov Model, HMM"></a>隐马尔可夫模型 Hidden Markov Model, HMM</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://mp.weixin.qq.com/s/_jK4eTdboU9A-E785FUBJg" target="_blank" rel="noopener">CSLT微信公众号-语音识别基础：（一）语音是什么</a></p>
-<p>[2] <a href="https://mp.weixin.qq.com/s/XRTCCcEdmQTk4XitVo8U2Q" target="_blank" rel="noopener">CSLT微信公众号-语音识别基础：（二）语音识别方法</a></p>
-<p>[3] <a href="https://mp.weixin.qq.com/s/e4bO-koOmIrAfqC-zwOvwg" target="_blank" rel="noopener">语音识别基础：（三）完整的语音识别实验</a></p>
-
+              <h2 id="TTS-vs-VC"><a href="#TTS-vs-VC" class="headerlink" title="TTS vs VC"></a>TTS vs VC</h2><p><strong>Voice Conversion, VC</strong>: 语音转换处理的问题是输入一段声音，输出另外一段声音，但这两段声音有些不同，一般我们希望保留声音的内容，改变说话者的音色</p>
+<p><strong>Text to Speech, TTS</strong>: 文字转语音系统是将一般语言的文字转换为语音。输入一段文本，输出一段语音</p>
+<h2 id="Toolkits"><a href="#Toolkits" class="headerlink" title="Toolkits"></a>Toolkits</h2><h3 id="Pytorch-WaveNet-vocoder"><a href="#Pytorch-WaveNet-vocoder" class="headerlink" title="Pytorch WaveNet vocoder"></a><a href="https://github.com/r9y9/wavenet_vocoder" target="_blank" rel="noopener">Pytorch WaveNet vocoder</a></h3><p>The goal of the repository is to provide an implementation of the WaveNet vocoder, which can generate high quality raw speech samples conditioned on linguistic or acoustic features.</p>
+<h3 id="Pytorch-tacotron2"><a href="#Pytorch-tacotron2" class="headerlink" title="Pytorch tacotron2"></a><a href="https://github.com/NVIDIA/tacotron2" target="_blank" rel="noopener">Pytorch tacotron2</a></h3><p>PyTorch implementation of Natural TTS Synthesis By Conditioning Wavenet On Mel Spectrogram Predictions.</p>
+<p>This implementation includes distributed and automatic mixed precision support and uses the LJSpeech dataset.</p>
+<p>Distributed and Automatic Mixed Precision support relies on NVIDIA’s Apex and AMP.</p>
+<h3 id="Pytorch-waveglow"><a href="#Pytorch-waveglow" class="headerlink" title="Pytorch waveglow"></a><a href="https://github.com/NVIDIA/waveglow/tree/master" target="_blank" rel="noopener">Pytorch waveglow</a></h3><p>WaveGlow combines insights from Glow and WaveNet in order to provide fast, efficient and high-quality audio synthesis, without the need for auto-regression.</p>
+<h3 id="Pytorch-MelGan-official"><a href="#Pytorch-MelGan-official" class="headerlink" title="Pytorch MelGan (official)"></a><a href="https://github.com/descriptinc/melgan-neurips" target="_blank" rel="noopener">Pytorch MelGan (official)</a></h3><p>Train GANs reliably to generate high quality coherent waveforms by introducing a set of architectural changes and simple training techniques. </p>
+<h2 id="Papers"><a href="#Papers" class="headerlink" title="Papers"></a>Papers</h2>
             </article>
             <hr>
             <div>
@@ -230,7 +233,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Speech/">Speech</a>
+                      <a class="hover-with-bg" href="/categories/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
                     
                   </div>
                 
@@ -238,9 +241,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E8%AF%AD%E9%9F%B3/">语音</a>
+                      <a class="hover-with-bg" href="/tags/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
                     
                   </div>
                 
@@ -250,6 +251,12 @@
                 <div class="post-prevnext row">
                   <div class="post-prev col-6">
                     
+                    
+                      <a href="/2020/07/03/001_speech_note/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【毕业要紧】 Speech领域专业名词（持续更新）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </div>
                   <div class="post-next col-6">
@@ -395,7 +402,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Speech领域专业名词（持续更新）&nbsp;",
+        "【毕业要紧】 TTS & VC Resources&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
