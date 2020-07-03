@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      294 字
+      337 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      4
        分钟
     </span>
   
@@ -216,8 +216,8 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><code>DotaLoader</code>的构建</p>
-<pre><code class="hljs Python">DataLoader(dataset, batch_size=<span class="hljs-number">200</span>, shuffle=<span class="hljs-literal">False</span>, sampler=<span class="hljs-literal">None</span>,
+              <h2 id="GIL"><a href="#GIL" class="headerlink" title="GIL"></a>GIL</h2><p>Python 自带 Gobal Interpreter Lock (GIL)，任何时候，Python只能运行一个线程</p>
+<h2 id="DotaLoader的构建"><a href="#DotaLoader的构建" class="headerlink" title="DotaLoader的构建"></a><code>DotaLoader</code>的构建</h2><pre><code class="hljs Python">DataLoader(dataset, batch_size=<span class="hljs-number">200</span>, shuffle=<span class="hljs-literal">False</span>, sampler=<span class="hljs-literal">None</span>,
            batch_sampler=<span class="hljs-literal">None</span>, num_workers=<span class="hljs-number">0</span>, collate_fn=<span class="hljs-literal">None</span>,
            pin_memory=<span class="hljs-literal">False</span>, drop_last=<span class="hljs-literal">False</span>, timeout=<span class="hljs-number">0</span>,
            worker_init_fn=<span class="hljs-literal">None</span>)</code></pre>
@@ -246,7 +246,11 @@
 
 trainset, valset = random_split(dataset, [len_dataset*<span class="hljs-number">0.7</span>, len_dataset*<span class="hljs-number">0.3</span>])</code></pre>
 
-<h2 id="Mnist-Data-Loader-实现"><a href="#Mnist-Data-Loader-实现" class="headerlink" title="Mnist Data Loader 实现"></a>Mnist Data Loader 实现</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://pytorch.org/docs/stable/data.html" target="_blank" rel="noopener">官方文档 torch.utils.data</a></p>
+<h2 id="Pytorch-并行化"><a href="#Pytorch-并行化" class="headerlink" title="Pytorch 并行化"></a>Pytorch 并行化</h2><ol>
+<li>Data Parallel, DP: 数据并行化</li>
+<li>Distributed Data Parallel, DDP: 分布式数据并行化</li>
+</ol>
+<h2 id="Mnist-Dataset-的实现"><a href="#Mnist-Dataset-的实现" class="headerlink" title="Mnist Dataset 的实现"></a>Mnist Dataset 的实现</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://pytorch.org/docs/stable/data.html" target="_blank" rel="noopener">官方文档 torch.utils.data</a></p>
 <p>[2] <a href="https://mp.weixin.qq.com/s/5fXsPCpI_eYeEC12CbF17g" target="_blank" rel="noopener">夕小瑶的卖萌屋-PyTorch数据Pipeline标准化代码模板</a></p>
 
             </article>

@@ -193,7 +193,8 @@
         
           
         
-        <div>频率 Frequency &amp; 幅度 Magnitude &amp; 相位 Phase音高 Pitch &amp; 音量 Loudness &amp; 音色 Timbre分贝 dB模数转换 Analog to Digital Conversion，ADC音素 Phoneme描述一种语言的基本单位被称为音素Phoneme，例如BRYAN这个词就可以看做是由B, R, AY, AX, N五个音素</div>
+        <div>16bit-脉冲编码调制 16 bit Pulse-code Modulation, PCM16bit 代表这个⾳频将会按照信号的振幅取离散的 $2^16$ 个值，即 -32768～+32767，振幅越⼤，声⾳的强度越⼤。⾳频信号的另⼀个重要参数是采样率，⽐如采样率为 44.1 kHz，意思就是每秒采样 441000 个点。
+如果需要提取⾳频信号中的信息，就需要对 采样时间 × 采样率数⽬的点 做</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -226,21 +227,116 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2020/07/03/008_tts_vc_tips/" target="_self">
+        <a href="/2020/07/03/008_tacotron_wavenet/" target="_self">
+          <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="【毕业要紧】 Tacotron WaveNet">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2020/07/03/008_tacotron_wavenet/">【毕业要紧】 Tacotron WaveNet</a>
+
+      <a href="/2020/07/03/008_tacotron_wavenet/" class="index-excerpt">
+        
+        
+          
+        
+        <div>
+衔接式 Concatenative TTS：这里首先记住单个的语音片段，然后需要重新生成时，再把这些声音片段联合起来。但是，这种方法不能扩展，因为它只能重现记忆中的声音片段，并且如果没有从开始记忆语音片段，就不能生成新的讲话人或不同类型的语音。
+参数式 Parametric TTS：这里创建一个模型，用以存储所有要合成语音的音频特征。在 WaveNet 之前，使用参数式 TTS 生成的音频比衔接</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-03
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/07/03/009_tts_vc_tips/" target="_self">
           <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="【毕业要紧】 TTS &amp; VC Resources">
         </a>
       </div>
     
     <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2020/07/03/008_tts_vc_tips/">【毕业要紧】 TTS &amp; VC Resources</a>
+      <a class="index-header" href="/2020/07/03/009_tts_vc_tips/">【毕业要紧】 TTS &amp; VC Resources</a>
 
-      <a href="/2020/07/03/008_tts_vc_tips/" class="index-excerpt">
+      <a href="/2020/07/03/009_tts_vc_tips/" class="index-excerpt">
         
         
           
         
         <div>TTS vs VCVoice Conversion, VC: 语音转换处理的问题是输入一段声音，输出另外一段声音，但这两段声音有些不同，一般我们希望保留声音的内容，改变说话者的音色
 Voice conversion (VC) is a technique to modify the speech from source speaker to make it sound like being utt</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-03
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/07/03/010_NLP/" target="_self">
+          <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="【毕业要紧】 Word Embedding Resources">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2020/07/03/010_NLP/">【毕业要紧】 Word Embedding Resources</a>
+
+      <a href="/2020/07/03/010_NLP/" class="index-excerpt">
+        
+        
+          
+        
+        <div>one-hot 编码存在的⼀个主要问题是它⽆法表示出词汇间的相似度。
+</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -585,111 +681,11 @@ $$ p_g(x)</div>
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2020/06/12/004_flow_implement/" target="_self">
-          <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="flow 模型的Pytorch实现">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2020/06/12/004_flow_implement/">flow 模型的Pytorch实现</a>
-
-      <a href="/2020/06/12/004_flow_implement/" class="index-excerpt">
-        
-        
-          
-        
-        <div></div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-06-12
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/flows/">flows</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
-            
-              <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
-            
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2020/06/12/003_DNF/" target="_self">
-          <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="DNF 模型">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2020/06/12/003_DNF/">DNF 模型</a>
-
-      <a href="/2020/06/12/003_DNF/" class="index-excerpt">
-        
-        
-          
-        
-        <div></div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-06-12
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/flows/">flows</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
-            
-              <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
-            
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
