@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      948 字
+      957 字
     </span>
   
 
@@ -216,10 +216,22 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h3 id="16bit-脉冲编码调制-16-bit-Pulse-code-Modulation-PCM"><a href="#16bit-脉冲编码调制-16-bit-Pulse-code-Modulation-PCM" class="headerlink" title="16bit-脉冲编码调制 16 bit Pulse-code Modulation, PCM"></a>16bit-脉冲编码调制 16 bit Pulse-code Modulation, PCM</h3><p>16bit 代表这个⾳频将会按照信号的振幅取离散的 $2^16$ 个值，即 -32768～+32767，振幅越⼤，声⾳的强度越⼤。⾳频信号的另⼀个重要参数是采样率，⽐如采样率为 44.1 kHz，意思就是每秒采样 441000 个点。</p>
+              <h3 id="16bit-脉冲编码调制-16-bit-Pulse-code-Modulation-PCM"><a href="#16bit-脉冲编码调制-16-bit-Pulse-code-Modulation-PCM" class="headerlink" title="16bit-脉冲编码调制 16 bit Pulse-code Modulation, PCM"></a>16bit-脉冲编码调制 16 bit Pulse-code Modulation, PCM</h3><p>16bit 代表这个⾳频将会按照信号的振幅取离散的 $2^{16}$ 个值，即 -32768～+32767，振幅越⼤，声⾳的强度越⼤。⾳频信号的另⼀个重要参数是采样率，⽐如采样率为 44.1 kHz，意思就是每秒采样 441000 个点。</p>
 <p>如果需要提取⾳频信号中的信息，就需要对 <code>采样时间 × 采样率数⽬的点</code> 做预处理。<br>⾸先需要把振幅从整数转变为-1～+1 之间的浮点数，即对所有的振幅先加 32768，除以 32768，然后减去 1.0。我们可以画出振幅随着时间的变化。</p>
 <h3 id="预加重"><a href="#预加重" class="headerlink" title="预加重"></a>预加重</h3><p>在数学上，预加重相当于⼀个⾼通滤波器，起到了提⾼⾼频信号分量、滤除低频噪声的作⽤。在实际应⽤中，预加重是⼀个可选的预处理步骤，对于信号中噪声的滤除有⼀定的效果。</p>
-<h3 id="有限长单位冲激响应滤波器-Finite-Impulse-Response-FIR"><a href="#有限长单位冲激响应滤波器-Finite-Impulse-Response-FIR" class="headerlink" title="有限长单位冲激响应滤波器 Finite Impulse Response, FIR"></a>有限长单位冲激响应滤波器 Finite Impulse Response, FIR</h3><h3 id="递归滤波器，无限脉冲响应数字滤波器-Infinite-Impulse-Response-IIR"><a href="#递归滤波器，无限脉冲响应数字滤波器-Infinite-Impulse-Response-IIR" class="headerlink" title="递归滤波器，无限脉冲响应数字滤波器 Infinite Impulse Response, IIR"></a>递归滤波器，无限脉冲响应数字滤波器 Infinite Impulse Response, IIR</h3><h3 id="频率-Frequency-amp-幅度-Magnitude-amp-相位-Phase"><a href="#频率-Frequency-amp-幅度-Magnitude-amp-相位-Phase" class="headerlink" title="频率 Frequency &amp; 幅度 Magnitude &amp; 相位 Phase"></a>频率 Frequency &amp; 幅度 Magnitude &amp; 相位 Phase</h3><h3 id="音高-Pitch-amp-音量-Loudness-amp-音色-Timbre"><a href="#音高-Pitch-amp-音量-Loudness-amp-音色-Timbre" class="headerlink" title="音高 Pitch &amp; 音量 Loudness &amp; 音色 Timbre"></a>音高 Pitch &amp; 音量 Loudness &amp; 音色 Timbre</h3><h3 id="分贝-dB"><a href="#分贝-dB" class="headerlink" title="分贝 dB"></a>分贝 dB</h3><h3 id="模数转换-Analog-to-Digital-Conversion，ADC"><a href="#模数转换-Analog-to-Digital-Conversion，ADC" class="headerlink" title="模数转换 Analog to Digital Conversion，ADC"></a>模数转换 Analog to Digital Conversion，ADC</h3><h3 id="音素-Phoneme"><a href="#音素-Phoneme" class="headerlink" title="音素 Phoneme"></a>音素 Phoneme</h3><p>描述一种语言的基本单位被称为音素Phoneme，例如BRYAN这个词就可以看做是由B, R, AY, AX, N五个音素构成的。英语中大概有50多个音素，可以用50几个HMM state来表示这些音素。</p>
+<ol>
+<li>有限长单位冲激响应滤波器 Finite Impulse Response, <strong>FIR</strong></li>
+<li>递归滤波器，无限脉冲响应数字滤波器 Infinite Impulse Response, <strong>IIR</strong></li>
+</ol>
+<h3 id="频率-Frequency-amp-幅度-Magnitude-amp-相位-Phase"><a href="#频率-Frequency-amp-幅度-Magnitude-amp-相位-Phase" class="headerlink" title="频率 Frequency &amp; 幅度 Magnitude &amp; 相位 Phase"></a>频率 Frequency &amp; 幅度 Magnitude &amp; 相位 Phase</h3><h3 id="音高-Pitch-amp-音量-Loudness-amp-音色-Timbre"><a href="#音高-Pitch-amp-音量-Loudness-amp-音色-Timbre" class="headerlink" title="音高 Pitch &amp; 音量 Loudness &amp; 音色 Timbre"></a>音高 Pitch &amp; 音量 Loudness &amp; 音色 Timbre</h3><h3 id="分贝-dB"><a href="#分贝-dB" class="headerlink" title="分贝 dB"></a>分贝 dB</h3><h3 id="语音特征"><a href="#语音特征" class="headerlink" title="语音特征"></a>语音特征</h3><ul>
+<li><strong>Spectrogram</strong></li>
+<li><strong>Fbanks</strong></li>
+<li><strong>MFCC</strong></li>
+<li><strong>PLP</strong>  </li>
+<li><strong>Pitch</strong></li>
+<li><strong>∆/∆∆</strong> </li>
+</ul>
+<h3 id="模数转换-Analog-to-Digital-Conversion，ADC"><a href="#模数转换-Analog-to-Digital-Conversion，ADC" class="headerlink" title="模数转换 Analog to Digital Conversion，ADC"></a>模数转换 Analog to Digital Conversion，ADC</h3><h3 id="音素-Phoneme"><a href="#音素-Phoneme" class="headerlink" title="音素 Phoneme"></a>音素 Phoneme</h3><p>描述一种语言的基本单位被称为音素Phoneme，例如BRYAN这个词就可以看做是由B, R, AY, AX, N五个音素构成的。英语中大概有50多个音素，可以用50几个HMM state来表示这些音素。</p>
 <h3 id="掩蔽效应-Masking-Effects"><a href="#掩蔽效应-Masking-Effects" class="headerlink" title="掩蔽效应 Masking Effects"></a>掩蔽效应 Masking Effects</h3><h3 id="频谱图-Spectrogram"><a href="#频谱图-Spectrogram" class="headerlink" title="频谱图 Spectrogram"></a>频谱图 Spectrogram</h3><h3 id="声学模型-Acoustic-model"><a href="#声学模型-Acoustic-model" class="headerlink" title="声学模型 Acoustic model"></a>声学模型 Acoustic model</h3><p>语音中很多发音都是连在一起的，很难区分，所以一般用左中右三个HMM state来描述一个音素。举例来说BRYAN这个词中的R音素就变成了用B-R, R, R-AY三个HMM state来表示。这样BRYAN这个词根据上下文就需要15个state了，根据所有单词的上下文总共大概需要几千个HMM state，这种方式属于context dependent模型中的三音素triphone模式。这个HMM state的个数在各家语音识别系统中都不一样，是一个需要调的参数。所以声学模型就是如何设置HMM state。</p>
 <h3 id="语音模型-Language-Model-LM"><a href="#语音模型-Language-Model-LM" class="headerlink" title="语音模型 Language Model, LM"></a>语音模型 Language Model, LM</h3><h3 id="Lexicon"><a href="#Lexicon" class="headerlink" title="Lexicon"></a>Lexicon</h3><h3 id="帧-Frame"><a href="#帧-Frame" class="headerlink" title="帧 Frame"></a>帧 Frame</h3><h3 id="Chunk"><a href="#Chunk" class="headerlink" title="Chunk"></a>Chunk</h3><h3 id="Mean-Opinion-Score-MOS"><a href="#Mean-Opinion-Score-MOS" class="headerlink" title="Mean Opinion Score, MOS"></a>Mean Opinion Score, MOS</h3><p>MOS测试的主要原理是让测评人根据5个等级划分对测试语音的主观感受进行打分，它既可以用于对语音质量进行主观评价，也可以用于对说话人特征相似度的评价。MOS 分是对所有测试语句和所有测评人的综合平均结果。</p>
 <p>Shuang Z, Bakis R, Qin Y. IBM voice conversion systems for 2007 TC⁃STAR evaluation‌[J]. Tsinghua Science &amp; Technology, 2008, 13(4): 510⁃514.</p>
@@ -262,7 +274,7 @@
                     
                     
                       <a href="/2020/07/03/008_tacotron_wavenet/">
-                        <span class="hidden-mobile">【毕业要紧】 Tacotron WaveNet</span>
+                        <span class="hidden-mobile">【毕业要紧】 Tacotron & WaveNet Resources</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

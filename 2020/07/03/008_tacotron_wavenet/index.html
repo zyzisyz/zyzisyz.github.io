@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>【毕业要紧】 Tacotron WaveNet - zyzisyz</title>
+  <title>【毕业要紧】 Tacotron &amp; WaveNet Resources - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -217,8 +217,8 @@
             
             <article class="markdown-body">
               <ol>
-<li>衔接式 Concatenative TTS：这里首先记住单个的语音片段，然后需要重新生成时，再把这些声音片段联合起来。但是，这种方法不能扩展，因为它只能重现记忆中的声音片段，并且如果没有从开始记忆语音片段，就不能生成新的讲话人或不同类型的语音。</li>
-<li>参数式 Parametric TTS：这里创建一个模型，用以存储所有要合成语音的音频特征。在 WaveNet 之前，使用参数式 TTS 生成的音频比衔接式 TTS 更不自然。WaveNet 通过直接对音频的产生过程建模改进了当前最先进的技术，而不是使用以前的中间信号处理算法。</li>
+<li>衔接式 <strong>Concatenative TTS</strong>：这里首先记住单个的语音片段，然后需要重新生成时，再把这些声音片段联合起来。但是，这种方法不能扩展，因为它只能重现记忆中的声音片段，并且如果没有从开始记忆语音片段，就不能生成新的讲话人或不同类型的语音。</li>
+<li>参数式 <strong>Parametric TTS</strong>：这里创建一个模型，用以存储所有要合成语音的音频特征。在 WaveNet 之前，使用参数式 TTS 生成的音频比衔接式 TTS 更不自然。WaveNet 通过直接对音频的产生过程建模改进了当前最先进的技术，而不是使用以前的中间信号处理算法。</li>
 </ol>
 <h2 id="WaveNet"><a href="#WaveNet" class="headerlink" title="WaveNet"></a>WaveNet</h2><p>Wavenet由DeepMind提出，是一种利用神经网络系统对原始音频波形（Raw SoundWave）建模的技术，生成的音频质量优于所有的文本转语音（Text-to-Speech，TTS）系统，将计算机输出音频与人类自然语音差距缩小50%，被称为世界最佳。</p>
 
@@ -399,7 +399,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "【毕业要紧】 Tacotron WaveNet&nbsp;",
+        "【毕业要紧】 Tacotron & WaveNet Resources&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
