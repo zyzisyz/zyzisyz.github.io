@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>【毕业要紧】 flow 模型</title>
+    <link href="/2020/07/04/002_flow/"/>
+    <url>/2020/07/04/002_flow/</url>
+    
+    <content type="html"><![CDATA[<p>A good representation is one in which the data has a distribution that is easy to model</p><h2 id="基础数学"><a href="#基础数学" class="headerlink" title="基础数学"></a>基础数学</h2><h3 id="生成模型要解决的问题"><a href="#生成模型要解决的问题" class="headerlink" title="生成模型要解决的问题"></a>生成模型要解决的问题</h3><p>给定两组数据 $z$ 和 $x$ ，其中 $z$ 服从已知的简单先验分布 $\pi(z)$ ，通常是高斯分布，$x$ 服从复杂的分布 $p(x)$ ,即训练数据代表的分布，现在我们想要找到一个变换函数 $f$ ，它能建立一种 $z$ 到 $x$ 的映射，使得每对于 $\pi(z)$ 中的一个采样点，都能在 $p(x)$ 中有一个（新）样本点与之对应。</p><p>$$ p_g(x) = \int_z p(x|z)p(z)dz\ $$</p><p>其中，$ p(x|z) $ - $ the \  probability \  of \  x \  given \  z$</p><h3 id="概率分布的变换数学例题"><a href="#概率分布的变换数学例题" class="headerlink" title="概率分布的变换数学例题"></a>概率分布的变换数学例题</h3><h3 id="Jacobian-Matrix"><a href="#Jacobian-Matrix" class="headerlink" title="Jacobian Matrix"></a>Jacobian Matrix</h3><p>$$<br>\left[<br>    \begin{array}{ccc}<br>        \frac{\partial f_1 }{\partial x_1 } &amp; \cdots &amp; \frac{\partial f_1 }{\partial x_n } \\<br>        \vdots\quad &amp; \ddots &amp; \vdots\quad \\<br>        \frac{\partial f_n }{\partial x_1 } &amp; \cdots &amp; \frac{\partial f_n }{\partial x_n } \\<br>    \end{array}<br>\right]<br>$$</p><p>$$J_{ij}=\frac{\partial f_i }{\partial x_j }$$</p><h3 id="Determinant"><a href="#Determinant" class="headerlink" title="Determinant"></a>Determinant</h3><h3 id="耦合层（Coupling-Layer）"><a href="#耦合层（Coupling-Layer）" class="headerlink" title="耦合层（Coupling Layer）"></a>耦合层（Coupling Layer）</h3><h2 id="NICE"><a href="#NICE" class="headerlink" title="NICE"></a><a href="">NICE</a></h2><p>We propose a deep learning framework for modeling complex high-dimensional densities called <strong>Non-linear Independent Component Estimation</strong> (NICE). It is based on the idea that <strong>a good representation is one in which the data has a distribution that is easy to model</strong>. </p><p>For this purpose, a non-linear deterministic transformation of the data is learned that maps it to a latent space so as to <strong>make the transformed data conform to a factorized distribution</strong>, i.e., resulting in independent latent variables. We parametrize this transformation so that computing the <strong>determinant of the Jacobian</strong> and inverse Jacobian is trivial, yet we maintain the ability to learn complex non-linear transformations, via a composition of simple building blocks, each based on a deep neural network. The training criterion is simply the exact <strong>log-likelihood</strong>, which is tractable. </p><p>Unbiased ancestral sampling is also easy. We show that this approach yields good generative models on four image datasets and can be used for inpainting.</p><h2 id="RealNVP"><a href="#RealNVP" class="headerlink" title="RealNVP"></a><a href="">RealNVP</a></h2><p>Unsupervised learning of probabilistic models is a central yet challenging problem in machine learning. Specifically, designing models with tractable learning, sampling, inference and evaluation is crucial in solving this task. </p><p>We extend the space of such models using real-valued non-volume preserving (real NVP) transformations, a set of powerful, stably invertible, and learnable transformations, resulting in an unsupervised learning algorithm with exact log-likelihood computation, exact and efficient sampling, exact and efficient inference of latent variables, and an interpretable latent space. </p><p>We demonstrate its ability to model natural images on four datasets through sampling, log-likelihood evaluation, and latent variable manipulations.</p><p>“The advantage of Real NVP compared to MAF and IAF is that it can both generate data and estimate densities with one forward pass only, whereas MAF would need D passes to generate data and IAF would need D passes to estimate densities.”</p><h2 id="Glow"><a href="#Glow" class="headerlink" title="Glow"></a><a href="">Glow</a></h2><p>Flow-based generative models (Dinh et al., 2014) are conceptually attractive due to tractability of the exact log-likelihood, tractability of exact latent-variable inference, and parallelizability of both training and synthesis. </p><p>In this paper we propose Glow, a simple type of generative flow using an invertible $1 \times 1$ convolution. Using our method we demonstrate a significant improvement in log-likelihood on standard benchmarks. Perhaps most strikingly, we demonstrate that a generative model optimized towards the plain log-likelihood objective is capable of efficient realisticlooking synthesis and manipulation of large images.</p><h2 id="Normalizing-Flows-for-Probabilistic-Modeling-and-Inference"><a href="#Normalizing-Flows-for-Probabilistic-Modeling-and-Inference" class="headerlink" title="Normalizing Flows for Probabilistic Modeling and Inference"></a><a href="">Normalizing Flows for Probabilistic Modeling and Inference</a></h2><p>Normalizing flows provide a general mechanism for defining expressive probability distributions, only requiring the specification of a (usually simple) base distribution and a series of bijective(<a href="https://www.cnblogs.com/wanghetao/archive/2012/03/16/2400619.html">双射</a>) transformations. </p><p>There has been much recent work on normalizing flows, ranging from improving their expressive power to expanding their application. We believe the field has now matured and is in need of <strong>a unified perspective</strong>. </p><p><strong>In this review, we attempt to provide such a perspective by describing flows through the lens of probabilistic modeling and inference.</strong></p><p>We place special emphasis on the fundamental principles of flow design, and discuss foundational topics such as expressive power and computational trade-offs. We also broaden the conceptual framing of flows by relating them to more general probability transformations. Lastly, we summarize the use of flows for tasks such as generative modeling, approximate inference, and supervised learning.</p><h2 id="相关论文"><a href="#相关论文" class="headerlink" title="相关论文"></a>相关论文</h2><p><a href="https://arxiv.org/abs/1410.8516" target="_blank" rel="noopener">NICE: Non-linear Independent Components Estimation, Dinh et al. 2014</a></p><p><a href="https://arxiv.org/abs/1505.05770" target="_blank" rel="noopener">Variational Inference with Normalizing Flows, Rezende and Mohamed 2015</a></p><p><a href="https://arxiv.org/abs/1605.08803" target="_blank" rel="noopener">Density estimation using Real NVP, Dinh et al. May 2016</a></p><p><a href="https://arxiv.org/abs/1606.04934" target="_blank" rel="noopener">Improved Variational Inference with Inverse Autoregressive Flow, Kingma et al June 2016</a></p><p><a href="https://arxiv.org/abs/1705.07057" target="_blank" rel="noopener">Masked Autoregressive Flow for Density Estimation, Papamakarios et al. May 2017</a></p><p><a href="https://arxiv.org/abs/1807.03039" target="_blank" rel="noopener">Glow: Generative Flow with Invertible 1x1 Convolutions, Kingma and Dhariwal, Jul 2018</a></p><p><a href="https://arxiv.org/abs/1912.02762" target="_blank" rel="noopener">Normalizing Flows for Probabilistic Modeling and Inference</a></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>毕业要紧</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
+      
+      <tag>深度学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>makefile &amp; cmake &amp; pybind11</title>
     <link href="/2020/07/04/200704_makefile/"/>
     <url>/2020/07/04/200704_makefile/</url>
@@ -258,35 +287,6 @@
       <tag>机器学习</tag>
       
       <tag>笔记</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>flow 模型</title>
-    <link href="/2020/06/12/002_flow/"/>
-    <url>/2020/06/12/002_flow/</url>
-    
-    <content type="html"><![CDATA[<h2 id="基础数学"><a href="#基础数学" class="headerlink" title="基础数学"></a>基础数学</h2><h3 id="生成模型要解决的问题"><a href="#生成模型要解决的问题" class="headerlink" title="生成模型要解决的问题"></a>生成模型要解决的问题</h3><p>给定两组数据 $z$ 和 $x$ ，其中 $z$ 服从已知的简单先验分布 $\pi(z)$ ，通常是高斯分布，$x$ 服从复杂的分布 $p(x)$ ,即训练数据代表的分布，现在我们想要找到一个变换函数 $f$ ，它能建立一种 $z$ 到 $x$ 的映射，使得每对于 $\pi(z)$ 中的一个采样点，都能在 $p(x)$ 中有一个（新）样本点与之对应。</p><p>$$ p_g(x) = \int_z p(x|z)p(z)dz\ $$</p><p>其中，$ p(x|z) $ - $ the \  probability \  of \  x \  given \  z$</p><h3 id="概率分布的变换数学例题"><a href="#概率分布的变换数学例题" class="headerlink" title="概率分布的变换数学例题"></a>概率分布的变换数学例题</h3><h3 id="Jacobian-Matrix"><a href="#Jacobian-Matrix" class="headerlink" title="Jacobian Matrix"></a>Jacobian Matrix</h3><p>$$<br>\left[<br>    \begin{array}{ccc}<br>        \frac{\partial f_1 }{\partial x_1 } &amp; \cdots &amp; \frac{\partial f_1 }{\partial x_n } \\<br>        \vdots\quad &amp; \ddots &amp; \vdots\quad \\<br>        \frac{\partial f_n }{\partial x_1 } &amp; \cdots &amp; \frac{\partial f_n }{\partial x_n } \\<br>    \end{array}<br>\right]<br>$$</p><p>$$J_{ij}=\frac{\partial f_i }{\partial x_j }$$</p><h3 id="Determinant"><a href="#Determinant" class="headerlink" title="Determinant"></a>Determinant</h3><h2 id="耦合层（Coupling-Layer）"><a href="#耦合层（Coupling-Layer）" class="headerlink" title="耦合层（Coupling Layer）"></a>耦合层（Coupling Layer）</h2><h2 id="NICE"><a href="#NICE" class="headerlink" title="NICE"></a>NICE</h2><h2 id="RealNVP"><a href="#RealNVP" class="headerlink" title="RealNVP"></a>RealNVP</h2><h2 id="MAF"><a href="#MAF" class="headerlink" title="MAF"></a>MAF</h2><h2 id="Glow"><a href="#Glow" class="headerlink" title="Glow"></a>Glow</h2><h2 id="相关论文"><a href="#相关论文" class="headerlink" title="相关论文"></a>相关论文</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2>]]></content>
-    
-    
-    <categories>
-      
-      <category>flows</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>机器学习</tag>
-      
-      <tag>笔记</tag>
-      
-      <tag>深度学习</tag>
       
     </tags>
     
