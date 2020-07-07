@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>【毕业要紧】 TTS &amp; VC Resources - zyzisyz</title>
+  <title>【毕业要紧】 Self Supervised Learning in Speech Resources - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-07-03 00:00">
-      2020年7月3日 凌晨
+    <time datetime="2020-07-05 00:00">
+      2020年7月5日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      725 字
+      997 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      19
        分钟
     </span>
   
@@ -216,29 +216,56 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="TTS-vs-VC"><a href="#TTS-vs-VC" class="headerlink" title="TTS vs VC"></a>TTS vs VC</h2><p><strong>Voice Conversion, VC</strong>: 语音转换处理的问题是输入一段声音，输出另外一段声音，但这两段声音有些不同，一般我们希望保留声音的内容，改变说话者的音色</p>
-<p>Voice conversion (VC) is a technique to modify the speech from source speaker to make it sound like being uttered by target speaker while keeping the linguistic content unchanged</p>
-<p><strong>Text to Speech, TTS</strong>: 文字转语音系统是将一般语言的文字转换为语音。输入一段文本，输出一段语音</p>
-<h2 id="Toolkits"><a href="#Toolkits" class="headerlink" title="Toolkits"></a>Toolkits</h2><h3 id="Pytorch-WaveNet-vocoder"><a href="#Pytorch-WaveNet-vocoder" class="headerlink" title="Pytorch WaveNet vocoder"></a><a href="https://github.com/r9y9/wavenet_vocoder" target="_blank" rel="noopener">Pytorch WaveNet vocoder</a></h3><p>The goal of the repository is to provide an implementation of the WaveNet vocoder, which can generate high quality raw speech samples conditioned on linguistic or acoustic features.</p>
-<h3 id="Pytorch-tacotron2"><a href="#Pytorch-tacotron2" class="headerlink" title="Pytorch tacotron2"></a><a href="https://github.com/NVIDIA/tacotron2" target="_blank" rel="noopener">Pytorch tacotron2</a></h3><p>PyTorch implementation of Natural TTS Synthesis By Conditioning Wavenet On Mel Spectrogram Predictions.</p>
-<p>This implementation includes distributed and automatic mixed precision support and uses the LJSpeech dataset.</p>
-<p>Distributed and Automatic Mixed Precision support relies on NVIDIA’s Apex and AMP.</p>
-<h3 id="Pytorch-waveglow"><a href="#Pytorch-waveglow" class="headerlink" title="Pytorch waveglow"></a><a href="https://github.com/NVIDIA/waveglow/tree/master" target="_blank" rel="noopener">Pytorch waveglow</a></h3><p>WaveGlow combines insights from Glow and WaveNet in order to provide fast, efficient and high-quality audio synthesis, without the need for auto-regression.</p>
-<h3 id="Pytorch-MelGan-official"><a href="#Pytorch-MelGan-official" class="headerlink" title="Pytorch MelGan (official)"></a><a href="https://github.com/descriptinc/melgan-neurips" target="_blank" rel="noopener">Pytorch MelGan (official)</a></h3><p>Train GANs reliably to generate high quality coherent waveforms by introducing a set of architectural changes and simple training techniques. </p>
-<h2 id="VC-articles-amp-Papers"><a href="#VC-articles-amp-Papers" class="headerlink" title="VC articles &amp; Papers"></a>VC articles &amp; Papers</h2><h3 id="陆军工程大学-语音转换技术研究现状及展望-2019"><a href="#陆军工程大学-语音转换技术研究现状及展望-2019" class="headerlink" title="陆军工程大学-语音转换技术研究现状及展望(2019)"></a><a href="http://sjcj.nuaa.edu.cn/sjcjycl/article/html/201905001" target="_blank" rel="noopener">陆军工程大学-语音转换技术研究现状及展望(2019)</a></h3><p>语音转换通常是指将一个人的声音个性化特征通过“修改变换”，使之听起来像另外一个人的声音，同时保持说话内容信息不变。近年来，随着信息处理和机器学习技术的快速发展，语音转换技术也得到了突飞猛进的进步。为此，在简要介绍语音转换基本概念的基础上，重点综述了近几年语音转换的典型模型和方法，分析了语音转换的关键技术，列举了语音转换技术的主要应用场景，梳理了目前语音转换中仍存在的若干技术问题，并展望了语音转换研究的发展方向。</p>
-<h3 id="An-overview-of-voice-conversion-systems-2017"><a href="#An-overview-of-voice-conversion-systems-2017" class="headerlink" title="An overview of voice conversion systems(2017)"></a><a href="https://www.sciencedirect.com/science/article/abs/pii/S0167639315300698" target="_blank" rel="noopener">An overview of voice conversion systems(2017)</a></h3><p>Voice transformation (VT) aims to change one or more aspects of a speech signal while preserving lin- guistic information. A subset of VT, Voice conversion (VC) specifically aims to change a source speaker’s speech in such a way that the generated output is perceived as a sentence uttered by a target speaker. Despite many years of research, VC systems still exhibit deficiencies in accurately mimicking a target speaker spectrally and prosodically, and simultaneously maintaining high speech quality. In this work we provide an overview of real-world applications, extensively study existing systems proposed in the literature, and discuss remaining challenges.</p>
-<h3 id="Maigo-语音转换技术综述-2019"><a href="#Maigo-语音转换技术综述-2019" class="headerlink" title="Maigo-语音转换技术综述(2019)"></a><a href="https://zhuanlan.zhihu.com/p/89763124" target="_blank" rel="noopener">Maigo-语音转换技术综述(2019)</a></h3><p>i-vector 与 PLDA 的数学推导是出了名的复杂，我曾在 2011 年的夏天推导过一个多星期。在这里，我尽可能避开数学细节，用最简洁的语言引入相关概念和方法。</p>
-<h4 id="几种传统的语音转换方法"><a href="#几种传统的语音转换方法" class="headerlink" title="几种传统的语音转换方法"></a>几种传统的语音转换方法</h4><ul>
-<li>高斯混合模型（Gaussian mixture models, GMM）</li>
-<li>频率弯折法（frequency warping）</li>
-<li>基于样例的方法（exemplar-based method）</li>
+              <h2 id="Supervised-Learning"><a href="#Supervised-Learning" class="headerlink" title="Supervised Learning"></a>Supervised Learning</h2><p>Given: </p>
+<ul>
+<li>a dataset $\mathcal{D} = {(x, y)}_i^N$</li>
+<li>a loss function $\mathcal{l}$</li>
 </ul>
-<h4 id="几种现代的语音转换方法"><a href="#几种现代的语音转换方法" class="headerlink" title="几种现代的语音转换方法"></a>几种现代的语音转换方法</h4><ul>
-<li>生成对抗式网络（generative adversarial networks, GAN）</li>
-<li>i-vector + PLDA（probabilistic linear discriminant analysis）</li>
-<li>自编码器（autoencoders）</li>
+<p>Goal:</p>
+<p>$$min_{\theta}\mathbb{E}_{(x, y)}$$</p>
+<ul>
+<li>Works well when labeled data is abundant</li>
+<li><strong>Learn useful representation with the supervision</strong></li>
 </ul>
-<h2 id="TTS-articles-amp-Papers"><a href="#TTS-articles-amp-Papers" class="headerlink" title="TTS articles &amp; Papers"></a>TTS articles &amp; Papers</h2><h3 id="清华大学王东老师-TTS"><a href="#清华大学王东老师-TTS" class="headerlink" title="清华大学王东老师-TTS"></a><a href="http://cslt.riit.tsinghua.edu.cn/mediawiki/images/a/a8/Tts.pdf" target="_blank" rel="noopener">清华大学王东老师-TTS</a></h3>
+<h2 id="Yann-LeCun"><a href="#Yann-LeCun" class="headerlink" title="Yann LeCun"></a>Yann LeCun</h2><blockquote>
+<p>in self-supervised learning, the systerm learns to predict part of its input from other parts of it input.</p>
+</blockquote>
+<ul>
+<li>Goal: Learning to represent the world before learning tasks.</li>
+<li>Predict any part of the input from any other part</li>
+<li>Predict the <strong>future</strong> from the <strong>recent past</strong></li>
+<li>Predict the <strong>past</strong> from the <strong>present</strong></li>
+<li>Predict the <strong>top</strong> from the <strong>bottom</strong></li>
+</ul>
+<h2 id="Interspeech-2020-New-Trends-in-self-supervised-Speech-Processing"><a href="#Interspeech-2020-New-Trends-in-self-supervised-Speech-Processing" class="headerlink" title="Interspeech 2020: New Trends in self-supervised Speech Processing"></a>Interspeech 2020: New Trends in self-supervised Speech Processing</h2><p>Over the past decade, supervised deep learning models led to great strides in performance for speech processing technologies and applications. </p>
+<p>However, unlike humans who are capable of self-learning through experiences and interactions, current real-world speech applications are heavily reliant on large volumes of human annotations. </p>
+<p>For the next generation of speech processing systems to exhibit similar levels of cognitive intelligence as humans, they should be designed to exploit unlabeled, partially labeled, contextual and distant supervision data from multiple concurrent modalities, e.g., text and video, and learning signals from corrective user follow-ups in conversational applications. </p>
+<p><strong>The main motivation for self-supervised learning is rooted in our need to improve ASR systems when there is a limited amount of labeled data.</strong></p>
+<p>Self-supervised learning methods [LeCun 2016] construct proxy predictive tasks to train models for downstream scenarios by exploiting large amounts of unlabeled audio data, unpaired text and audio data in the same domain, or speech data with distant unrelated labels, e.g. A text summary or slides of an audio lecture. </p>
+<p>Through these invented proxy tasks, models learn high-level representations that generalize well across different languages, domains, and deployment scenarios with very few in-domain labeled examples. </p>
+<p>Self-supervised learning methods achieved major successes in Natural Language Processing (NLP) [Peters 2018, Devlin 2018, Radford 2019, Raffel 2019, Lewis 2019] and Computer Vision (CV) [Sun 2019, He 2019, Xie 2019, Misra 2019].</p>
+<p>There is a recent surge in speech processing research work introducing predictive proxy tasks for model training, and achieving impressive results in downstream applications like ASR and speaker recognition. These self-supervised approaches include, but not limited to:</p>
+<ul>
+<li><strong>Future prediction</strong>: Learning an autoregressive model that generates distant future audio features from historical ones [Oard 2018, Chung 2019, Schneider 2019].</li>
+<li><strong>Mask prediction</strong>: Learning a model that predicts masked parts of the input audio signal [Liu 2019, Song 2019, Baevski 2019a, Baevski 2019b].</li>
+<li><strong>Generating contextual data</strong>: Learning a model to predict semantically-related contextual information that accompany the speech signal, e.g. Using social media title and comments as input audio labels [Singh 2019, Pascual 2019].</li>
+<li><strong>Chaining ASR and TTS</strong>: Using unpaired audio and text data to train an ASR system and a TTS system jointly, where one is generating training paired data for the other [Tjandra 2019, Hori 2019, Baskar 2019]. This family of self-supervised methods can be viewed as auto-encoders of speech signals through latent text representations. Effective use of external language models falls into this category to regularize the text representations.</li>
+</ul>
+<h2 id="Workshop-ICML-2019-Self-Supervised-Learning"><a href="#Workshop-ICML-2019-Self-Supervised-Learning" class="headerlink" title="Workshop - ICML 2019 Self-Supervised Learning"></a>Workshop - ICML 2019 Self-Supervised Learning</h2><p>Big data has driven a revolution to many domains of machine learning thanks to modern high-capacity models, but the standard approaches – supervised learning from labels, or reinforcement learning from a reward function – have become a bottleneck. </p>
+<p>Even when data is abundant, getting the labels or rewards that specify exactly what the model must do is often intractable. Collecting simple category labels for classification is prohibitive for millions of billions of examples, and structured outputs (scene interpretations, interactions, demonstrations) are far worse, especially when the data distribution is non-stationary.</p>
+<p><strong>Self-supervised learning</strong> is a promising alternative where proxy tasks are developed that allow models and agents to learn without explicit supervision in a way that helps with downstream performance on tasks of interest. One of the major benefits of self-supervised learning is increasing data efficiency: achieving comparable or better performance with less labeled data or fewer environment steps (in Reinforcement learning / Robotics).</p>
+<p>The field of self-supervised learning (SSL) is rapidly evolving, and the performance of these methods is creeping closer to the fully supervised approaches. However, many of these methods are still developed in domain-specific sub-communities, such as Vision, RL and NLP, even though many similarities exist between them. While SSL is an emerging topic and there is great interest in these techniques, there are currently few workshops, tutorials or other scientific events dedicated to this topic.</p>
+<p>This workshop aims to bring together experts with different backgrounds and applications areas to share inter-domain ideas and increase cross-pollination, tackle current shortcomings and explore new directions. The focus will be on the machine learning point of view rather than the domain side.</p>
+<h2 id="ICML-2020-Self-supervision-in-Audio-and-Speech"><a href="#ICML-2020-Self-supervision-in-Audio-and-Speech" class="headerlink" title="ICML 2020 Self-supervision in Audio and Speech"></a>ICML 2020 Self-supervision in Audio and Speech</h2><p>The ongoing success of deep learning techniques depends on the quality of the representations automatically discovered from data. </p>
+<p><strong>These representations must capture important underlying structures from the raw input, e.g., intermediate concepts, features, or latent variables that are useful for the downstream task</strong>. </p>
+<p>While supervised learning using large annotated corpora can leverage useful representations, collecting large amounts of annotated examples is costly, time-consuming, and not always feasible. </p>
+<p>This is particularly problematic for a large variety of applications. In the speech domain, for instance, there are many low-resource languages, where the progress is dramatically slower than in high-resource languages such as English. Moreover, annotations are often underspecified for many potential downstream applications, and the related supervised representations might be biased towards the task they are trained on, limiting their exportability to other applications 2.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="https://docs.google.com/presentation/d/1qq8t8a3decJfJyA6t9wCRJfNDkvAnbg1WxTFvx0hG4g/edit?usp=sharing" target="_blank" rel="noopener">NTU 2020 Spring ML Self-Supervised Learning slide, vpn</a></p>
+<p>[2] <a href="https://self-supervised-sp.github.io/Interspeech2020-Special-Session" target="_blank" rel="noopener">interspeech2020: New Trends in self-supervised speech processing</a></p>
+<p>[3] <a href="https://icml-sas.gitlab.io/" target="_blank" rel="noopener">ICML 2020 Self-supervision in Audio and Speech</a></p>
+<p>[4] <a href="https://sites.google.com/view/self-supervised-icml2019" target="_blank" rel="noopener">Workshop - ICML 2019 Self-Supervised Learning</a></p>
+<p>[5] <a href="https://www.bilibili.com/video/BV1oD4y1D7V2" target="_blank" rel="noopener">[CVPR2020 Tutorial] Talk#5 Self-supervised Learning by Licheng, Yen-Chun, Linjie</a></p>
+
             </article>
             <hr>
             <div>
@@ -266,18 +293,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/03/008_tacotron_wavenet/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【毕业要紧】 Tacotron & WaveNet Resources</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/07/03/010_NLP/">
-                        <span class="hidden-mobile">【毕业要紧】 Word Embedding Resources</span>
+                      <a href="/2020/07/05/12_VC/">
+                        <span class="hidden-mobile">【毕业要紧】 An overview of voice conversion systems</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -416,7 +437,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "【毕业要紧】 TTS & VC Resources&nbsp;",
+        "【毕业要紧】 Self Supervised Learning in Speech Resources&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
