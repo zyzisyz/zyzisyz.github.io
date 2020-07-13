@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>【毕业要紧】 Facebook AI Research wav2vec - zyzisyz</title>
+  <title>Self-supervised speech representation for speaker embedding - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-07-09 00:00">
-      2020年7月9日 凌晨
+    <time datetime="2020-07-12 00:00">
+      2020年7月12日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      683 字
+      696 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      8
        分钟
     </span>
   
@@ -216,53 +216,34 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="Unknown"><a href="#Unknown" class="headerlink" title="Unknown"></a>Unknown</h2><ul>
-<li><strong>character-based speech recognition</strong> : what’s character-based?</li>
-</ul>
-<h2 id="Some-Tips"><a href="#Some-Tips" class="headerlink" title="Some Tips"></a>Some Tips</h2><p>We explore unsupervised pre-training for speech recognition by learning representations of raw audio. </p>
-<p><strong>wav2vec</strong> is trained on large amounts of unlabeled audio data and the resulting representations are then used to improve acoustic model training. </p>
-<p><strong>We pre-train a simple multi-layer convolutional neural network optimized via a noise contrastive binary classification task.</strong></p>
-<p>Our experiments on WSJ reduce WER of a strong character-based <strong>log-mel filterbank baseline</strong> by up to 36% when only a few hours of transcribed data is available. Our approach achieves 2.43% WER on the nov92 test set. This outperforms Deep Speech 2, the best reported character-based system in the literature while using two orders of magnitude less labeled training data</p>
-<p>Our model, wav2vec, is a convolutional neural network that takes raw audio as input and computes a general representation that can be input to a speech recognition system.</p>
-<p><strong>The objective is a contrastive loss that requires distinguishing a true future audio sample from negatives.</strong></p>
-<p>Different to previous work (van den Oord et al., 2018), we move beyond frame-wise phoneme classification and apply the learned representations to improve strong supervised ASR systems. wav2vec relies on a fully convolutional architecture which can be easily parallelized over time on modern hardware compared to recurrent models used in previous work.</p>
-<p>We introduce wav2vec, the first application of unsupervised pre-training to speech recognition with a fully convolutional model. Our approach achieves 2.43% WER on the test set of WSJ, a result that outperforms the next best known character-based speech recognition model in the literature (Amodei et al., 2016) while using two orders of magnitude less transcribed training data. </p>
-<ul>
-<li>improves resource-poor setups</li>
-<li>settings where all WSJ training data is used</li>
-</ul>
-<h2 id="Objective"><a href="#Objective" class="headerlink" title="Objective"></a>Objective</h2><p>Our model takes raw audio signal as input and then applies two networks.</p>
-<ul>
-<li><strong>encoder network</strong> : embeds the audio signal in a latent space</li>
-<li><strong>context network</strong> : combines multiple time-steps of the encoder to obtain contextualized representations</li>
-</ul>
-<p>Given raw audio samples $x_i \in \mathcal{X}$, we apply the encoder network $f : \mathcal{X} → \mathcal{Z}$ parameterized as a five-layer convolutional network</p>
-<p>Next, we apply the context network $g : \mathcal{Z} → \mathcal{C}$ to the output of the encoder network to mix multiple latent representations $z_i…z_{i-v}$ into a single contextualized tensor $c_{i}= g(z_{i}…z_{i−v})$ for a receptive field size $v$.</p>
-<p><strong>The objective is a contrastive loss that requires distinguishing a true future audio sample from negatives.</strong></p>
-<p>We train the model to distinguish a sample $z_{i+k}$ that is $k$ steps in the future from distractor samples $\widetilde{z}$ drawn from a proposal distribution $p_n$, by minimizing the contrastive loss for each step $k = 1,…,K$:</p>
-<p>$$L_k = -\sum_{i=1}^{T-k}(log\sigma(z_{i+k}^{T}h_k(c_i))+\lambda\mathbb{E}[log\sigma(-\widetilde{z}^{T}h_k(c_i))])$$</p>
-<p>$$\mathcal{L} =\sum_{k=1}^{K}\mathcal{L}_k$$</p>
-<ul>
-<li>$\sigma(x)=1/(1+exp(-x))$ : sigmoid</li>
-<li>$\sigma(z_{i+k}^{T}h_{k}(c_i))$ : the probability of $z_{i+k}$ being the true sample</li>
-</ul>
-<p>We consider a step-specific <strong>affine transformation</strong>(<a href="https://www.cnblogs.com/happystudyeveryday/p/10547316.html" target="_blank" rel="noopener">仿射变换</a>) $h_k(c_i) = W_{k}c_{i}+b_{k}$ for each step $k$, that is applied to $c_i$(van den Oord et al., 2018). We optimize the loss $\mathcal{L} =\sum_{k=1}^{K}\mathcal{L}_k$, summing (1) over different step sizes. In practice, we approximate the expectation by sampling ten negatives examples by uniformly choosing distractors from each audio sequence, i.e., $p_n(z) = \frac{1}{T}$, where $T$ is the sequence length and we set $\lambda$ to the number of negatives</p>
-<h2 id="Code-Example"><a href="#Code-Example" class="headerlink" title="Code Example"></a>Code Example</h2><h3 id="Pre-Train-model-Useage"><a href="#Pre-Train-model-Useage" class="headerlink" title="Pre Train model Useage"></a>Pre Train model Useage</h3><ul>
-<li>The encoder network embeds the audio signal in a latent space</li>
-<li>the context network combines multiple time-steps of the encoder to obtain contextualized representations</li>
-</ul>
-<pre><code class="hljs Python"><span class="hljs-keyword">import</span> torch
-<span class="hljs-keyword">from</span> fairseq.models.wav2vec <span class="hljs-keyword">import</span> Wav2VecModel
-
-cp = torch.load(<span class="hljs-string">'/path/to/wav2vec.pt'</span>)
-model = Wav2VecModel.build_model(cp[<span class="hljs-string">'args'</span>], task=<span class="hljs-literal">None</span>)
-model.load_state_dict(cp[<span class="hljs-string">'model'</span>])
-model.eval()
-
-wav_input_16khz = torch.randn(<span class="hljs-number">1</span>,<span class="hljs-number">10000</span>)
-z = model.feature_extractor(wav_input_16khz)
-c = model.feature_aggregator(z)</code></pre>
-
+              <h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Self-Supervised Pretrain model for speech feature extraction</p>
+<p><img src="https://wx2.sbimg.cn/2020/07/12/CuUHw.png" srcset="/img/loading.gif" alt="avatar"></p>
+<h3 id="Backgroud"><a href="#Backgroud" class="headerlink" title="Backgroud"></a>Backgroud</h3><p>在说话人识别任务中，第一步大多都是对语音进行<strong>声学特征提取</strong>，从语音信号中提取例如 $mfcc$, $fbank$ 这样的声学特征。通过提取声学特征，一帧语音信可以号用一个12~40维向量简洁地表示出来；一整段语音信号，就被表示为这种向量的一个序列。例如，<strong>梅尔刻度 (Mel scale)</strong>是一种基于人耳对等距的音高(pitch)变化的感官判断而定的非线性频率刻度，它与频率关系如下:</p>
+<p>$$M(f) = 1125 \cdot ln(1+\frac{f}{700})$$</p>
+<p>这些传统的声学特征是根据人耳的感知机理，例如掩蔽效应，人为设计出的特征提取方法。因此这类方法可能并不适用于计算机的模式识别，使用传统的声学特征用于说话人识别可能存在一定的不合理性。例如:</p>
+<ol>
+<li>声学特征提取过程中可能会存在一定的信息损失，导致识别性能降低。</li>
+<li>提取特征的过程中没有考虑人说话的上下文 context 信息。</li>
+<li>声学特征参数的选取往往依赖于人的经验。不同的参数设置，会导致不同的系统识别的性能。</li>
+</ol>
+<h3 id="Good-Representation"><a href="#Good-Representation" class="headerlink" title="Good Representation"></a>Good Representation</h3><ol>
+<li>high-performing on a diverse set of downstream tasks using simple models</li>
+<li>useful in transfer learning with small amounts of data for a new task</li>
+</ol>
+<h3 id="What-is-self-supervised-learning"><a href="#What-is-self-supervised-learning" class="headerlink" title="What is self-supervised learning?"></a>What is self-supervised learning?</h3><ol>
+<li>A version of unsupervised learning where data provides the supervision.</li>
+<li>Goal: Learning to represent the world before learning tasks.</li>
+</ol>
+<h3 id="Pretrain-model-for-speech-feature-extraction"><a href="#Pretrain-model-for-speech-feature-extraction" class="headerlink" title="Pretrain model for speech feature extraction"></a>Pretrain model for speech feature extraction</h3><p>受到这样的启发，我们使用 self supervised learning 的方法改进说话人识别系统。</p>
+<p>首先通过大量没有任何标注的语音数据，依据语音时序上的上下文 context 信息，使用神经网络去重新学一个更加合理 speech 的 representation。这类 self-supervised features 对语音信号前后关系有更好地建模。可以对于说话人长时性描述更强。</p>
+<p>之后我们通过预训练好的模型，对语音进行特征提取，新的声学特征将取代 $mfcc$ 和 $fbank$ 这类传统的声学特征，作为说话人模型对输入。我们利用这种新的特征，和传统 ivector 和 xvector 表征学习相互结合。预期可能取得如下结果:</p>
+<ol>
+<li>进一步提高当前的说话人识别系统的性能，成为新的STOA</li>
+<li>说话人训练数据在 low resources 的情况下取得更好的性能。例如 <code>self supervised feature＋100个spk数据集</code> 训练出来的模型性能约等于甚至好于 <code>mfcc＋500个spk数据集</code>训练出的模型。</li>
+<li>进一步提高当前anti-spoofing系统的性能</li>
+</ol>
+<h2 id="Methods-of-Self-Supervised-Learning"><a href="#Methods-of-Self-Supervised-Learning" class="headerlink" title="Methods of Self-Supervised Learning"></a>Methods of Self-Supervised Learning</h2><p><img src="https://wx1.sbimg.cn/2020/07/12/Cubk8.png" srcset="/img/loading.gif" alt="avatar"></p>
+<h3 id="Constrastive"><a href="#Constrastive" class="headerlink" title="Constrastive"></a>Constrastive</h3><h3 id="Mutual-Information"><a href="#Mutual-Information" class="headerlink" title="Mutual Information"></a>Mutual Information</h3>
             </article>
             <hr>
             <div>
@@ -290,18 +271,12 @@ c = model.feature_aggregator(z)</code></pre>
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/12/200712_self/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Self-supervised speech representation for speaker embedding</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/07/05/200708_self_supervised_learning/">
-                        <span class="hidden-mobile">【毕业要紧】 Self Supervised Learning in Speech Resources</span>
+                      <a href="/2020/07/09/200709_wav2vec/">
+                        <span class="hidden-mobile">【毕业要紧】 Facebook AI Research wav2vec</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -440,7 +415,7 @@ c = model.feature_aggregator(z)</code></pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "【毕业要紧】 Facebook AI Research wav2vec&nbsp;",
+        "Self-supervised speech representation for speaker embedding&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Self-supervised speech representation for speaker embedding</title>
+    <link href="/2020/07/12/200712_self/"/>
+    <url>/2020/07/12/200712_self/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Self-Supervised Pretrain model for speech feature extraction</p><p><img src="https://wx2.sbimg.cn/2020/07/12/CuUHw.png" srcset="/img/loading.gif" alt="avatar"></p><h3 id="Backgroud"><a href="#Backgroud" class="headerlink" title="Backgroud"></a>Backgroud</h3><p>在说话人识别任务中，第一步大多都是对语音进行<strong>声学特征提取</strong>，从语音信号中提取例如 $mfcc$, $fbank$ 这样的声学特征。通过提取声学特征，一帧语音信可以号用一个12~40维向量简洁地表示出来；一整段语音信号，就被表示为这种向量的一个序列。例如，<strong>梅尔刻度 (Mel scale)</strong>是一种基于人耳对等距的音高(pitch)变化的感官判断而定的非线性频率刻度，它与频率关系如下:</p><p>$$M(f) = 1125 \cdot ln(1+\frac{f}{700})$$</p><p>这些传统的声学特征是根据人耳的感知机理，例如掩蔽效应，人为设计出的特征提取方法。因此这类方法可能并不适用于计算机的模式识别，使用传统的声学特征用于说话人识别可能存在一定的不合理性。例如:</p><ol><li>声学特征提取过程中可能会存在一定的信息损失，导致识别性能降低。</li><li>提取特征的过程中没有考虑人说话的上下文 context 信息。</li><li>声学特征参数的选取往往依赖于人的经验。不同的参数设置，会导致不同的系统识别的性能。</li></ol><h3 id="Good-Representation"><a href="#Good-Representation" class="headerlink" title="Good Representation"></a>Good Representation</h3><ol><li>high-performing on a diverse set of downstream tasks using simple models</li><li>useful in transfer learning with small amounts of data for a new task</li></ol><h3 id="What-is-self-supervised-learning"><a href="#What-is-self-supervised-learning" class="headerlink" title="What is self-supervised learning?"></a>What is self-supervised learning?</h3><ol><li>A version of unsupervised learning where data provides the supervision.</li><li>Goal: Learning to represent the world before learning tasks.</li></ol><h3 id="Pretrain-model-for-speech-feature-extraction"><a href="#Pretrain-model-for-speech-feature-extraction" class="headerlink" title="Pretrain model for speech feature extraction"></a>Pretrain model for speech feature extraction</h3><p>受到这样的启发，我们使用 self supervised learning 的方法改进说话人识别系统。</p><p>首先通过大量没有任何标注的语音数据，依据语音时序上的上下文 context 信息，使用神经网络去重新学一个更加合理 speech 的 representation。这类 self-supervised features 对语音信号前后关系有更好地建模。可以对于说话人长时性描述更强。</p><p>之后我们通过预训练好的模型，对语音进行特征提取，新的声学特征将取代 $mfcc$ 和 $fbank$ 这类传统的声学特征，作为说话人模型对输入。我们利用这种新的特征，和传统 ivector 和 xvector 表征学习相互结合。预期可能取得如下结果:</p><ol><li>进一步提高当前的说话人识别系统的性能，成为新的STOA</li><li>说话人训练数据在 low resources 的情况下取得更好的性能。例如 <code>self supervised feature＋100个spk数据集</code> 训练出来的模型性能约等于甚至好于 <code>mfcc＋500个spk数据集</code>训练出的模型。</li><li>进一步提高当前anti-spoofing系统的性能</li></ol><h2 id="Methods-of-Self-Supervised-Learning"><a href="#Methods-of-Self-Supervised-Learning" class="headerlink" title="Methods of Self-Supervised Learning"></a>Methods of Self-Supervised Learning</h2><p><img src="https://wx1.sbimg.cn/2020/07/12/Cubk8.png" srcset="/img/loading.gif" alt="avatar"></p><h3 id="Constrastive"><a href="#Constrastive" class="headerlink" title="Constrastive"></a>Constrastive</h3><h3 id="Mutual-Information"><a href="#Mutual-Information" class="headerlink" title="Mutual Information"></a>Mutual Information</h3>]]></content>
+    
+    
+    <categories>
+      
+      <category>毕业要紧</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>毕业要紧</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【毕业要紧】 Facebook AI Research wav2vec</title>
     <link href="/2020/07/09/200709_wav2vec/"/>
     <url>/2020/07/09/200709_wav2vec/</url>
