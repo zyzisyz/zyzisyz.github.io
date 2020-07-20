@@ -5,10 +5,60 @@
   
   <entry>
     <title>Self-supervised speech representation for speaker embedding</title>
-    <link href="/2020/07/12/200712_self/"/>
-    <url>/2020/07/12/200712_self/</url>
+    <link href="/2020/07/16/200716_self/"/>
+    <url>/2020/07/16/200716_self/</url>
     
-    <content type="html"><![CDATA[<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Self-Supervised Pretrain model for speech feature extraction</p><p><img src="https://wx2.sbimg.cn/2020/07/12/CuUHw.png" srcset="/img/loading.gif" alt="avatar"></p><h3 id="Backgroud"><a href="#Backgroud" class="headerlink" title="Backgroud"></a>Backgroud</h3><p>在说话人识别任务中，第一步大多都是对语音进行<strong>声学特征提取</strong>，从语音信号中提取例如 $mfcc$, $fbank$ 这样的声学特征。通过提取声学特征，一帧语音信可以号用一个12~40维向量简洁地表示出来；一整段语音信号，就被表示为这种向量的一个序列。例如，<strong>梅尔刻度 (Mel scale)</strong>是一种基于人耳对等距的音高(pitch)变化的感官判断而定的非线性频率刻度，它与频率关系如下:</p><p>$$M(f) = 1125 \cdot ln(1+\frac{f}{700})$$</p><p>这些传统的声学特征是根据人耳的感知机理，例如掩蔽效应，人为设计出的特征提取方法。因此这类方法可能并不适用于计算机的模式识别，使用传统的声学特征用于说话人识别可能存在一定的不合理性。例如:</p><ol><li>声学特征提取过程中可能会存在一定的信息损失，导致识别性能降低。</li><li>提取特征的过程中没有考虑人说话的上下文 context 信息。</li><li>声学特征参数的选取往往依赖于人的经验。不同的参数设置，会导致不同的系统识别的性能。</li></ol><h3 id="Good-Representation"><a href="#Good-Representation" class="headerlink" title="Good Representation"></a>Good Representation</h3><ol><li>high-performing on a diverse set of downstream tasks using simple models</li><li>useful in transfer learning with small amounts of data for a new task</li></ol><h3 id="What-is-self-supervised-learning"><a href="#What-is-self-supervised-learning" class="headerlink" title="What is self-supervised learning?"></a>What is self-supervised learning?</h3><ol><li>A version of unsupervised learning where data provides the supervision.</li><li>Goal: Learning to represent the world before learning tasks.</li></ol><h3 id="Pretrain-model-for-speech-feature-extraction"><a href="#Pretrain-model-for-speech-feature-extraction" class="headerlink" title="Pretrain model for speech feature extraction"></a>Pretrain model for speech feature extraction</h3><p>受到这样的启发，我们使用 self supervised learning 的方法改进说话人识别系统。</p><p>首先通过大量没有任何标注的语音数据，依据语音时序上的上下文 context 信息，使用神经网络去重新学一个更加合理 speech 的 representation。这类 self-supervised features 对语音信号前后关系有更好地建模。可以对于说话人长时性描述更强。</p><p>之后我们通过预训练好的模型，对语音进行特征提取，新的声学特征将取代 $mfcc$ 和 $fbank$ 这类传统的声学特征，作为说话人模型对输入。我们利用这种新的特征，和传统 ivector 和 xvector 表征学习相互结合。预期可能取得如下结果:</p><ol><li>进一步提高当前的说话人识别系统的性能，成为新的STOA</li><li>说话人训练数据在 low resources 的情况下取得更好的性能。例如 <code>self supervised feature＋100个spk数据集</code> 训练出来的模型性能约等于甚至好于 <code>mfcc＋500个spk数据集</code>训练出的模型。</li><li>进一步提高当前anti-spoofing系统的性能</li></ol><h2 id="Methods-of-Self-Supervised-Learning"><a href="#Methods-of-Self-Supervised-Learning" class="headerlink" title="Methods of Self-Supervised Learning"></a>Methods of Self-Supervised Learning</h2><p><img src="https://wx1.sbimg.cn/2020/07/12/Cubk8.png" srcset="/img/loading.gif" alt="avatar"></p><h3 id="Constrastive"><a href="#Constrastive" class="headerlink" title="Constrastive"></a>Constrastive</h3><h3 id="Mutual-Information"><a href="#Mutual-Information" class="headerlink" title="Mutual Information"></a>Mutual Information</h3>]]></content>
+    <content type="html"><![CDATA[<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Self-Supervised Pretrain model for speech feature extraction</p><p><img src="https://wx2.sbimg.cn/2020/07/12/CuUHw.png" srcset="/img/loading.gif" alt="avatar"></p><h3 id="Backgroud"><a href="#Backgroud" class="headerlink" title="Backgroud"></a>Backgroud</h3><p>在说话人识别任务中，第一步大多都是对语音进行<strong>声学特征提取</strong>，从语音信号中提取例如 mfcc, fbank 这样的声学特征。通过提取声学特征，一帧高维度的语音信号(waveform)可以号用一个12~40维向量简洁地表示出来；一整段语音信号，就被表示为这种向量的一个序列。例如，<strong>梅尔刻度 (Mel scale)</strong>是一种基于人耳对等距的音高(pitch)变化的感官判断而定的非线性频率刻度，它与频率关系如下:</p><p>$$M(f) = 1125 \cdot ln(1+\frac{f}{700})$$</p><p>这些传统的声学特征是根据人耳的感知机理，例如掩蔽效应，人为设计的特征提取方法。这类方法可能并不适用于计算机的模式识别，使用传统的声学特征用于说话人识别可能存在一定的不合理性。例如:</p><ol><li>声学特征提取过程中可能会存在一定的信息损失，导致识别性能降低。</li><li>提取特征的过程中没有考虑人说话的上下文 context 信息。</li><li>声学特征参数的选取往往依赖于人的经验。不同的参数设置，会导致不同的系统识别的性能。</li></ol><h3 id="What-is-self-supervised-learning"><a href="#What-is-self-supervised-learning" class="headerlink" title="What is self-supervised learning?"></a>What is self-supervised learning?</h3><p>最近，self-supervised learning 逐渐成为科研工作者们的关注重点。self-supervised learning 是无监督学习里的一类方法，主要是希望能够<strong>学习到一种通用的特征表达用于下游任务</strong></p><p>Yann LeCun in AAAI2020</p><blockquote><p>in self-supervised learning, the systerm learns to predict part of its input from other parts of it input.</p></blockquote><ul><li>Goal: Learning to represent the world before learning tasks.</li><li>Predict any part of the input from any other part</li><li>Predict the <strong>future</strong> from the <strong>recent past</strong></li><li>Predict the <strong>past</strong> from the <strong>present</strong></li><li>Predict the <strong>top</strong> from the <strong>bottom</strong></li></ul><p>什么是一个好的 Representation ?</p><ol><li>high-performing on a diverse set of downstream tasks using simple models</li><li>useful in transfer learning with small amounts of data for a new task</li></ol><p>自监督学习已经在 CV 和 NLP 领域取得了极大的成功，以大名鼎鼎的 BERT 模型为例，它利用大规模无标注语料训练、获得文本的包含丰富语义信息的 Representation，然后将文本的语义表示在特定 NLP 任务中作微调后应用于该任务上。</p><p>目前self-supervised learning的主要有如下方法：</p><p><img src="https://wx1.sbimg.cn/2020/07/12/Cubk8.png" srcset="/img/loading.gif" alt="avatar"></p><p>在 speech 领域，也有很多大佬进行了一系列的探索。从 interspeech2020 和 ICML2020 两个学术会议中，我们可以看出未来应该会有更多的大佬加入 self supervised learning 在 speech 领域的研究。</p><ol><li><a href="https://self-supervised-sp.github.io/Interspeech2020-Special-Session" target="_blank" rel="noopener">Interspeech2020 Special Session: New Trends in self-supervised speech processing</a></li><li><a href="https://icml-sas.gitlab.io/" target="_blank" rel="noopener">ICML2020: Self-supervision in Audio and Speech</a></li></ol><h3 id="Contrastive-Predictive-Coding"><a href="#Contrastive-Predictive-Coding" class="headerlink" title="Contrastive Predictive Coding"></a>Contrastive Predictive Coding</h3><p>Contrastive Predictive Coding (CPC) 是由 Google DeepMind 出品的非常有代表性的自监督学习方法，可以用于语音、图片、文本以及强化学习。<strong>CPC的主要思想就是基于 context 信息的未来数据预测，以及通过采样的方式进行训练。</strong></p><p><img src="https://wx2.sbimg.cn/2020/07/15/CZcoI.png" srcset="/img/loading.gif" alt="avatar"></p><p>CPC 的出发点是最大化context vector $c$ 和数据输入 $x$ 之间的<strong>互信息（Mutual Information）</strong>，使得 $c$ 包含足够的原始数据信息，因而可以作为新的特征表示。互信息定义如下：</p><p>$$MI(x;c) = \sum_{x,c}p(x,c)log\frac{p(x|c)}{p(x)}$$</p><p>如果大量无监督但数据采样训练，最大化互信息，我们可以得到数据新的表征。非常值得一提的是，论文中对不同说话人表征在 $t-SNE$ 可视化图中展现出了不错的区分性。</p><p><img src="https://wx2.sbimg.cn/2020/07/15/CZBTR.md.png" srcset="/img/loading.gif" alt="avatar"></p><h3 id="WAV2VEC"><a href="#WAV2VEC" class="headerlink" title="WAV2VEC"></a>WAV2VEC</h3><p>依据 CPC 论文的思路，FaceBook FAIR 团队提出了 wav2vec 模型利用大量未标记的音频数据预训练的方法用于提高 ASR 系统的性能。预训练模型是在 Fairseq 工具包中的 PyTorch 中实现的。</p><p><img src="https://wx2.sbimg.cn/2020/07/15/CZqK2.png" srcset="/img/loading.gif" alt="avatar"></p><p>模型由两个卷积神经网络组成</p><ul><li><strong>Encoder Network</strong> $x \rightarrow z$ : embeds the audio signal in a latent space</li><li><strong>Context Network</strong> $z \rightarrow c$ : combines multiple time-steps of the encoder to obtain contextualized representations</li></ul><p>与 CPC 原论文里略有不同的是，在 Context Network 上，wav2vec 采用的是卷积神经网络，而 CPC 采用的 Autoregressive Model 自回归模型，因此在 infer 的速度上 wav2vec 会更快。</p><p>预训练结束后，将上下文网络 $c_i$ 生成的表示形式作为声学特征输入，而不是使用 log-mel 滤波器组特征。</p><h3 id="Self-Supervised-Feature-for-Speaker-Recongnition"><a href="#Self-Supervised-Feature-for-Speaker-Recongnition" class="headerlink" title="Self-Supervised Feature for Speaker Recongnition"></a>Self-Supervised Feature for Speaker Recongnition</h3><p>我想使用 self supervised learning 的方法改进当前说话人识别系统。</p><p>首先通过大量没有任何标注的语音数据，依据语音时序上的上下文 context 信息，使用神经网络去重新学一个更加合理 speech 的 representation。这类 self-supervised features 对语音信号前后关系有更好地建模。可以对于说话人长时性描述更强。之后我们通过预训练好的模型，对语音进行特征提取，新的声学特征将取代 mfcc 和 fbank 这类传统的声学特征，作为说话人模型对输入。我们利用这种新的特征，和传统 ivector 和 xvector 表征学习相互结合。</p><p>总结来说就是使用预训练模型提取语音声学特征取代 mfcc 和 fbank 从而提高当前说话人识别系统的性能。预期可能取得如下结果:</p><ol><li>进一步提高当前的说话人识别系统的性能，成为新的STOA</li><li>说话人训练数据在 low resources 的情况下取得更好的性能。例如 <code>self supervised feature＋100个spk数据集</code> 训练出来的模型性能约等于甚至好于 <code>mfcc＋500个spk数据集</code>训练出的模型。</li><li>进一步提高当前anti-spoofing系统的性能</li></ol><h2 id="My-Experiment"><a href="#My-Experiment" class="headerlink" title="My Experiment"></a>My Experiment</h2><p>我的实验主要使用了如下两个工具:</p><ol><li><strong>fairseq</strong>: 它是一个由 facebook AI research 团队维护的 seq2seq 模型工具包，wav2vec 是 fairseq 内的一个子项目，其中同时开源了相关的一些预训练模型</li><li><strong>kaldi</strong>: 它是一个主要由 Danney Povey 等人主要维护的语音工具包，其中包含了经典的说话人识别模型 (ivector, xvector等) 的全部 pipline 代码</li></ol><h3 id="Configs"><a href="#Configs" class="headerlink" title="Configs"></a>Configs</h3><p>为了快速验证这个想法，我在一个含有100个说话人的小规模的命令词数据集上，分别使用了几个不同的声学特征提取方法训练 ivector 模型。具体配置如下：</p><ul><li><strong>baseline mfcc ivector</strong>：</li><li><strong>wav2vec c dvector</strong>: pretrain feature with average pooling</li><li><strong>wav2vec c ivector</strong>:</li><li><strong>wav2vec z ivector</strong>:</li><li><strong>wav2vec_large c ivector</strong>:</li><li><strong>wav2vec_large c ivector</strong>:</li><li><strong>vq_wav2vec c ivector</strong>:</li><li><strong>vq_wav2vec z ivector</strong>:</li></ul><h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><h3 id="Future-Work"><a href="#Future-Work" class="headerlink" title="Future Work"></a>Future Work</h3><h2 id="Other-Related-Work"><a href="#Other-Related-Work" class="headerlink" title="Other Related Work"></a>Other Related Work</h2><h2 id="Related-Toolkit"><a href="#Related-Toolkit" class="headerlink" title="Related Toolkit"></a>Related Toolkit</h2><ol><li><a href="">Kaldi</a></li><li><a href="">fairseq</a></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>毕业要紧</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>毕业要紧</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【毕业要紧】 Kaldi Tips</title>
+    <link href="/2020/07/16/200716_kaldi_tips/"/>
+    <url>/2020/07/16/200716_kaldi_tips/</url>
+    
+    <content type="html"><![CDATA[<h2 id="ark-ark-t-scp"><a href="#ark-ark-t-scp" class="headerlink" title="ark ark,t scp"></a>ark ark,t scp</h2><p><code>ark</code> is an archive format to save any <code>Kaldi objects</code>. ark can be flushed to and from unix pipe.</p><pre><code class="hljs bash">cat test.ark | copy-feats ark:- ark,t:- | less <span class="hljs-comment"># Show the contents in the ark</span></code></pre><p><strong><code>-</code> indicates standard input stream or output stream.</strong></p><h2 id="FM-amp-FV"><a href="#FM-amp-FV" class="headerlink" title="FM &amp; FV"></a>FM &amp; FV</h2><p>Kaldi has two major types: Matrix and Vector. </p><ul><li>Binary/Text - Float/Double Matrix: FM, DM</li><li>Binary/Text - Float/Double Vector: FV, DV</li></ul><p>As such, features are often stored in one of these two file types. For instance, when you extract i-vectors, they are stored as a matrix of floats (FM) and if you extract x-vectors, they are stored as vectors of float (FV). Often it may be required to convert features stored as FV to FM and vice-versa.</p><p>convert from FV to FM:</p><pre><code class="hljs bash">copy-vector --binary=<span class="hljs-literal">false</span> scp:exp/xvectors/xvector.scp ark,t:- | \  copy-matrix ark,t:- ark,scp:exp/xvectors/xvector_mat.ark,exp/xvectors/xvector_mat.scp</code></pre><p>convert from FM to FV:</p><pre><code class="hljs bash">copy-matrix --binary=<span class="hljs-literal">false</span> scp:exp/ivectors/ivector.scp ark,t:- | \  copy-vector ark,t:- ark,scp:exp/ivectors/ivector_vec.ark,exp/ivectors/ivector_vec.scp</code></pre><h2 id="Reference-and-Other-Tips"><a href="#Reference-and-Other-Tips" class="headerlink" title="Reference and Other Tips"></a>Reference and Other Tips</h2><p>[1] <a href="https://desh2608.github.io/2019-03-27-kaldi-tricks/" target="_blank" rel="noopener">desh2608 kaldi-tricks</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>毕业要紧</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>毕业要紧</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【毕业要紧】 Representation Learning with Contrastive Predictive Coding</title>
+    <link href="/2020/07/14/200714_cpc/"/>
+    <url>/2020/07/14/200714_cpc/</url>
+    
+    <content type="html"><![CDATA[<p>Predictive coding is one of the oldest techniques in signal processing for data compression</p><p>One of the most common strategies for unsupervised learning has been to predict future, missing or contextual information.</p><h2 id="Mutual-Information"><a href="#Mutual-Information" class="headerlink" title="Mutual Information"></a>Mutual Information</h2><ol><li>data: $x$</li><li>context: $c$</li></ol><p>$$I(x; c) = \sum_{x,c}p(x, c)log\frac{p(x|c)}{p(x)}$$</p>]]></content>
     
     
     <categories>
@@ -54,11 +104,11 @@
   
   
   <entry>
-    <title>【毕业要紧】 Self Supervised Learning in Speech Resources</title>
-    <link href="/2020/07/05/200708_self_supervised_learning/"/>
-    <url>/2020/07/05/200708_self_supervised_learning/</url>
+    <title>【毕业要紧】 An overview of voice conversion systems</title>
+    <link href="/2020/07/05/12_VC/"/>
+    <url>/2020/07/05/12_VC/</url>
     
-    <content type="html"><![CDATA[<h2 id="Supervised-Learning"><a href="#Supervised-Learning" class="headerlink" title="Supervised Learning"></a>Supervised Learning</h2><p>Given: </p><ul><li>a dataset $\mathcal{D} = {(x, y)}_i^N$</li><li>a loss function $\mathcal{l}$</li></ul><p>Goal:</p><p>$$min_{\theta}\mathbb{E}_{(x, y)}$$</p><ul><li>Works well when labeled data is abundant</li><li><strong>Learn useful representation with the supervision</strong></li></ul><h2 id="Yann-LeCun"><a href="#Yann-LeCun" class="headerlink" title="Yann LeCun"></a>Yann LeCun</h2><blockquote><p>in self-supervised learning, the systerm learns to predict part of its input from other parts of it input.</p></blockquote><ul><li>Goal: Learning to represent the world before learning tasks.</li><li>Predict any part of the input from any other part</li><li>Predict the <strong>future</strong> from the <strong>recent past</strong></li><li>Predict the <strong>past</strong> from the <strong>present</strong></li><li>Predict the <strong>top</strong> from the <strong>bottom</strong></li></ul><h2 id="Interspeech-2020-New-Trends-in-self-supervised-Speech-Processing"><a href="#Interspeech-2020-New-Trends-in-self-supervised-Speech-Processing" class="headerlink" title="Interspeech 2020: New Trends in self-supervised Speech Processing"></a>Interspeech 2020: New Trends in self-supervised Speech Processing</h2><p>Over the past decade, supervised deep learning models led to great strides in performance for speech processing technologies and applications. </p><p>However, unlike humans who are capable of self-learning through experiences and interactions, current real-world speech applications are heavily reliant on large volumes of human annotations. </p><p>For the next generation of speech processing systems to exhibit similar levels of cognitive intelligence as humans, they should be designed to exploit unlabeled, partially labeled, contextual and distant supervision data from multiple concurrent modalities, e.g., text and video, and learning signals from corrective user follow-ups in conversational applications. </p><p><strong>The main motivation for self-supervised learning is rooted in our need to improve ASR systems when there is a limited amount of labeled data.</strong></p><p>Self-supervised learning methods [LeCun 2016] construct proxy predictive tasks to train models for downstream scenarios by exploiting large amounts of unlabeled audio data, unpaired text and audio data in the same domain, or speech data with distant unrelated labels, e.g. A text summary or slides of an audio lecture. </p><p>Through these invented proxy tasks, models learn high-level representations that generalize well across different languages, domains, and deployment scenarios with very few in-domain labeled examples. </p><p>Self-supervised learning methods achieved major successes in Natural Language Processing (NLP) [Peters 2018, Devlin 2018, Radford 2019, Raffel 2019, Lewis 2019] and Computer Vision (CV) [Sun 2019, He 2019, Xie 2019, Misra 2019].</p><p>There is a recent surge in speech processing research work introducing predictive proxy tasks for model training, and achieving impressive results in downstream applications like ASR and speaker recognition. These self-supervised approaches include, but not limited to:</p><ul><li><strong>Future prediction</strong>: Learning an autoregressive model that generates distant future audio features from historical ones [Oard 2018, Chung 2019, Schneider 2019].</li><li><strong>Mask prediction</strong>: Learning a model that predicts masked parts of the input audio signal [Liu 2019, Song 2019, Baevski 2019a, Baevski 2019b].</li><li><strong>Generating contextual data</strong>: Learning a model to predict semantically-related contextual information that accompany the speech signal, e.g. Using social media title and comments as input audio labels [Singh 2019, Pascual 2019].</li><li><strong>Chaining ASR and TTS</strong>: Using unpaired audio and text data to train an ASR system and a TTS system jointly, where one is generating training paired data for the other [Tjandra 2019, Hori 2019, Baskar 2019]. This family of self-supervised methods can be viewed as auto-encoders of speech signals through latent text representations. Effective use of external language models falls into this category to regularize the text representations.</li></ul><h2 id="Workshop-ICML-2019-Self-Supervised-Learning"><a href="#Workshop-ICML-2019-Self-Supervised-Learning" class="headerlink" title="Workshop - ICML 2019 Self-Supervised Learning"></a>Workshop - ICML 2019 Self-Supervised Learning</h2><p>Big data has driven a revolution to many domains of machine learning thanks to modern high-capacity models, but the standard approaches – supervised learning from labels, or reinforcement learning from a reward function – have become a bottleneck. </p><p>Even when data is abundant, getting the labels or rewards that specify exactly what the model must do is often intractable. Collecting simple category labels for classification is prohibitive for millions of billions of examples, and structured outputs (scene interpretations, interactions, demonstrations) are far worse, especially when the data distribution is non-stationary.</p><p><strong>Self-supervised learning</strong> is a promising alternative where proxy tasks are developed that allow models and agents to learn without explicit supervision in a way that helps with downstream performance on tasks of interest. One of the major benefits of self-supervised learning is increasing data efficiency: achieving comparable or better performance with less labeled data or fewer environment steps (in Reinforcement learning / Robotics).</p><p>The field of self-supervised learning (SSL) is rapidly evolving, and the performance of these methods is creeping closer to the fully supervised approaches. However, many of these methods are still developed in domain-specific sub-communities, such as Vision, RL and NLP, even though many similarities exist between them. While SSL is an emerging topic and there is great interest in these techniques, there are currently few workshops, tutorials or other scientific events dedicated to this topic.</p><p>This workshop aims to bring together experts with different backgrounds and applications areas to share inter-domain ideas and increase cross-pollination, tackle current shortcomings and explore new directions. The focus will be on the machine learning point of view rather than the domain side.</p><h2 id="ICML-2020-Self-supervision-in-Audio-and-Speech"><a href="#ICML-2020-Self-supervision-in-Audio-and-Speech" class="headerlink" title="ICML 2020 Self-supervision in Audio and Speech"></a>ICML 2020 Self-supervision in Audio and Speech</h2><p>The ongoing success of deep learning techniques depends on the quality of the representations automatically discovered from data. </p><p><strong>These representations must capture important underlying structures from the raw input, e.g., intermediate concepts, features, or latent variables that are useful for the downstream task</strong>. </p><p>While supervised learning using large annotated corpora can leverage useful representations, collecting large amounts of annotated examples is costly, time-consuming, and not always feasible. </p><p>This is particularly problematic for a large variety of applications. In the speech domain, for instance, there are many low-resource languages, where the progress is dramatically slower than in high-resource languages such as English. Moreover, annotations are often underspecified for many potential downstream applications, and the related supervised representations might be biased towards the task they are trained on, limiting their exportability to other applications 2.</p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="https://docs.google.com/presentation/d/1qq8t8a3decJfJyA6t9wCRJfNDkvAnbg1WxTFvx0hG4g/edit?usp=sharing" target="_blank" rel="noopener">NTU 2020 Spring ML Self-Supervised Learning slide, vpn</a></p><p>[2] <a href="https://self-supervised-sp.github.io/Interspeech2020-Special-Session" target="_blank" rel="noopener">interspeech2020: New Trends in self-supervised speech processing</a></p><p>[3] <a href="https://icml-sas.gitlab.io/" target="_blank" rel="noopener">ICML 2020 Self-supervision in Audio and Speech</a></p><p>[4] <a href="https://sites.google.com/view/self-supervised-icml2019" target="_blank" rel="noopener">Workshop - ICML 2019 Self-Supervised Learning</a></p><p>[5] <a href="https://www.bilibili.com/video/BV1oD4y1D7V2" target="_blank" rel="noopener">[CVPR2020 Tutorial] Talk#5 Self-supervised Learning by Licheng, Yen-Chun, Linjie</a></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="VC-systerm"><a href="#VC-systerm" class="headerlink" title="VC systerm"></a>VC systerm</h2><p><img src="https://wx2.sbimg.cn/2020/07/07/CCSsO.png" srcset="/img/loading.gif" alt="avatar"></p>]]></content>
     
     
     <categories>
@@ -79,11 +129,11 @@
   
   
   <entry>
-    <title>【毕业要紧】 An overview of voice conversion systems</title>
-    <link href="/2020/07/05/12_VC/"/>
-    <url>/2020/07/05/12_VC/</url>
+    <title>【毕业要紧】 Self Supervised Learning in Speech Resources</title>
+    <link href="/2020/07/05/200708_self_supervised_learning/"/>
+    <url>/2020/07/05/200708_self_supervised_learning/</url>
     
-    <content type="html"><![CDATA[<h2 id="VC-systerm"><a href="#VC-systerm" class="headerlink" title="VC systerm"></a>VC systerm</h2><p><img src="https://wx2.sbimg.cn/2020/07/07/CCSsO.png" srcset="/img/loading.gif" alt="avatar"></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="Supervised-Learning"><a href="#Supervised-Learning" class="headerlink" title="Supervised Learning"></a>Supervised Learning</h2><p>Given: </p><ul><li>a dataset $\mathcal{D} = {(x, y)}_i^N$</li><li>a loss function $\mathcal{l}$</li></ul><p>Goal:</p><p>$$min_{\theta}\mathbb{E}_{(x, y)}$$</p><ul><li>Works well when labeled data is abundant</li><li><strong>Learn useful representation with the supervision</strong></li></ul><h2 id="Yann-LeCun"><a href="#Yann-LeCun" class="headerlink" title="Yann LeCun"></a>Yann LeCun</h2><blockquote><p>in self-supervised learning, the systerm learns to predict part of its input from other parts of it input.</p></blockquote><ul><li>Goal: Learning to represent the world before learning tasks.</li><li>Predict any part of the input from any other part</li><li>Predict the <strong>future</strong> from the <strong>recent past</strong></li><li>Predict the <strong>past</strong> from the <strong>present</strong></li><li>Predict the <strong>top</strong> from the <strong>bottom</strong></li></ul><h2 id="Interspeech-2020-New-Trends-in-self-supervised-Speech-Processing"><a href="#Interspeech-2020-New-Trends-in-self-supervised-Speech-Processing" class="headerlink" title="Interspeech 2020: New Trends in self-supervised Speech Processing"></a>Interspeech 2020: New Trends in self-supervised Speech Processing</h2><p>Over the past decade, supervised deep learning models led to great strides in performance for speech processing technologies and applications. </p><p>However, unlike humans who are capable of self-learning through experiences and interactions, current real-world speech applications are heavily reliant on large volumes of human annotations. </p><p>For the next generation of speech processing systems to exhibit similar levels of cognitive intelligence as humans, they should be designed to exploit unlabeled, partially labeled, contextual and distant supervision data from multiple concurrent modalities, e.g., text and video, and learning signals from corrective user follow-ups in conversational applications. </p><p><strong>The main motivation for self-supervised learning is rooted in our need to improve ASR systems when there is a limited amount of labeled data.</strong></p><p>Self-supervised learning methods [LeCun 2016] construct proxy predictive tasks to train models for downstream scenarios by exploiting large amounts of unlabeled audio data, unpaired text and audio data in the same domain, or speech data with distant unrelated labels, e.g. A text summary or slides of an audio lecture. </p><p>Through these invented proxy tasks, models learn high-level representations that generalize well across different languages, domains, and deployment scenarios with very few in-domain labeled examples. </p><p>Self-supervised learning methods achieved major successes in Natural Language Processing (NLP) [Peters 2018, Devlin 2018, Radford 2019, Raffel 2019, Lewis 2019] and Computer Vision (CV) [Sun 2019, He 2019, Xie 2019, Misra 2019].</p><p>There is a recent surge in speech processing research work introducing predictive proxy tasks for model training, and achieving impressive results in downstream applications like ASR and speaker recognition. These self-supervised approaches include, but not limited to:</p><ul><li><strong>Future prediction</strong>: Learning an autoregressive model that generates distant future audio features from historical ones [Oard 2018, Chung 2019, Schneider 2019].</li><li><strong>Mask prediction</strong>: Learning a model that predicts masked parts of the input audio signal [Liu 2019, Song 2019, Baevski 2019a, Baevski 2019b].</li><li><strong>Generating contextual data</strong>: Learning a model to predict semantically-related contextual information that accompany the speech signal, e.g. Using social media title and comments as input audio labels [Singh 2019, Pascual 2019].</li><li><strong>Chaining ASR and TTS</strong>: Using unpaired audio and text data to train an ASR system and a TTS system jointly, where one is generating training paired data for the other [Tjandra 2019, Hori 2019, Baskar 2019]. This family of self-supervised methods can be viewed as auto-encoders of speech signals through latent text representations. Effective use of external language models falls into this category to regularize the text representations.</li></ul><h2 id="Workshop-ICML-2019-Self-Supervised-Learning"><a href="#Workshop-ICML-2019-Self-Supervised-Learning" class="headerlink" title="Workshop - ICML 2019 Self-Supervised Learning"></a>Workshop - ICML 2019 Self-Supervised Learning</h2><p>Big data has driven a revolution to many domains of machine learning thanks to modern high-capacity models, but the standard approaches – supervised learning from labels, or reinforcement learning from a reward function – have become a bottleneck. </p><p>Even when data is abundant, getting the labels or rewards that specify exactly what the model must do is often intractable. Collecting simple category labels for classification is prohibitive for millions of billions of examples, and structured outputs (scene interpretations, interactions, demonstrations) are far worse, especially when the data distribution is non-stationary.</p><p><strong>Self-supervised learning</strong> is a promising alternative where proxy tasks are developed that allow models and agents to learn without explicit supervision in a way that helps with downstream performance on tasks of interest. One of the major benefits of self-supervised learning is increasing data efficiency: achieving comparable or better performance with less labeled data or fewer environment steps (in Reinforcement learning / Robotics).</p><p>The field of self-supervised learning (SSL) is rapidly evolving, and the performance of these methods is creeping closer to the fully supervised approaches. However, many of these methods are still developed in domain-specific sub-communities, such as Vision, RL and NLP, even though many similarities exist between them. While SSL is an emerging topic and there is great interest in these techniques, there are currently few workshops, tutorials or other scientific events dedicated to this topic.</p><p>This workshop aims to bring together experts with different backgrounds and applications areas to share inter-domain ideas and increase cross-pollination, tackle current shortcomings and explore new directions. The focus will be on the machine learning point of view rather than the domain side.</p><h2 id="ICML-2020-Self-supervision-in-Audio-and-Speech"><a href="#ICML-2020-Self-supervision-in-Audio-and-Speech" class="headerlink" title="ICML 2020 Self-supervision in Audio and Speech"></a>ICML 2020 Self-supervision in Audio and Speech</h2><p>The ongoing success of deep learning techniques depends on the quality of the representations automatically discovered from data. </p><p><strong>These representations must capture important underlying structures from the raw input, e.g., intermediate concepts, features, or latent variables that are useful for the downstream task</strong>. </p><p>While supervised learning using large annotated corpora can leverage useful representations, collecting large amounts of annotated examples is costly, time-consuming, and not always feasible. </p><p>This is particularly problematic for a large variety of applications. In the speech domain, for instance, there are many low-resource languages, where the progress is dramatically slower than in high-resource languages such as English. Moreover, annotations are often underspecified for many potential downstream applications, and the related supervised representations might be biased towards the task they are trained on, limiting their exportability to other applications 2.</p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="https://docs.google.com/presentation/d/1qq8t8a3decJfJyA6t9wCRJfNDkvAnbg1WxTFvx0hG4g/edit?usp=sharing" target="_blank" rel="noopener">NTU 2020 Spring ML Self-Supervised Learning slide, vpn</a></p><p>[2] <a href="https://self-supervised-sp.github.io/Interspeech2020-Special-Session" target="_blank" rel="noopener">interspeech2020: New Trends in self-supervised speech processing</a></p><p>[3] <a href="https://icml-sas.gitlab.io/" target="_blank" rel="noopener">ICML 2020 Self-supervision in Audio and Speech</a></p><p>[4] <a href="https://sites.google.com/view/self-supervised-icml2019" target="_blank" rel="noopener">Workshop - ICML 2019 Self-Supervised Learning</a></p><p>[5] <a href="https://www.bilibili.com/video/BV1oD4y1D7V2" target="_blank" rel="noopener">[CVPR2020 Tutorial] Talk#5 Self-supervised Learning by Licheng, Yen-Chun, Linjie</a></p>]]></content>
     
     
     <categories>
@@ -237,11 +287,11 @@
   
   
   <entry>
-    <title>【毕业要紧】 TTS &amp; VC Resources</title>
-    <link href="/2020/07/03/009_tts_vc_tips/"/>
-    <url>/2020/07/03/009_tts_vc_tips/</url>
+    <title>【毕业要紧】 Word Embedding Resources</title>
+    <link href="/2020/07/03/010_NLP/"/>
+    <url>/2020/07/03/010_NLP/</url>
     
-    <content type="html"><![CDATA[<h2 id="TTS-vs-VC"><a href="#TTS-vs-VC" class="headerlink" title="TTS vs VC"></a>TTS vs VC</h2><p><strong>Voice Conversion, VC</strong>: 语音转换处理的问题是输入一段声音，输出另外一段声音，但这两段声音有些不同，一般我们希望保留声音的内容，改变说话者的音色</p><p>Voice conversion (VC) is a technique to modify the speech from source speaker to make it sound like being uttered by target speaker while keeping the linguistic content unchanged</p><p><strong>Text to Speech, TTS</strong>: 文字转语音系统是将一般语言的文字转换为语音。输入一段文本，输出一段语音</p><h2 id="Toolkits"><a href="#Toolkits" class="headerlink" title="Toolkits"></a>Toolkits</h2><h3 id="Pytorch-WaveNet-vocoder"><a href="#Pytorch-WaveNet-vocoder" class="headerlink" title="Pytorch WaveNet vocoder"></a><a href="https://github.com/r9y9/wavenet_vocoder" target="_blank" rel="noopener">Pytorch WaveNet vocoder</a></h3><p>The goal of the repository is to provide an implementation of the WaveNet vocoder, which can generate high quality raw speech samples conditioned on linguistic or acoustic features.</p><h3 id="Pytorch-tacotron2"><a href="#Pytorch-tacotron2" class="headerlink" title="Pytorch tacotron2"></a><a href="https://github.com/NVIDIA/tacotron2" target="_blank" rel="noopener">Pytorch tacotron2</a></h3><p>PyTorch implementation of Natural TTS Synthesis By Conditioning Wavenet On Mel Spectrogram Predictions.</p><p>This implementation includes distributed and automatic mixed precision support and uses the LJSpeech dataset.</p><p>Distributed and Automatic Mixed Precision support relies on NVIDIA’s Apex and AMP.</p><h3 id="Pytorch-waveglow"><a href="#Pytorch-waveglow" class="headerlink" title="Pytorch waveglow"></a><a href="https://github.com/NVIDIA/waveglow/tree/master" target="_blank" rel="noopener">Pytorch waveglow</a></h3><p>WaveGlow combines insights from Glow and WaveNet in order to provide fast, efficient and high-quality audio synthesis, without the need for auto-regression.</p><h3 id="Pytorch-MelGan-official"><a href="#Pytorch-MelGan-official" class="headerlink" title="Pytorch MelGan (official)"></a><a href="https://github.com/descriptinc/melgan-neurips" target="_blank" rel="noopener">Pytorch MelGan (official)</a></h3><p>Train GANs reliably to generate high quality coherent waveforms by introducing a set of architectural changes and simple training techniques. </p><h2 id="VC-articles-amp-Papers"><a href="#VC-articles-amp-Papers" class="headerlink" title="VC articles &amp; Papers"></a>VC articles &amp; Papers</h2><h3 id="陆军工程大学-语音转换技术研究现状及展望-2019"><a href="#陆军工程大学-语音转换技术研究现状及展望-2019" class="headerlink" title="陆军工程大学-语音转换技术研究现状及展望(2019)"></a><a href="http://sjcj.nuaa.edu.cn/sjcjycl/article/html/201905001" target="_blank" rel="noopener">陆军工程大学-语音转换技术研究现状及展望(2019)</a></h3><p>语音转换通常是指将一个人的声音个性化特征通过“修改变换”，使之听起来像另外一个人的声音，同时保持说话内容信息不变。近年来，随着信息处理和机器学习技术的快速发展，语音转换技术也得到了突飞猛进的进步。为此，在简要介绍语音转换基本概念的基础上，重点综述了近几年语音转换的典型模型和方法，分析了语音转换的关键技术，列举了语音转换技术的主要应用场景，梳理了目前语音转换中仍存在的若干技术问题，并展望了语音转换研究的发展方向。</p><h3 id="An-overview-of-voice-conversion-systems-2017"><a href="#An-overview-of-voice-conversion-systems-2017" class="headerlink" title="An overview of voice conversion systems(2017)"></a><a href="https://www.sciencedirect.com/science/article/abs/pii/S0167639315300698" target="_blank" rel="noopener">An overview of voice conversion systems(2017)</a></h3><p>Voice transformation (VT) aims to change one or more aspects of a speech signal while preserving lin- guistic information. A subset of VT, Voice conversion (VC) specifically aims to change a source speaker’s speech in such a way that the generated output is perceived as a sentence uttered by a target speaker. Despite many years of research, VC systems still exhibit deficiencies in accurately mimicking a target speaker spectrally and prosodically, and simultaneously maintaining high speech quality. In this work we provide an overview of real-world applications, extensively study existing systems proposed in the literature, and discuss remaining challenges.</p><h3 id="Maigo-语音转换技术综述-2019"><a href="#Maigo-语音转换技术综述-2019" class="headerlink" title="Maigo-语音转换技术综述(2019)"></a><a href="https://zhuanlan.zhihu.com/p/89763124" target="_blank" rel="noopener">Maigo-语音转换技术综述(2019)</a></h3><p>i-vector 与 PLDA 的数学推导是出了名的复杂，我曾在 2011 年的夏天推导过一个多星期。在这里，我尽可能避开数学细节，用最简洁的语言引入相关概念和方法。</p><h4 id="几种传统的语音转换方法"><a href="#几种传统的语音转换方法" class="headerlink" title="几种传统的语音转换方法"></a>几种传统的语音转换方法</h4><ul><li>高斯混合模型（Gaussian mixture models, GMM）</li><li>频率弯折法（frequency warping）</li><li>基于样例的方法（exemplar-based method）</li></ul><h4 id="几种现代的语音转换方法"><a href="#几种现代的语音转换方法" class="headerlink" title="几种现代的语音转换方法"></a>几种现代的语音转换方法</h4><ul><li>生成对抗式网络（generative adversarial networks, GAN）</li><li>i-vector + PLDA（probabilistic linear discriminant analysis）</li><li>自编码器（autoencoders）</li></ul><h2 id="TTS-articles-amp-Papers"><a href="#TTS-articles-amp-Papers" class="headerlink" title="TTS articles &amp; Papers"></a>TTS articles &amp; Papers</h2><h3 id="清华大学王东老师-TTS"><a href="#清华大学王东老师-TTS" class="headerlink" title="清华大学王东老师-TTS"></a><a href="http://cslt.riit.tsinghua.edu.cn/mediawiki/images/a/a8/Tts.pdf" target="_blank" rel="noopener">清华大学王东老师-TTS</a></h3>]]></content>
+    <content type="html"><![CDATA[<p>one-hot 编码存在的⼀个主要问题是它⽆法表示出词汇间的相似度。</p>]]></content>
     
     
     <categories>
@@ -262,11 +312,11 @@
   
   
   <entry>
-    <title>【毕业要紧】 Word Embedding Resources</title>
-    <link href="/2020/07/03/010_NLP/"/>
-    <url>/2020/07/03/010_NLP/</url>
+    <title>【毕业要紧】 TTS &amp; VC Resources</title>
+    <link href="/2020/07/03/009_tts_vc_tips/"/>
+    <url>/2020/07/03/009_tts_vc_tips/</url>
     
-    <content type="html"><![CDATA[<p>one-hot 编码存在的⼀个主要问题是它⽆法表示出词汇间的相似度。</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="TTS-vs-VC"><a href="#TTS-vs-VC" class="headerlink" title="TTS vs VC"></a>TTS vs VC</h2><p><strong>Voice Conversion, VC</strong>: 语音转换处理的问题是输入一段声音，输出另外一段声音，但这两段声音有些不同，一般我们希望保留声音的内容，改变说话者的音色</p><p>Voice conversion (VC) is a technique to modify the speech from source speaker to make it sound like being uttered by target speaker while keeping the linguistic content unchanged</p><p><strong>Text to Speech, TTS</strong>: 文字转语音系统是将一般语言的文字转换为语音。输入一段文本，输出一段语音</p><h2 id="Toolkits"><a href="#Toolkits" class="headerlink" title="Toolkits"></a>Toolkits</h2><h3 id="Pytorch-WaveNet-vocoder"><a href="#Pytorch-WaveNet-vocoder" class="headerlink" title="Pytorch WaveNet vocoder"></a><a href="https://github.com/r9y9/wavenet_vocoder" target="_blank" rel="noopener">Pytorch WaveNet vocoder</a></h3><p>The goal of the repository is to provide an implementation of the WaveNet vocoder, which can generate high quality raw speech samples conditioned on linguistic or acoustic features.</p><h3 id="Pytorch-tacotron2"><a href="#Pytorch-tacotron2" class="headerlink" title="Pytorch tacotron2"></a><a href="https://github.com/NVIDIA/tacotron2" target="_blank" rel="noopener">Pytorch tacotron2</a></h3><p>PyTorch implementation of Natural TTS Synthesis By Conditioning Wavenet On Mel Spectrogram Predictions.</p><p>This implementation includes distributed and automatic mixed precision support and uses the LJSpeech dataset.</p><p>Distributed and Automatic Mixed Precision support relies on NVIDIA’s Apex and AMP.</p><h3 id="Pytorch-waveglow"><a href="#Pytorch-waveglow" class="headerlink" title="Pytorch waveglow"></a><a href="https://github.com/NVIDIA/waveglow/tree/master" target="_blank" rel="noopener">Pytorch waveglow</a></h3><p>WaveGlow combines insights from Glow and WaveNet in order to provide fast, efficient and high-quality audio synthesis, without the need for auto-regression.</p><h3 id="Pytorch-MelGan-official"><a href="#Pytorch-MelGan-official" class="headerlink" title="Pytorch MelGan (official)"></a><a href="https://github.com/descriptinc/melgan-neurips" target="_blank" rel="noopener">Pytorch MelGan (official)</a></h3><p>Train GANs reliably to generate high quality coherent waveforms by introducing a set of architectural changes and simple training techniques. </p><h2 id="VC-articles-amp-Papers"><a href="#VC-articles-amp-Papers" class="headerlink" title="VC articles &amp; Papers"></a>VC articles &amp; Papers</h2><h3 id="陆军工程大学-语音转换技术研究现状及展望-2019"><a href="#陆军工程大学-语音转换技术研究现状及展望-2019" class="headerlink" title="陆军工程大学-语音转换技术研究现状及展望(2019)"></a><a href="http://sjcj.nuaa.edu.cn/sjcjycl/article/html/201905001" target="_blank" rel="noopener">陆军工程大学-语音转换技术研究现状及展望(2019)</a></h3><p>语音转换通常是指将一个人的声音个性化特征通过“修改变换”，使之听起来像另外一个人的声音，同时保持说话内容信息不变。近年来，随着信息处理和机器学习技术的快速发展，语音转换技术也得到了突飞猛进的进步。为此，在简要介绍语音转换基本概念的基础上，重点综述了近几年语音转换的典型模型和方法，分析了语音转换的关键技术，列举了语音转换技术的主要应用场景，梳理了目前语音转换中仍存在的若干技术问题，并展望了语音转换研究的发展方向。</p><h3 id="An-overview-of-voice-conversion-systems-2017"><a href="#An-overview-of-voice-conversion-systems-2017" class="headerlink" title="An overview of voice conversion systems(2017)"></a><a href="https://www.sciencedirect.com/science/article/abs/pii/S0167639315300698" target="_blank" rel="noopener">An overview of voice conversion systems(2017)</a></h3><p>Voice transformation (VT) aims to change one or more aspects of a speech signal while preserving lin- guistic information. A subset of VT, Voice conversion (VC) specifically aims to change a source speaker’s speech in such a way that the generated output is perceived as a sentence uttered by a target speaker. Despite many years of research, VC systems still exhibit deficiencies in accurately mimicking a target speaker spectrally and prosodically, and simultaneously maintaining high speech quality. In this work we provide an overview of real-world applications, extensively study existing systems proposed in the literature, and discuss remaining challenges.</p><h3 id="Maigo-语音转换技术综述-2019"><a href="#Maigo-语音转换技术综述-2019" class="headerlink" title="Maigo-语音转换技术综述(2019)"></a><a href="https://zhuanlan.zhihu.com/p/89763124" target="_blank" rel="noopener">Maigo-语音转换技术综述(2019)</a></h3><p>i-vector 与 PLDA 的数学推导是出了名的复杂，我曾在 2011 年的夏天推导过一个多星期。在这里，我尽可能避开数学细节，用最简洁的语言引入相关概念和方法。</p><h4 id="几种传统的语音转换方法"><a href="#几种传统的语音转换方法" class="headerlink" title="几种传统的语音转换方法"></a>几种传统的语音转换方法</h4><ul><li>高斯混合模型（Gaussian mixture models, GMM）</li><li>频率弯折法（frequency warping）</li><li>基于样例的方法（exemplar-based method）</li></ul><h4 id="几种现代的语音转换方法"><a href="#几种现代的语音转换方法" class="headerlink" title="几种现代的语音转换方法"></a>几种现代的语音转换方法</h4><ul><li>生成对抗式网络（generative adversarial networks, GAN）</li><li>i-vector + PLDA（probabilistic linear discriminant analysis）</li><li>自编码器（autoencoders）</li></ul><h2 id="TTS-articles-amp-Papers"><a href="#TTS-articles-amp-Papers" class="headerlink" title="TTS articles &amp; Papers"></a>TTS articles &amp; Papers</h2><h3 id="清华大学王东老师-TTS"><a href="#清华大学王东老师-TTS" class="headerlink" title="清华大学王东老师-TTS"></a><a href="http://cslt.riit.tsinghua.edu.cn/mediawiki/images/a/a8/Tts.pdf" target="_blank" rel="noopener">清华大学王东老师-TTS</a></h3>]]></content>
     
     
     <categories>
@@ -393,16 +443,16 @@
   
   
   <entry>
-    <title>Linear Discriminant Analysis</title>
-    <link href="/2020/06/14/200614_Linear_Discriminant_Analysis/"/>
-    <url>/2020/06/14/200614_Linear_Discriminant_Analysis/</url>
+    <title>DNF 模型</title>
+    <link href="/2020/06/16/003_DNF/"/>
+    <url>/2020/06/16/003_DNF/</url>
     
-    <content type="html"><![CDATA[<p>线性判别分析（Linear Discriminant Analysis，LDA）是一种经典的线性分类方法。LDA是一种有监督的线性分类算法。LDA的基本思想是将数据投影到低维空间后，使得：<strong>同一类数据尽可能接近，不同类数据尽可能疏远</strong>。在对新样本进行分类时，将其投影到同样的低维空间上，再根据投影点的位置来确定新样本的类别。</p><p><img src="https://wx1.sbimg.cn/2020/06/14/lda.png" srcset="/img/loading.gif" alt="avatar"></p><p>值得一提的是，LDA 可从贝时斯决策理论的角度来阐释，并可证明，当两类数据同先验、满足高斯分布且协方差相等时，LDA 可达到最优分类。</p><h2 id="Fisher-discriminant-criterion"><a href="#Fisher-discriminant-criterion" class="headerlink" title="Fisher discriminant criterion"></a>Fisher discriminant criterion</h2><ol><li>$X_i$ 表示 $i$ 类示例的集合</li><li>$N$ 表示有 $N$ 类，且第 $i$ 类的样本数为 $N_i$</li><li>$n$ 表示总共有 $n$ 个数据</li><li>$\mu_i$ 表示 $i$ 类示例的均值向量，$\mu$ 表示总的均值向量</li><li>$\Sigma_i$ 表示 $i$ 类示例的协方差矩阵</li><li>$S_w$ 表示类内散度矩阵（within-class scatter matrix）</li><li>$S_b$ 表示类间散度矩阵（between-class scatter matrix）</li><li>$S_t$ 表示全局散度矩阵</li><li>$w$ 为变换矩阵</li><li>$J(w)$ 是最大目标Fisher判别准则</li></ol><p>$$\boldsymbol{\mu_i} = \frac{1}{N_i} \sum_{\boldsymbol{x} \in X_i}\boldsymbol{x}$$</p><p>$$\Sigma_i = \sum_{\boldsymbol{x} \in X_i}(\boldsymbol{x}-\boldsymbol{\mu_i})(\boldsymbol{x}-\boldsymbol{\mu_i})^T$$</p><p>$$S_w = \sum^N_{i=1}S_{w_i} = \sum^N_{i=1}\Sigma_i = \sum^N_{i=1}\sum_{\boldsymbol{x} \in X_i}(\boldsymbol{x}-\boldsymbol{\mu_i})(\boldsymbol{x}-\boldsymbol{\mu_i})^T$$</p><p>$$S_b = S_t - S_w = \sum^N_{i=1}N_i(\boldsymbol{\mu_i}-\boldsymbol{\mu})(\boldsymbol{\mu_i}-\boldsymbol{\mu})^T$$</p><p>$$S_t = S_b + S_w =\sum_{i=1}^{n}(\boldsymbol{x_i}-\boldsymbol{\mu})(\boldsymbol{x_i}-\boldsymbol{\mu})^T$$</p><p>$$J(w) = \frac{w^TS_bw}{w^TS_ww}$$</p><p>优化目标推导过程</p><p>$$ \frac{\mathrm{d}J(w)}{\mathrm{d}w} = 0 $$</p><p>$$<br>\frac{\mathrm{d}J(w)}{\mathrm{d}w} = \frac{\mathrm{d}}{\mathrm{d}w}(\frac{w^TS_bw}{w^TS_ww}) =<br>$$</p><p><img src="https://wx2.sbimg.cn/2020/06/14/lda_s.png" srcset="/img/loading.gif" alt="avatar"></p><p>多分类 LDA 可以有多种实现方法：使用 $S_b$, $S_w$ , $S_t$ 三者中的任何两个即可</p><h2 id="LDA-算法的训练流程"><a href="#LDA-算法的训练流程" class="headerlink" title="LDA 算法的训练流程"></a>LDA 算法的训练流程</h2><ol><li>计算类内散度矩阵 $S_w$</li><li>计算类间散度矩阵 $S_b$</li><li>计算矩阵 $S_w^{-1}S_b$</li><li>计算矩阵 $S_w^{-1}S_b$ 的特征值与特征向量，按从小到大的顺序选取前 $d$ 个特征值和对应的 $d$ 个特征向量，得到投影矩阵 $w$</li></ol><h2 id="sklearn包-LDA-的使用"><a href="#sklearn包-LDA-的使用" class="headerlink" title="sklearn包 LDA 的使用"></a>sklearn包 LDA 的使用</h2><pre><code class="hljs Python"><span class="hljs-keyword">from</span> sklearn.discriminant_analysis <span class="hljs-keyword">import</span> LinearDiscriminantAnalysis <span class="hljs-keyword">as</span> LDAlda = LDA(solver=<span class="hljs-string">'svd'</span>, n_components=LDA_components)<span class="hljs-comment"># fit</span>lda.fit(train_data, train_label)<span class="hljs-comment"># transform</span>train_data = lda.transform(train_data)test_data = lda.transform(test_data)</code></pre><h2 id="LDA-Python-代码实现"><a href="#LDA-Python-代码实现" class="headerlink" title="LDA Python 代码实现"></a>LDA Python 代码实现</h2><h2 id="相关论文"><a href="#相关论文" class="headerlink" title="相关论文"></a>相关论文</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="http://wangd.cslt.org/teach/speech-processing/3.2-SA-LDA.ppt" target="_blank" rel="noopener">CSLT-THU王东老师PPT-Static Analysis: LDA</a></p><p>[2] <a href="">西瓜书-线性判别分析</a></p><p>[3] <a href="http://166.111.134.19:7777/mlbook/" target="_blank" rel="noopener">CSLT-THU王东老师-现代机器学习导论</a></p><p>[4] <a href="https://mp.weixin.qq.com/s/PZpEtcdiPUxIv6M3sGOaGA" target="_blank" rel="noopener">机器学习实验室微信公众号-数学推导LDA线性判别分析</a></p><p>[5] <a href="https://www.cnblogs.com/timlong/p/11403709.html" target="_blank" rel="noopener">博客园-LDA</a></p><p>[6] <a href="https://zhuanlan.zhihu.com/p/79696530" target="_blank" rel="noopener">知乎-线性判别分析LDA原理及推导过程（非常详细）</a></p><p>[7] <a href="https://www.bilibili.com/video/BV15t411v7Pg?p=7" target="_blank" rel="noopener">THU袁博老师数据挖掘课程-数据预处理PPT</a></p><p>[8] <a href="https://zhuanlan.zhihu.com/p/33742983" target="_blank" rel="noopener">知乎-Fisher判别分析(Fisher Discriminant Analysis)</a></p>]]></content>
+    <content type="html"><![CDATA[]]></content>
     
     
     <categories>
       
-      <category>backends</category>
+      <category>flows</category>
       
     </categories>
     
@@ -413,6 +463,8 @@
       
       <tag>笔记</tag>
       
+      <tag>深度学习</tag>
+      
     </tags>
     
   </entry>
@@ -421,8 +473,8 @@
   
   <entry>
     <title>DNF 模型的Pytorch实现</title>
-    <link href="/2020/06/12/005_DNF_implement/"/>
-    <url>/2020/06/12/005_DNF_implement/</url>
+    <link href="/2020/06/16/005_DNF_implement/"/>
+    <url>/2020/06/16/005_DNF_implement/</url>
     
     <content type="html"><![CDATA[]]></content>
     
@@ -450,8 +502,8 @@
   
   <entry>
     <title>flow 模型的Pytorch实现</title>
-    <link href="/2020/06/12/004_flow_implement/"/>
-    <url>/2020/06/12/004_flow_implement/</url>
+    <link href="/2020/06/16/004_flow_implement/"/>
+    <url>/2020/06/16/004_flow_implement/</url>
     
     <content type="html"><![CDATA[]]></content>
     
@@ -478,16 +530,16 @@
   
   
   <entry>
-    <title>DNF 模型</title>
-    <link href="/2020/06/12/003_DNF/"/>
-    <url>/2020/06/12/003_DNF/</url>
+    <title>Linear Discriminant Analysis</title>
+    <link href="/2020/06/14/200614_Linear_Discriminant_Analysis/"/>
+    <url>/2020/06/14/200614_Linear_Discriminant_Analysis/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<p>线性判别分析（Linear Discriminant Analysis，LDA）是一种经典的线性分类方法。LDA是一种有监督的线性分类算法。LDA的基本思想是将数据投影到低维空间后，使得：<strong>同一类数据尽可能接近，不同类数据尽可能疏远</strong>。在对新样本进行分类时，将其投影到同样的低维空间上，再根据投影点的位置来确定新样本的类别。</p><p><img src="https://wx1.sbimg.cn/2020/06/14/lda.png" srcset="/img/loading.gif" alt="avatar"></p><p>值得一提的是，LDA 可从贝时斯决策理论的角度来阐释，并可证明，当两类数据同先验、满足高斯分布且协方差相等时，LDA 可达到最优分类。</p><h2 id="Fisher-discriminant-criterion"><a href="#Fisher-discriminant-criterion" class="headerlink" title="Fisher discriminant criterion"></a>Fisher discriminant criterion</h2><ol><li>$X_i$ 表示 $i$ 类示例的集合</li><li>$N$ 表示有 $N$ 类，且第 $i$ 类的样本数为 $N_i$</li><li>$n$ 表示总共有 $n$ 个数据</li><li>$\mu_i$ 表示 $i$ 类示例的均值向量，$\mu$ 表示总的均值向量</li><li>$\Sigma_i$ 表示 $i$ 类示例的协方差矩阵</li><li>$S_w$ 表示类内散度矩阵（within-class scatter matrix）</li><li>$S_b$ 表示类间散度矩阵（between-class scatter matrix）</li><li>$S_t$ 表示全局散度矩阵</li><li>$w$ 为变换矩阵</li><li>$J(w)$ 是最大目标Fisher判别准则</li></ol><p>$$\boldsymbol{\mu_i} = \frac{1}{N_i} \sum_{\boldsymbol{x} \in X_i}\boldsymbol{x}$$</p><p>$$\Sigma_i = \sum_{\boldsymbol{x} \in X_i}(\boldsymbol{x}-\boldsymbol{\mu_i})(\boldsymbol{x}-\boldsymbol{\mu_i})^T$$</p><p>$$S_w = \sum^N_{i=1}S_{w_i} = \sum^N_{i=1}\Sigma_i = \sum^N_{i=1}\sum_{\boldsymbol{x} \in X_i}(\boldsymbol{x}-\boldsymbol{\mu_i})(\boldsymbol{x}-\boldsymbol{\mu_i})^T$$</p><p>$$S_b = S_t - S_w = \sum^N_{i=1}N_i(\boldsymbol{\mu_i}-\boldsymbol{\mu})(\boldsymbol{\mu_i}-\boldsymbol{\mu})^T$$</p><p>$$S_t = S_b + S_w =\sum_{i=1}^{n}(\boldsymbol{x_i}-\boldsymbol{\mu})(\boldsymbol{x_i}-\boldsymbol{\mu})^T$$</p><p>$$J(w) = \frac{w^TS_bw}{w^TS_ww}$$</p><p>优化目标推导过程</p><p>$$ \frac{\mathrm{d}J(w)}{\mathrm{d}w} = 0 $$</p><p>$$<br>\frac{\mathrm{d}J(w)}{\mathrm{d}w} = \frac{\mathrm{d}}{\mathrm{d}w}(\frac{w^TS_bw}{w^TS_ww}) =<br>$$</p><p><img src="https://wx2.sbimg.cn/2020/06/14/lda_s.png" srcset="/img/loading.gif" alt="avatar"></p><p>多分类 LDA 可以有多种实现方法：使用 $S_b$, $S_w$ , $S_t$ 三者中的任何两个即可</p><h2 id="LDA-算法的训练流程"><a href="#LDA-算法的训练流程" class="headerlink" title="LDA 算法的训练流程"></a>LDA 算法的训练流程</h2><ol><li>计算类内散度矩阵 $S_w$</li><li>计算类间散度矩阵 $S_b$</li><li>计算矩阵 $S_w^{-1}S_b$</li><li>计算矩阵 $S_w^{-1}S_b$ 的特征值与特征向量，按从小到大的顺序选取前 $d$ 个特征值和对应的 $d$ 个特征向量，得到投影矩阵 $w$</li></ol><h2 id="sklearn包-LDA-的使用"><a href="#sklearn包-LDA-的使用" class="headerlink" title="sklearn包 LDA 的使用"></a>sklearn包 LDA 的使用</h2><pre><code class="hljs Python"><span class="hljs-keyword">from</span> sklearn.discriminant_analysis <span class="hljs-keyword">import</span> LinearDiscriminantAnalysis <span class="hljs-keyword">as</span> LDAlda = LDA(solver=<span class="hljs-string">'svd'</span>, n_components=LDA_components)<span class="hljs-comment"># fit</span>lda.fit(train_data, train_label)<span class="hljs-comment"># transform</span>train_data = lda.transform(train_data)test_data = lda.transform(test_data)</code></pre><h2 id="LDA-Python-代码实现"><a href="#LDA-Python-代码实现" class="headerlink" title="LDA Python 代码实现"></a>LDA Python 代码实现</h2><h2 id="相关论文"><a href="#相关论文" class="headerlink" title="相关论文"></a>相关论文</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="http://wangd.cslt.org/teach/speech-processing/3.2-SA-LDA.ppt" target="_blank" rel="noopener">CSLT-THU王东老师PPT-Static Analysis: LDA</a></p><p>[2] <a href="">西瓜书-线性判别分析</a></p><p>[3] <a href="http://166.111.134.19:7777/mlbook/" target="_blank" rel="noopener">CSLT-THU王东老师-现代机器学习导论</a></p><p>[4] <a href="https://mp.weixin.qq.com/s/PZpEtcdiPUxIv6M3sGOaGA" target="_blank" rel="noopener">机器学习实验室微信公众号-数学推导LDA线性判别分析</a></p><p>[5] <a href="https://www.cnblogs.com/timlong/p/11403709.html" target="_blank" rel="noopener">博客园-LDA</a></p><p>[6] <a href="https://zhuanlan.zhihu.com/p/79696530" target="_blank" rel="noopener">知乎-线性判别分析LDA原理及推导过程（非常详细）</a></p><p>[7] <a href="https://www.bilibili.com/video/BV15t411v7Pg?p=7" target="_blank" rel="noopener">THU袁博老师数据挖掘课程-数据预处理PPT</a></p><p>[8] <a href="https://zhuanlan.zhihu.com/p/33742983" target="_blank" rel="noopener">知乎-Fisher判别分析(Fisher Discriminant Analysis)</a></p>]]></content>
     
     
     <categories>
       
-      <category>flows</category>
+      <category>backends</category>
       
     </categories>
     
@@ -497,8 +549,6 @@
       <tag>机器学习</tag>
       
       <tag>笔记</tag>
-      
-      <tag>深度学习</tag>
       
     </tags>
     
@@ -611,6 +661,35 @@
   
   
   <entry>
+    <title>FFT 板子</title>
+    <link href="/2020/05/31/200601_FFT/"/>
+    <url>/2020/05/31/200601_FFT/</url>
+    
+    <content type="html"><![CDATA[<h2 id="傅里叶变换-VS-离散傅里叶变换"><a href="#傅里叶变换-VS-离散傅里叶变换" class="headerlink" title="傅里叶变换 VS 离散傅里叶变换"></a>傅里叶变换 VS 离散傅里叶变换</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>板子</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数据结构</tag>
+      
+      <tag>算法</tag>
+      
+      <tag>板子</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>线段树</title>
     <link href="/2020/05/31/200531_segment_tree/"/>
     <url>/2020/05/31/200531_segment_tree/</url>
@@ -665,27 +744,21 @@
   
   
   <entry>
-    <title>FFT 板子</title>
-    <link href="/2020/05/31/200601_FFT/"/>
-    <url>/2020/05/31/200601_FFT/</url>
+    <title>生成式模型 VS 判别式模型</title>
+    <link href="/2020/05/30/200530_Difference_between_generative_model_and_discriminative_model/"/>
+    <url>/2020/05/30/200530_Difference_between_generative_model_and_discriminative_model/</url>
     
-    <content type="html"><![CDATA[<h2 id="傅里叶变换-VS-离散傅里叶变换"><a href="#傅里叶变换-VS-离散傅里叶变换" class="headerlink" title="傅里叶变换 VS 离散傅里叶变换"></a>傅里叶变换 VS 离散傅里叶变换</h2>]]></content>
+    <content type="html"><![CDATA[<h2 id="生成式模型-VS-判别式模型"><a href="#生成式模型-VS-判别式模型" class="headerlink" title="生成式模型 VS 判别式模型"></a>生成式模型 VS 判别式模型</h2><p><strong>Discriminative models</strong> learn the classification (hard or soft) boundary between classes. A discriminative model learns the conditional probability distribution p(y|x) - which you should read as “the probability of y given x”.</p><p><strong>Generative models</strong> model the distribution of individual classes. A generative model learns the joint probability distribution p(x,y)</p><p>生成模型是模拟这个结果是如何产生的,然后算出产生各个结果的概率。判别模型是发现各个结果之间的不同,不关心产生结果的过程。</p><p><img src="https://wx1.sbimg.cn/2020/05/30/diff_g_d.png" srcset="/img/loading.gif" alt="avatar"></p><h2 id="典型代表模型"><a href="#典型代表模型" class="headerlink" title="典型代表模型"></a>典型代表模型</h2><h3 id="生成式模型"><a href="#生成式模型" class="headerlink" title="生成式模型"></a>生成式模型</h3><ol><li>朴素贝叶斯</li><li>K紧邻（KNN）</li><li>混合高斯模型</li><li>隐马尔科夫模型（HMM）</li><li>贝叶斯网络</li><li>Sigmoid Belief Networks </li><li>马尔科夫随机场（Markov Random Fields）</li><li>深度信念网络（DBN）</li></ol><h3 id="判别式模型"><a href="#判别式模型" class="headerlink" title="判别式模型"></a>判别式模型</h3><ol><li>线性回归（Linear Regression）</li><li>逻辑斯蒂回归（Logistic Regression）</li><li>神经网络（NN）</li><li>支持向量机（SVM）</li><li>高斯过程（Gaussian Process）</li><li>条件随机场（CRF）</li><li>CART(Classification and Regression Tree)</li></ol><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="http://papers.nips.cc/paper/2020-on-discriminative-vs-generative-classifiers-a-comparison-of-logistic-regression-and-naive-bayes.pdf" target="_blank" rel="noopener">On Discriminative vs. Generative classifiers: A comparison of logistic regression and naive Bayes</a></p><p>[2] <a href="https://stackoverflow.com/questions/879432/what-is-the-difference-between-a-generative-and-a-discriminative-algorithm/879591#879591" target="_blank" rel="noopener">The difference between a generative and a discriminative algorithm?</a></p><p>[3] <a href="https://www.cnblogs.com/yejintianming00/p/9378810.html" target="_blank" rel="noopener">判别式模型与生成式模型</a></p>]]></content>
     
-    
-    <categories>
-      
-      <category>板子</category>
-      
-    </categories>
     
     
     <tags>
       
-      <tag>数据结构</tag>
+      <tag>机器学习</tag>
       
-      <tag>算法</tag>
+      <tag>笔记</tag>
       
-      <tag>板子</tag>
+      <tag>生成式模型</tag>
       
     </tags>
     
@@ -706,32 +779,9 @@
       
       <tag>机器学习</tag>
       
+      <tag>笔记</tag>
+      
       <tag>优化器</tag>
-      
-      <tag>笔记</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>生成式模型 VS 判别式模型</title>
-    <link href="/2020/05/30/200530_Difference_between_generative_model_and_discriminative_model/"/>
-    <url>/2020/05/30/200530_Difference_between_generative_model_and_discriminative_model/</url>
-    
-    <content type="html"><![CDATA[<h2 id="生成式模型-VS-判别式模型"><a href="#生成式模型-VS-判别式模型" class="headerlink" title="生成式模型 VS 判别式模型"></a>生成式模型 VS 判别式模型</h2><p><strong>Discriminative models</strong> learn the classification (hard or soft) boundary between classes. A discriminative model learns the conditional probability distribution p(y|x) - which you should read as “the probability of y given x”.</p><p><strong>Generative models</strong> model the distribution of individual classes. A generative model learns the joint probability distribution p(x,y)</p><p>生成模型是模拟这个结果是如何产生的,然后算出产生各个结果的概率。判别模型是发现各个结果之间的不同,不关心产生结果的过程。</p><p><img src="https://wx1.sbimg.cn/2020/05/30/diff_g_d.png" srcset="/img/loading.gif" alt="avatar"></p><h2 id="典型代表模型"><a href="#典型代表模型" class="headerlink" title="典型代表模型"></a>典型代表模型</h2><h3 id="生成式模型"><a href="#生成式模型" class="headerlink" title="生成式模型"></a>生成式模型</h3><ol><li>朴素贝叶斯</li><li>K紧邻（KNN）</li><li>混合高斯模型</li><li>隐马尔科夫模型（HMM）</li><li>贝叶斯网络</li><li>Sigmoid Belief Networks </li><li>马尔科夫随机场（Markov Random Fields）</li><li>深度信念网络（DBN）</li></ol><h3 id="判别式模型"><a href="#判别式模型" class="headerlink" title="判别式模型"></a>判别式模型</h3><ol><li>线性回归（Linear Regression）</li><li>逻辑斯蒂回归（Logistic Regression）</li><li>神经网络（NN）</li><li>支持向量机（SVM）</li><li>高斯过程（Gaussian Process）</li><li>条件随机场（CRF）</li><li>CART(Classification and Regression Tree)</li></ol><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="http://papers.nips.cc/paper/2020-on-discriminative-vs-generative-classifiers-a-comparison-of-logistic-regression-and-naive-bayes.pdf" target="_blank" rel="noopener">On Discriminative vs. Generative classifiers: A comparison of logistic regression and naive Bayes</a></p><p>[2] <a href="https://stackoverflow.com/questions/879432/what-is-the-difference-between-a-generative-and-a-discriminative-algorithm/879591#879591" target="_blank" rel="noopener">The difference between a generative and a discriminative algorithm?</a></p><p>[3] <a href="https://www.cnblogs.com/yejintianming00/p/9378810.html" target="_blank" rel="noopener">判别式模型与生成式模型</a></p>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>机器学习</tag>
-      
-      <tag>笔记</tag>
-      
-      <tag>生成式模型</tag>
       
     </tags>
     

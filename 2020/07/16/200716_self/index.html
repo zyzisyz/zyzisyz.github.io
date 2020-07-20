@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>flow 模型的Pytorch实现 - zyzisyz</title>
+  <title>Self-supervised speech representation for speaker embedding - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-06-12 17:52">
-      2020年6月12日 下午
+    <time datetime="2020-07-16 00:00">
+      2020年7月16日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      1.6k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      19
        分钟
     </span>
   
@@ -216,7 +216,85 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              
+              <h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Self-Supervised Pretrain model for speech feature extraction</p>
+<p><img src="https://wx2.sbimg.cn/2020/07/12/CuUHw.png" srcset="/img/loading.gif" alt="avatar"></p>
+<h3 id="Backgroud"><a href="#Backgroud" class="headerlink" title="Backgroud"></a>Backgroud</h3><p>在说话人识别任务中，第一步大多都是对语音进行<strong>声学特征提取</strong>，从语音信号中提取例如 mfcc, fbank 这样的声学特征。通过提取声学特征，一帧高维度的语音信号(waveform)可以号用一个12~40维向量简洁地表示出来；一整段语音信号，就被表示为这种向量的一个序列。例如，<strong>梅尔刻度 (Mel scale)</strong>是一种基于人耳对等距的音高(pitch)变化的感官判断而定的非线性频率刻度，它与频率关系如下:</p>
+<p>$$M(f) = 1125 \cdot ln(1+\frac{f}{700})$$</p>
+<p>这些传统的声学特征是根据人耳的感知机理，例如掩蔽效应，人为设计的特征提取方法。这类方法可能并不适用于计算机的模式识别，使用传统的声学特征用于说话人识别可能存在一定的不合理性。例如:</p>
+<ol>
+<li>声学特征提取过程中可能会存在一定的信息损失，导致识别性能降低。</li>
+<li>提取特征的过程中没有考虑人说话的上下文 context 信息。</li>
+<li>声学特征参数的选取往往依赖于人的经验。不同的参数设置，会导致不同的系统识别的性能。</li>
+</ol>
+<h3 id="What-is-self-supervised-learning"><a href="#What-is-self-supervised-learning" class="headerlink" title="What is self-supervised learning?"></a>What is self-supervised learning?</h3><p>最近，self-supervised learning 逐渐成为科研工作者们的关注重点。self-supervised learning 是无监督学习里的一类方法，主要是希望能够<strong>学习到一种通用的特征表达用于下游任务</strong></p>
+<p>Yann LeCun in AAAI2020</p>
+<blockquote>
+<p>in self-supervised learning, the systerm learns to predict part of its input from other parts of it input.</p>
+</blockquote>
+<ul>
+<li>Goal: Learning to represent the world before learning tasks.</li>
+<li>Predict any part of the input from any other part</li>
+<li>Predict the <strong>future</strong> from the <strong>recent past</strong></li>
+<li>Predict the <strong>past</strong> from the <strong>present</strong></li>
+<li>Predict the <strong>top</strong> from the <strong>bottom</strong></li>
+</ul>
+<p>什么是一个好的 Representation ?</p>
+<ol>
+<li>high-performing on a diverse set of downstream tasks using simple models</li>
+<li>useful in transfer learning with small amounts of data for a new task</li>
+</ol>
+<p>自监督学习已经在 CV 和 NLP 领域取得了极大的成功，以大名鼎鼎的 BERT 模型为例，它利用大规模无标注语料训练、获得文本的包含丰富语义信息的 Representation，然后将文本的语义表示在特定 NLP 任务中作微调后应用于该任务上。</p>
+<p>目前self-supervised learning的主要有如下方法：</p>
+<p><img src="https://wx1.sbimg.cn/2020/07/12/Cubk8.png" srcset="/img/loading.gif" alt="avatar"></p>
+<p>在 speech 领域，也有很多大佬进行了一系列的探索。从 interspeech2020 和 ICML2020 两个学术会议中，我们可以看出未来应该会有更多的大佬加入 self supervised learning 在 speech 领域的研究。</p>
+<ol>
+<li><a href="https://self-supervised-sp.github.io/Interspeech2020-Special-Session" target="_blank" rel="noopener">Interspeech2020 Special Session: New Trends in self-supervised speech processing</a></li>
+<li><a href="https://icml-sas.gitlab.io/" target="_blank" rel="noopener">ICML2020: Self-supervision in Audio and Speech</a></li>
+</ol>
+<h3 id="Contrastive-Predictive-Coding"><a href="#Contrastive-Predictive-Coding" class="headerlink" title="Contrastive Predictive Coding"></a>Contrastive Predictive Coding</h3><p>Contrastive Predictive Coding (CPC) 是由 Google DeepMind 出品的非常有代表性的自监督学习方法，可以用于语音、图片、文本以及强化学习。<strong>CPC的主要思想就是基于 context 信息的未来数据预测，以及通过采样的方式进行训练。</strong></p>
+<p><img src="https://wx2.sbimg.cn/2020/07/15/CZcoI.png" srcset="/img/loading.gif" alt="avatar"></p>
+<p>CPC 的出发点是最大化context vector $c$ 和数据输入 $x$ 之间的<strong>互信息（Mutual Information）</strong>，使得 $c$ 包含足够的原始数据信息，因而可以作为新的特征表示。互信息定义如下：</p>
+<p>$$MI(x;c) = \sum_{x,c}p(x,c)log\frac{p(x|c)}{p(x)}$$</p>
+<p>如果大量无监督但数据采样训练，最大化互信息，我们可以得到数据新的表征。非常值得一提的是，论文中对不同说话人表征在 $t-SNE$ 可视化图中展现出了不错的区分性。</p>
+<p><img src="https://wx2.sbimg.cn/2020/07/15/CZBTR.md.png" srcset="/img/loading.gif" alt="avatar"></p>
+<h3 id="WAV2VEC"><a href="#WAV2VEC" class="headerlink" title="WAV2VEC"></a>WAV2VEC</h3><p>依据 CPC 论文的思路，FaceBook FAIR 团队提出了 wav2vec 模型利用大量未标记的音频数据预训练的方法用于提高 ASR 系统的性能。预训练模型是在 Fairseq 工具包中的 PyTorch 中实现的。</p>
+<p><img src="https://wx2.sbimg.cn/2020/07/15/CZqK2.png" srcset="/img/loading.gif" alt="avatar"></p>
+<p>模型由两个卷积神经网络组成</p>
+<ul>
+<li><strong>Encoder Network</strong> $x \rightarrow z$ : embeds the audio signal in a latent space</li>
+<li><strong>Context Network</strong> $z \rightarrow c$ : combines multiple time-steps of the encoder to obtain contextualized representations</li>
+</ul>
+<p>与 CPC 原论文里略有不同的是，在 Context Network 上，wav2vec 采用的是卷积神经网络，而 CPC 采用的 Autoregressive Model 自回归模型，因此在 infer 的速度上 wav2vec 会更快。</p>
+<p>预训练结束后，将上下文网络 $c_i$ 生成的表示形式作为声学特征输入，而不是使用 log-mel 滤波器组特征。</p>
+<h3 id="Self-Supervised-Feature-for-Speaker-Recongnition"><a href="#Self-Supervised-Feature-for-Speaker-Recongnition" class="headerlink" title="Self-Supervised Feature for Speaker Recongnition"></a>Self-Supervised Feature for Speaker Recongnition</h3><p>我想使用 self supervised learning 的方法改进当前说话人识别系统。</p>
+<p>首先通过大量没有任何标注的语音数据，依据语音时序上的上下文 context 信息，使用神经网络去重新学一个更加合理 speech 的 representation。这类 self-supervised features 对语音信号前后关系有更好地建模。可以对于说话人长时性描述更强。之后我们通过预训练好的模型，对语音进行特征提取，新的声学特征将取代 mfcc 和 fbank 这类传统的声学特征，作为说话人模型对输入。我们利用这种新的特征，和传统 ivector 和 xvector 表征学习相互结合。</p>
+<p>总结来说就是使用预训练模型提取语音声学特征取代 mfcc 和 fbank 从而提高当前说话人识别系统的性能。预期可能取得如下结果:</p>
+<ol>
+<li>进一步提高当前的说话人识别系统的性能，成为新的STOA</li>
+<li>说话人训练数据在 low resources 的情况下取得更好的性能。例如 <code>self supervised feature＋100个spk数据集</code> 训练出来的模型性能约等于甚至好于 <code>mfcc＋500个spk数据集</code>训练出的模型。</li>
+<li>进一步提高当前anti-spoofing系统的性能</li>
+</ol>
+<h2 id="My-Experiment"><a href="#My-Experiment" class="headerlink" title="My Experiment"></a>My Experiment</h2><p>我的实验主要使用了如下两个工具:</p>
+<ol>
+<li><strong>fairseq</strong>: 它是一个由 facebook AI research 团队维护的 seq2seq 模型工具包，wav2vec 是 fairseq 内的一个子项目，其中同时开源了相关的一些预训练模型</li>
+<li><strong>kaldi</strong>: 它是一个主要由 Danney Povey 等人主要维护的语音工具包，其中包含了经典的说话人识别模型 (ivector, xvector等) 的全部 pipline 代码</li>
+</ol>
+<h3 id="Configs"><a href="#Configs" class="headerlink" title="Configs"></a>Configs</h3><p>为了快速验证这个想法，我在一个含有100个说话人的小规模的命令词数据集上，分别使用了几个不同的声学特征提取方法训练 ivector 模型。具体配置如下：</p>
+<ul>
+<li><strong>baseline mfcc ivector</strong>：</li>
+<li><strong>wav2vec c dvector</strong>: pretrain feature with average pooling</li>
+<li><strong>wav2vec c ivector</strong>:</li>
+<li><strong>wav2vec z ivector</strong>:</li>
+<li><strong>wav2vec_large c ivector</strong>:</li>
+<li><strong>wav2vec_large c ivector</strong>:</li>
+<li><strong>vq_wav2vec c ivector</strong>:</li>
+<li><strong>vq_wav2vec z ivector</strong>:</li>
+</ul>
+<h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><h3 id="Future-Work"><a href="#Future-Work" class="headerlink" title="Future Work"></a>Future Work</h3><h2 id="Other-Related-Work"><a href="#Other-Related-Work" class="headerlink" title="Other Related Work"></a>Other Related Work</h2><h2 id="Related-Toolkit"><a href="#Related-Toolkit" class="headerlink" title="Related Toolkit"></a>Related Toolkit</h2><ol>
+<li><a href="">Kaldi</a></li>
+<li><a href="">fairseq</a></li>
+</ol>
+
             </article>
             <hr>
             <div>
@@ -225,7 +303,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/flows/">flows</a>
+                      <a class="hover-with-bg" href="/categories/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
                     
                   </div>
                 
@@ -233,11 +311,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+                      <a class="hover-with-bg" href="/tags/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
                     
                   </div>
                 
@@ -248,18 +322,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/06/12/005_DNF_implement/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">DNF 模型的Pytorch实现</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/06/12/003_DNF/">
-                        <span class="hidden-mobile">DNF 模型</span>
+                      <a href="/2020/07/16/200716_kaldi_tips/">
+                        <span class="hidden-mobile">【毕业要紧】 Kaldi Tips</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -398,7 +466,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "flow 模型的Pytorch实现&nbsp;",
+        "Self-supervised speech representation for speaker embedding&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

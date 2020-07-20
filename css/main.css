@@ -314,8 +314,12 @@ post-content strong {
   display: none;
   box-shadow: 0 0 20px -5px rgba(158,158,158,0.2);
 }
-a.beian-icp {
-  font-weight: 300;
+footer > div > div:not(:first-child) {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+}
+.statistics > span:last-child {
+  margin: 0 0.35rem;
 }
 a.beian-police {
   position: relative;
@@ -334,7 +338,8 @@ a.beian-police img {
     display: none;
   }
 }
-sup > a::before {
+sup > a::before,
+.footnote-text::before {
   display: block;
   content: "";
   margin-top: -5rem;
@@ -342,7 +347,8 @@ sup > a::before {
   width: 1px;
   visibility: hidden;
 }
-sup > a::before {
+sup > a::before,
+.footnote-text::before {
   display: inline-block;
 }
 .footnote-item::before {
@@ -352,6 +358,23 @@ sup > a::before {
   height: 5rem;
   width: 1px;
   visibility: hidden;
+}
+.footnote-list ol {
+  list-style-type: none;
+  counter-reset: sectioncounter;
+  padding-left: 0.5rem;
+  font-size: 0.95rem;
+}
+.footnote-list ol li:before {
+  font-family: "Helvetica Neue", monospace, "Monaco";
+  content: "[" counter(sectioncounter) "]";
+  counter-increment: sectioncounter;
+}
+.footnote-list ol li+li {
+  margin-top: 0.5rem;
+}
+.footnote-text {
+  padding-left: 0.5em;
 }
 @-moz-keyframes fadeInUp {
   from {
@@ -1110,13 +1133,13 @@ h6::before {
 .mjx-char {
   line-height: 1;
 }
-mjx-container {
+.mjx-container {
   overflow-x: auto;
   overflow-y: hidden !important;
   padding: 0.5em 0;
 }
-mjx-container:focus,
-mjx-container svg:focus {
+.mjx-container:focus,
+.mjx-container svg:focus {
   outline: none;
 }
 @-moz-keyframes post-prev-anim {
