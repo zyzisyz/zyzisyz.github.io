@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      25
+      26
        分钟
     </span>
   
@@ -309,7 +309,7 @@
 <h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><h4 id="group-1-Average-Pooling-1"><a href="#group-1-Average-Pooling-1" class="headerlink" title="group 1: Average Pooling"></a>group 1: Average Pooling</h4><table>
 <thead>
 <tr>
-<th align="center"></th>
+<th align="center">Equel Error Rate</th>
 <th align="center">MFCC average</th>
 <th align="center">wav2vec c average</th>
 <th align="center">wav2vec z average</th>
@@ -337,7 +337,7 @@
 <h4 id="group-2-i-vector-1"><a href="#group-2-i-vector-1" class="headerlink" title="group 2: i-vector"></a>group 2: i-vector</h4><table>
 <thead>
 <tr>
-<th align="center"></th>
+<th align="center">Equel Error Rate</th>
 <th align="center">MFCC i-vector</th>
 <th align="center">wav2vec c i-vector</th>
 <th align="center">wav2vec z i-vector</th>
@@ -365,7 +365,7 @@
 <h4 id="group-3-x-vector-1"><a href="#group-3-x-vector-1" class="headerlink" title="group 3: x-vector"></a>group 3: x-vector</h4><table>
 <thead>
 <tr>
-<th align="center"></th>
+<th align="center">Equel Error Rate</th>
 <th align="center">MFCC x-vector</th>
 <th align="center">wav2vec c x-vector</th>
 <th align="center">wav2vec z x-vector</th>
@@ -373,24 +373,29 @@
 </thead>
 <tbody><tr>
 <td align="center">cosine</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">12.23 %</td>
+<td align="center">17.32 %</td>
+<td align="center"><strong>11.71 %</strong></td>
 </tr>
 <tr>
 <td align="center">PLDA</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">12.04 %</td>
+<td align="center">15.53 %</td>
+<td align="center"><strong>8.926 %</strong></td>
 </tr>
 <tr>
 <td align="center">LDA PLDA</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">11.48 %</td>
+<td align="center">11.71 %</td>
+<td align="center"><strong>8.784 %</strong></td>
 </tr>
 </tbody></table>
-<h4 id="T-SNE"><a href="#T-SNE" class="headerlink" title="T-SNE"></a>T-SNE</h4><h3 id="Future-Work"><a href="#Future-Work" class="headerlink" title="Future Work"></a>Future Work</h3><p>Only if Prof. Wu approve…</p>
+<h4 id="T-SNE"><a href="#T-SNE" class="headerlink" title="T-SNE"></a>T-SNE</h4><h3 id="Future-Work"><a href="#Future-Work" class="headerlink" title="Future Work"></a>Future Work</h3><ol>
+<li>voxceleb dataset</li>
+<li>center loss pretrain</li>
+<li>triplet loss pretrain</li>
+</ol>
+<p>Only if Prof. Wu approve…</p>
 <h2 id="Related-Toolkit"><a href="#Related-Toolkit" class="headerlink" title="Related Toolkit"></a>Related Toolkit</h2><ol>
 <li><a href="">Kaldi</a></li>
 <li><a href="">fairseq</a></li>
