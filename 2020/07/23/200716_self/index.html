@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-07-16 00:00">
-      2020年7月16日 凌晨
+    <time datetime="2020-07-23 00:00">
+      2020年7月23日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      2.3k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      26
+      29
        分钟
     </span>
   
@@ -216,7 +216,9 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Self-Supervised Pretrain model for speech feature extraction</p>
+              <h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Self-Supervised Pretrain model for speech feature extraction.</p>
+<p>Speech signals encompass a rich set of acoustic and linguistic properties, ranging from the individual lexical units, such as phonemes and words, to the characteristics of the speakers, their intent, or even their mental status. However, these highlevel properties of speech are poorly captured by the surface features, such as the amplitudes of a wave signal, log Mel spectrograms, or Mel frequency cepstral coefficients. </p>
+<p>The goal of speech representation learning is to find a transformation from the surface features that makes high-level properties of speech more accessible to downstream tasks.</p>
 <p><img src="https://wx2.sbimg.cn/2020/07/12/CuUHw.png" srcset="/img/loading.gif" alt="avatar"></p>
 <h3 id="Backgroud"><a href="#Backgroud" class="headerlink" title="Backgroud"></a>Backgroud</h3><p>在说话人识别任务中，第一步大多都是对语音进行<strong>声学特征提取</strong>，从语音信号中提取例如 mfcc, fbank 这样的声学特征。通过提取声学特征，一帧高维度的语音信号(waveform)可以号用一个12~40维向量简洁地表示出来；一整段语音信号，就被表示为这种向量的一个序列。例如，<strong>梅尔刻度 (Mel scale)</strong>是一种基于人耳对等距的音高(pitch)变化的感官判断而定的非线性频率刻度，它与频率关系如下:</p>
 <p>$$M(f) = 2595 \cdot log_{10}(1+\frac{f}{700})$$</p>
@@ -277,34 +279,34 @@
 <p>与 CPC 原论文里略有不同的是，在 Context Network 上，wav2vec 采用的是卷积神经网络，而 CPC 采用的 Autoregressive Model 自回归模型，因此在 infer 的速度上 wav2vec 会更快。</p>
 <p>预训练结束后，将上下文网络 $c_i$ 生成的表示形式作为声学特征输入，而不是使用 log-mel 滤波器组特征。</p>
 <h3 id="Self-Supervised-Feature-for-Speaker-Recongnition"><a href="#Self-Supervised-Feature-for-Speaker-Recongnition" class="headerlink" title="Self-Supervised Feature for Speaker Recongnition"></a>Self-Supervised Feature for Speaker Recongnition</h3><p>我想使用 self supervised learning 的方法改进当前说话人识别系统。创新点在于利用了大量无说话人 label 的语音数据去提高当前说话人识别系统的性能</p>
-<p>首先通过大量没有任何标注的语音数据，依据语音时序上的上下文 context 信息，使用神经网络去重新学一个更加合理 speech 的 representation。这类 self-supervised features 对语音信号前后关系有更好地建模。可以对于说话人长时性描述更强。之后我们通过预训练好的模型，对语音进行特征提取，新的声学特征将取代 mfcc 和 fbank 这类传统的声学特征，作为说话人模型对输入。我们利用这种新的特征，和传统 ivector 和 xvector 表征学习相互结合。</p>
+<p>首先通过大量没有任何标注的语音数据，依据语音时序上的上下文 context 信息，使用神经网络去重新学一个更加合理 speech 的 representation。这类 self-supervised features 对语音信号前后关系有更好地建模。可以对于说话人长时性描述更强。之后我们通过预训练好的模型，对语音进行特征提取，新的声学特征将取代 mfcc 和 fbank 这类传统的声学特征，作为说话人模型对输入。我们利用这种新的特征，和传统 i-vector 和 x-vector 表征学习相互结合。</p>
 <p>总结来说就是使用预训练模型提取语音声学特征取代 mfcc 和 fbank 从而提高当前说话人识别系统的性能。预期可能取得如下结果:</p>
 <ol>
 <li>进一步提高当前的说话人识别系统的性能，成为新的STOA。</li>
-<li>说话人训练数据在 low resources 的情况下取得更好的性能。例如 <code>self supervised feature＋100个spk数据集</code> 训练出来的模型性能约等于甚至好于 <code>mfcc＋500个spk数据集</code>训练出的模型。</li>
+<li>说话人训练数据在 low resources 的情况下取得更好的性能。例如 self supervised feature＋100个spk数据集训练出来的模型性能约等于甚至好于 mfcc＋500个spk数据集训练出的模型。</li>
 <li>降低当前说话人识别模型的参数量，即 x-vector 模型的网络结构不需要很深很复杂也可以达到不错的说话人识别效果。</li>
-<li>进一步提高当前anti-spoofing系统的性能。</li>
+<li>进一步提高当前 anti-spoofing 系统的性能。</li>
 </ol>
 <h2 id="My-Experiment"><a href="#My-Experiment" class="headerlink" title="My Experiment"></a>My Experiment</h2><h3 id="Toolkits"><a href="#Toolkits" class="headerlink" title="Toolkits"></a>Toolkits</h3><p>我的实验主要使用了如下两个工具:</p>
 <ol>
-<li><strong><a href="">fairseq</a></strong>: 它是一个由 facebook AI research 团队维护的 seq2seq 模型工具包，wav2vec 是 fairseq 内的一个子项目，其中同时开源了相关的一些预训练模型</li>
-<li><strong><a href="">Kaldi</a></strong>: 它是一个主要由 Danney Povey 等人主要维护的语音工具包，其中包含了经典的说话人识别模型 (ivector, xvector等) 的全部 pipline 代码</li>
+<li><strong><a href="https://github.com/pytorch/fairseq" target="_blank" rel="noopener">fairseq</a></strong>: 它是一个由 facebook AI research 团队维护的 seq2seq 模型工具包，wav2vec 是 fairseq 内的一个子项目，其中同时开源了相关的一些预训练模型</li>
+<li><strong><a href="https://github.com/kaldi-asr/kaldi" target="_blank" rel="noopener">Kaldi</a></strong>: 它是一个主要由 Danney Povey 等人主要维护的语音工具包，其中包含了经典的说话人识别模型 (i-vector, x-vector等) 的全部 pipline 代码</li>
 </ol>
 <h3 id="Dataset-amp-Configs"><a href="#Dataset-amp-Configs" class="headerlink" title="Dataset &amp; Configs"></a>Dataset &amp; Configs</h3><p>为了快速验证这个想法，我在一个含有100个说话人的小规模的命令词数据集上，分别使用了几个不同的声学特征提取方法进行了3组实验。我们使用80个说话人进行说话人模型的训练，另外20个人用于测试。具体配置如下：</p>
 <h4 id="group-1-Average-Pooling"><a href="#group-1-Average-Pooling" class="headerlink" title="group 1: Average Pooling"></a>group 1: Average Pooling</h4><ul>
 <li><strong>baseline MFCC average</strong>: MFCC feature with average pooling</li>
-<li><strong>wav2vec c average</strong>: pretrain feature c with average pooling</li>
-<li><strong>wav2vec z average</strong>: pretrain feature z with average pooling</li>
+<li><strong>wav2vec c average</strong>: wav2vec pretrain feature c with average pooling</li>
+<li><strong>wav2vec z average</strong>: wav2vec pretrain feature z with average pooling</li>
 </ul>
 <h4 id="group-2-i-vector"><a href="#group-2-i-vector" class="headerlink" title="group 2: i-vector"></a>group 2: i-vector</h4><ul>
-<li><strong>baseline MFCC i-vector</strong>: </li>
-<li><strong>wav2vec c i-vector</strong>:</li>
-<li><strong>wav2vec z i-vector</strong>:</li>
+<li><strong>baseline MFCC i-vector</strong>: MFCC feature with i-vector ASV system</li>
+<li><strong>wav2vec c i-vector</strong>: wav2vec pretrain feature c with i-vector ASV system</li>
+<li><strong>wav2vec z i-vector</strong>: wav2vec pretrain feature z with i-vector ASV system</li>
 </ul>
 <h4 id="group-3-x-vector"><a href="#group-3-x-vector" class="headerlink" title="group 3: x-vector"></a>group 3: x-vector</h4><ul>
-<li><strong>baseline MFCC x-vector</strong>: </li>
-<li><strong>wav2vec c x-vector</strong>:</li>
-<li><strong>wav2vec z x-vector</strong>:</li>
+<li><strong>baseline MFCC x-vector</strong>: MFCC feature with x-vector ASV system</li>
+<li><strong>wav2vec c x-vector</strong>: wav2vec pretrain feature c with x-vector ASV system</li>
+<li><strong>wav2vec z x-vector</strong>: wav2vec pretrain feature z with x-vector ASV system</li>
 </ul>
 <h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><h4 id="group-1-Average-Pooling-1"><a href="#group-1-Average-Pooling-1" class="headerlink" title="group 1: Average Pooling"></a>group 1: Average Pooling</h4><table>
 <thead>
@@ -390,15 +392,16 @@
 <td align="center"><strong>8.784 %</strong></td>
 </tr>
 </tbody></table>
-<h4 id="T-SNE"><a href="#T-SNE" class="headerlink" title="T-SNE"></a>T-SNE</h4><h3 id="Future-Work"><a href="#Future-Work" class="headerlink" title="Future Work"></a>Future Work</h3><ol>
-<li>voxceleb dataset</li>
-<li>center loss pretrain</li>
-<li>triplet loss pretrain</li>
+<h4 id="T-SNE"><a href="#T-SNE" class="headerlink" title="T-SNE"></a>T-SNE</h4><h3 id="Future-Work"><a href="#Future-Work" class="headerlink" title="Future Work"></a>Future Work</h3><p>Only if Prof. Wu approve…</p>
+<ol>
+<li><strong>Dataset</strong>: VoxCeleb dataset</li>
+<li><strong>Dataset</strong>: VAD &amp; Data Arguement</li>
+<li><strong>Pretrain</strong>: center loss for pretrain</li>
+<li><strong>Pretrain</strong>: triplet loss for pretrain</li>
 </ol>
-<p>Only if Prof. Wu approve…</p>
 <h2 id="Related-Toolkit"><a href="#Related-Toolkit" class="headerlink" title="Related Toolkit"></a>Related Toolkit</h2><ol>
-<li><a href="">Kaldi</a></li>
-<li><a href="">fairseq</a></li>
+<li><a href="https://github.com/kaldi-asr/kaldi" target="_blank" rel="noopener">Kaldi</a></li>
+<li><a href="https://github.com/pytorch/fairseq" target="_blank" rel="noopener">fairseq</a></li>
 </ol>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
 <li><a href="https://ankeshanand.com/blog/2020/01/26/contrative-self-supervised-learning.html" target="_blank" rel="noopener">ankeshanand Contrative SSL blog</a></li>
