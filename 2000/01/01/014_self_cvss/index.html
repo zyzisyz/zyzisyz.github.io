@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>My First Blog - zyzisyz</title>
+  <title>【CSLT-THU cvss SELF】 - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-05-27 00:00">
-      2020年5月27日 凌晨
+    <time datetime="2000-01-01 00:00">
+      2000年1月1日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      19 字
+      532 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      10
        分钟
     </span>
   
@@ -216,22 +216,59 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>欢迎来到zyz的个人网站。这是我的第一篇博客。</p>
+              <p>Self-Supervised Pretrain speech representation for Speaker Recogntion</p>
+<p>The ongoing success of deep learning techniques depends on the quality of the representations automatically discovered from data. What is a good representation?</p>
+<ol>
+<li>high-performing on a diverse set of downstream tasks using simple models.</li>
+<li>useful in transfer learning with small amounts of data for a new task.</li>
+</ol>
+<p>[1] Introduction</p>
+<p>Recently, Self-Supervised Learning(SSL) shows a promising approach for data representation. Self-Supervised Learning is a version of unsupervised learning where data provides the supervision, and the goal of SSL is learning represent the world before learning tasks. For instance, BERT is a well-know NLP model developed by Google for pre-training language representations. It leverages an enormous amount of plain text data publicly available on the web and is trained in an unsupervised manner, and it can map a variable-length sentence or word to a fixed-length vector for many NLP downstream tasks.</p>
+<p>In speech processing filed, the extraction and selection of the best parametric representation of acoustic signals is an important task in the design of any speech recognition system or speaker recognition sysytem. However, the characteristics of the speakers in speech signal are poorly captured by the traditional acoustic features, such as the amplitudes of a wave signal, log Mel spectrograms, Mel frequency cepstral coefficients(MFCCs), or Filter banks(Fbanks). </p>
+<p>The goal of Self-Supervised speech representation is to leverages an enormous amount of unlabeled speech data publicly available on the web and is trained in an unsupervised manner and find a transformation from the surface features that makes high-level properties of speech more accessible to downstream tasks, such as speech recognition and speaker recognition.</p>
+<p>Therefore, inspired by the idea of Self-Supervised Learning, I did some experiments about Self-Supervised Speech Representation Feature for Speaker Recongnition task.</p>
+<p>[2] Experiment</p>
+<ol>
+<li><p>Toolkits</p>
+<ul>
+<li>fairseq: fairseq is powerful seq2seq model toolkit developed by Facebook AI research. wav2vec is a subset project in fairseq, which is trained on large amounts of unlabeled audio data and the resulting representations are then used to improve acoustic model training.</li>
+<li>Kaldi: Kaldi is a powerful toolkit for speech signal processing, speech recognition and speaker recognition.</li>
+</ul>
+</li>
+<li><p>Dataset</p>
+<ul>
+<li>P100: a small speech command dataset which contains 100 speakers.</li>
+<li>P80(dev): for ASV system training, subset of P100 which contains 80 speakers</li>
+<li>P20(enroll &amp; test): for ASV system evalutation, subset of P100 which contains 20 speakers</li>
+</ul>
+</li>
+<li><p>Config</p>
+</li>
+</ol>
+<p>Group 1: Average Pooling</p>
+<pre><code>- baseline MFCC average: MFCC feature with average pooling
+- wav2vec c average: wav2vec pretrain feature c with average pooling
+- wav2vec z average: wav2vec pretrain feature z with average pooling</code></pre><p>Group 2: i-vector</p>
+<pre><code>- baseline MFCC i-vector: MFCC feature with i-vector ASV system
+- wav2vec c i-vector: wav2vec pretrain feature c with i-vector ASV system
+- wav2vec z i-vector: wav2vec pretrain feature z with i-vector ASV system</code></pre><p>Group 3: x-vector</p>
+<pre><code>- baseline MFCC x-vector: MFCC feature with x-vector ASV system
+- wav2vec c x-vector: wav2vec pretrain feature c with x-vector ASV system
+- wav2vec z x-vector: wav2vec pretrain feature z with x-vector ASV system</code></pre><ol start="4">
+<li><p>Result</p>
+</li>
+<li><p>Analyze</p>
+</li>
+</ol>
+<p>The Result show wav2vec pretrain Speech feature.</p>
+<hr>
+<p>See <a href="">Yang Zhang’s Chinese Blog</a> for more detail.</p>
 
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/test/">test</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%8D%9A%E5%AE%A2/">博客</a>
-                    
-                  </div>
                 
               </div>
               
@@ -240,9 +277,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/05/30/200530_optimizer/">
+                      <a href="/2020/05/27/200527_first/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">优化器</span>
+                        <span class="hidden-mobile">My First Blog</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -250,8 +287,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2000/01/01/014_self_cvss/">
-                        <span class="hidden-mobile">【CSLT-THU cvss SELF】</span>
+                      <a href="/2000/01/01/014_self/">
+                        <span class="hidden-mobile">Self-Supervised Pretrain Speech Representation for Speaker Recongnition</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -390,7 +427,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "My First Blog&nbsp;",
+        "【CSLT-THU cvss SELF】&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

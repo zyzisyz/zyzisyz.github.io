@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>Self-supervised Speech Representation for Speaker Recongnition - zyzisyz</title>
+  <title>Self-Supervised Pretrain Speech Representation for Speaker Recongnition - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      29
+      31
        分钟
     </span>
   
@@ -216,8 +216,8 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Self-Supervised Pretrain model for speech feature extraction.</p>
-<p>Speech signals encompass a rich set of acoustic and linguistic properties, ranging from the individual lexical units, such as phonemes and words, to the characteristics of the speakers, their intent, or even their mental status. However, these highlevel properties of speech are poorly captured by the surface features, such as the amplitudes of a wave signal, log Mel spectrograms, or Mel frequency cepstral coefficients. </p>
+              <h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>使用预训练模型提取语音声学特征从而提高当前说话人识别系统的性能。</p>
+<p>Self-Supervised Pretrain speech representation for Speaker Recogntion</p>
 <p>The goal of speech representation learning is to find a transformation from the surface features that makes high-level properties of speech more accessible to downstream tasks.</p>
 <p><img src="https://wx2.sbimg.cn/2020/07/12/CuUHw.png" srcset="/img/loading.gif" alt="avatar"></p>
 <h3 id="Backgroud"><a href="#Backgroud" class="headerlink" title="Backgroud"></a>Backgroud</h3><p>在说话人识别任务中，第一步大多都是对语音进行<strong>声学特征提取</strong>，从语音信号中提取例如 mfcc, fbank 这样的声学特征。通过提取声学特征，一帧高维度的语音信号(waveform)可以号用一个12~40维向量简洁地表示出来；一整段语音信号，就被表示为这种向量的一个序列。例如，<strong>梅尔刻度 (Mel scale)</strong>是一种基于人耳对等距的音高(pitch)变化的感官判断而定的非线性频率刻度，它与频率关系如下:</p>
@@ -293,22 +293,22 @@
 <li><strong><a href="https://github.com/kaldi-asr/kaldi" target="_blank" rel="noopener">Kaldi</a></strong>: 它是一个主要由 Danney Povey 等人主要维护的语音工具包，其中包含了经典的说话人识别模型 (i-vector, x-vector等) 的全部 pipline 代码</li>
 </ol>
 <h3 id="Dataset-amp-Configs"><a href="#Dataset-amp-Configs" class="headerlink" title="Dataset &amp; Configs"></a>Dataset &amp; Configs</h3><p>为了快速验证这个想法，我在一个含有100个说话人的小规模的命令词数据集上，分别使用了几个不同的声学特征提取方法进行了3组实验。我们使用80个说话人进行说话人模型的训练，另外20个人用于测试。具体配置如下：</p>
-<h4 id="group-1-Average-Pooling"><a href="#group-1-Average-Pooling" class="headerlink" title="group 1: Average Pooling"></a>group 1: Average Pooling</h4><ul>
+<h4 id="Group-1-Average-Pooling"><a href="#Group-1-Average-Pooling" class="headerlink" title="Group 1: Average Pooling"></a>Group 1: Average Pooling</h4><ul>
 <li><strong>baseline MFCC average</strong>: MFCC feature with average pooling</li>
 <li><strong>wav2vec c average</strong>: wav2vec pretrain feature c with average pooling</li>
 <li><strong>wav2vec z average</strong>: wav2vec pretrain feature z with average pooling</li>
 </ul>
-<h4 id="group-2-i-vector"><a href="#group-2-i-vector" class="headerlink" title="group 2: i-vector"></a>group 2: i-vector</h4><ul>
+<h4 id="Group-2-i-vector"><a href="#Group-2-i-vector" class="headerlink" title="Group 2: i-vector"></a>Group 2: i-vector</h4><ul>
 <li><strong>baseline MFCC i-vector</strong>: MFCC feature with i-vector ASV system</li>
 <li><strong>wav2vec c i-vector</strong>: wav2vec pretrain feature c with i-vector ASV system</li>
 <li><strong>wav2vec z i-vector</strong>: wav2vec pretrain feature z with i-vector ASV system</li>
 </ul>
-<h4 id="group-3-x-vector"><a href="#group-3-x-vector" class="headerlink" title="group 3: x-vector"></a>group 3: x-vector</h4><ul>
+<h4 id="Group-3-x-vector"><a href="#Group-3-x-vector" class="headerlink" title="Group 3: x-vector"></a>Group 3: x-vector</h4><ul>
 <li><strong>baseline MFCC x-vector</strong>: MFCC feature with x-vector ASV system</li>
 <li><strong>wav2vec c x-vector</strong>: wav2vec pretrain feature c with x-vector ASV system</li>
 <li><strong>wav2vec z x-vector</strong>: wav2vec pretrain feature z with x-vector ASV system</li>
 </ul>
-<h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><h4 id="group-1-Average-Pooling-1"><a href="#group-1-Average-Pooling-1" class="headerlink" title="group 1: Average Pooling"></a>group 1: Average Pooling</h4><table>
+<h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><h4 id="Group-1-Average-Pooling-1"><a href="#Group-1-Average-Pooling-1" class="headerlink" title="Group 1: Average Pooling"></a>Group 1: Average Pooling</h4><table>
 <thead>
 <tr>
 <th align="center">Equel Error Rate</th>
@@ -336,7 +336,7 @@
 <td align="center"><strong>5.981 %</strong></td>
 </tr>
 </tbody></table>
-<h4 id="group-2-i-vector-1"><a href="#group-2-i-vector-1" class="headerlink" title="group 2: i-vector"></a>group 2: i-vector</h4><table>
+<h4 id="Group-2-i-vector-1"><a href="#Group-2-i-vector-1" class="headerlink" title="Group 2: i-vector"></a>Group 2: i-vector</h4><table>
 <thead>
 <tr>
 <th align="center">Equel Error Rate</th>
@@ -364,7 +364,7 @@
 <td align="center"></td>
 </tr>
 </tbody></table>
-<h4 id="group-3-x-vector-1"><a href="#group-3-x-vector-1" class="headerlink" title="group 3: x-vector"></a>group 3: x-vector</h4><table>
+<h4 id="Group-3-x-vector-1"><a href="#Group-3-x-vector-1" class="headerlink" title="Group 3: x-vector"></a>Group 3: x-vector</h4><table>
 <thead>
 <tr>
 <th align="center">Equel Error Rate</th>
@@ -392,19 +392,36 @@
 <td align="center"><strong>8.784 %</strong></td>
 </tr>
 </tbody></table>
-<h4 id="T-SNE"><a href="#T-SNE" class="headerlink" title="T-SNE"></a>T-SNE</h4><h3 id="Future-Work"><a href="#Future-Work" class="headerlink" title="Future Work"></a>Future Work</h3><p>Only if Prof. Wu approve…</p>
-<ol>
+<h4 id="T-SNE"><a href="#T-SNE" class="headerlink" title="T-SNE"></a>T-SNE</h4><p><img src="https://wx1.sbimg.cn/2020/07/24/DEeCM.png" srcset="/img/loading.gif" alt="avatar"></p>
+<h3 id="Future-Work"><a href="#Future-Work" class="headerlink" title="Future Work"></a>Future Work</h3><ol>
 <li><strong>Dataset</strong>: VoxCeleb dataset</li>
 <li><strong>Dataset</strong>: VAD &amp; Data Arguement</li>
 <li><strong>Pretrain</strong>: center loss for pretrain</li>
 <li><strong>Pretrain</strong>: triplet loss for pretrain</li>
 </ol>
-<h2 id="Related-Research"><a href="#Related-Research" class="headerlink" title="Related Research"></a>Related Research</h2><h3 id="Speech-Pretrain"><a href="#Speech-Pretrain" class="headerlink" title="Speech Pretrain"></a>Speech Pretrain</h3><h3 id="Speaker-Related"><a href="#Speaker-Related" class="headerlink" title="Speaker Related"></a>Speaker Related</h3><h2 id="Related-Toolkit"><a href="#Related-Toolkit" class="headerlink" title="Related Toolkit"></a>Related Toolkit</h2><ol>
-<li><a href="https://github.com/kaldi-asr/kaldi" target="_blank" rel="noopener">Kaldi</a></li>
-<li><a href="https://github.com/pytorch/fairseq" target="_blank" rel="noopener">fairseq</a></li>
+<h2 id="Related-Research"><a href="#Related-Research" class="headerlink" title="Related Research"></a>Related Research</h2><h3 id="Speech-Pretrain-Papers"><a href="#Speech-Pretrain-Papers" class="headerlink" title="Speech Pretrain Papers"></a>Speech Pretrain Papers</h3><ol>
+<li><a href="https://arxiv.org/abs/1904.05862" target="_blank" rel="noopener">[Facebook] wav2vec: Unsupervised Pre-Training for Speech Recognition, 2019</a></li>
+<li><a href="https://arxiv.org/abs/2002.12764" target="_blank" rel="noopener">[Google] Towards Learning a Universal Non-Semantic Representation of Speech, 2020</a></li>
+<li><a href="https://arxiv.org/abs/1807.03748" target="_blank" rel="noopener">[DeepMind] Representation Learning with Contrastive Predictive Coding, 2019</a></li>
+<li><a href="https://arxiv.org/abs/1904.03240" target="_blank" rel="noopener">[MIT] An Unsupervised Autoregressive Model for Speech Representation Learning, 2019</a></li>
+<li><a href="https://arxiv.org/abs/1912.01679" target="_blank" rel="noopener">[Amazon] Deep Contextualized Acoustic Representations for Semi-Supervised Speech Recognition, 2020</a></li>
+<li><a href="https://arxiv.org/abs/1910.12638" target="_blank" rel="noopener">[NTU] MOCKINGJAY: Unsupervised Speech Representation Learning with Deep Bidirectional Transformer Encoders, 2020</a></li>
+</ol>
+<h3 id="Speaker-Related-Papers"><a href="#Speaker-Related-Papers" class="headerlink" title="Speaker Related Papers"></a>Speaker Related Papers</h3><ol>
+<li><a href="https://arxiv.org/abs/1812.00271" target="_blank" rel="noopener">[Yoshua Bengio] Learning Speaker Representations with Mutual Information, 2018</a></li>
+<li><a href="https://arxiv.org/abs/2002.12764" target="_blank" rel="noopener">[Google] Towards Learning a Universal Non-Semantic Representation of Speech, 2020</a></li>
+<li><a href="https://arxiv.org/abs/1904.03240" target="_blank" rel="noopener">[MIT] An Unsupervised Autoregressive Model for Speech Representation Learning, 2019</a></li>
+</ol>
+<h3 id="Pretrain-Related-Toolkits-amp-Code"><a href="#Pretrain-Related-Toolkits-amp-Code" class="headerlink" title="Pretrain Related Toolkits &amp; Code"></a>Pretrain Related Toolkits &amp; Code</h3><ol>
+<li><a href="https://github.com/pytorch/fairseq" target="_blank" rel="noopener">[FaceBook] fairseq</a></li>
+<li><a href="https://github.com/awslabs/speech-representations" target="_blank" rel="noopener">[Amazon] speech-representations</a></li>
+<li><a href="https://github.com/andi611/Self-Supervised-Speech-Pretraining-and-Representation-Learning" target="_blank" rel="noopener">[NTU] MOCKINGJAY</a></li>
+<li><a href="https://github.com/google-research/google-research/tree/master/non_semantic_speech_benchmark" target="_blank" rel="noopener">[Google] non semantic speech benchmark</a></li>
 </ol>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
 <li><a href="https://ankeshanand.com/blog/2020/01/26/contrative-self-supervised-learning.html" target="_blank" rel="noopener">ankeshanand Contrative SSL blog</a></li>
+<li><a href="https://self-supervised-sp.github.io/Interspeech2020-Special-Session" target="_blank" rel="noopener">Interspeech2020 Special Session: New Trends in self-supervised speech processing</a></li>
+<li><a href="https://icml-sas.gitlab.io/" target="_blank" rel="noopener">ICML2020: Self-supervision in Audio and Speech</a></li>
 </ol>
 
             </article>
@@ -420,9 +437,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/05/27/200527_first/">
+                      <a href="/2000/01/01/014_self_cvss/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">My First Blog</span>
+                        <span class="hidden-mobile">【CSLT-THU cvss SELF】</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -564,7 +581,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Self-supervised Speech Representation for Speaker Recongnition&nbsp;",
+        "Self-Supervised Pretrain Speech Representation for Speaker Recongnition&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
