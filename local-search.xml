@@ -29,6 +29,31 @@
   
   
   <entry>
+    <title>【毕业要紧】 CPC &amp; APC</title>
+    <link href="/2020/07/31/200714_cpc/"/>
+    <url>/2020/07/31/200714_cpc/</url>
+    
+    <content type="html"><![CDATA[<p>Predictive coding is one of the oldest techniques in signal processing for data compression</p><p>One of the most common strategies for unsupervised learning has been to predict future, missing or contextual information.</p><h2 id="Mutual-Information"><a href="#Mutual-Information" class="headerlink" title="Mutual Information"></a>Mutual Information</h2><ol><li>data: $x$</li><li>context: $c$</li></ol><p>$$I(x; c) = \sum_{x,c}p(x, c)log\frac{p(x|c)}{p(x)}$$</p><h2 id="CPC"><a href="#CPC" class="headerlink" title="CPC"></a>CPC</h2><p>Contrastive Predictive Coding (CPC) aims to learn representations that separates the target future frame $x_{i+n}$ and randomly sampled negative frames $\begin{\tilde{x}\end}$, given a context hi =<br>(x1, x2, …, xi)</p><h2 id="APC"><a href="#APC" class="headerlink" title="APC"></a>APC</h2><p>The methodology of the APC model is largely inspired by language models (LMs) for text, which are typically a probability distribution over sequences of $N$ tokens $(t_1, t_2, …, t_N )$. Given such a sequence, an LM assigns a probability $P(t_1, t_2, …, t_N)$ to the whole sequence by modeling the probability of token $t_k$ given the history $(t_1, t_2, …, t_{k−1})$</p><p>$$P(t_1,t_2,…,t_N)=\prod_{k=1}^{N}P(t_k|t_1,t_2,…,t_{k-1})$$</p><p>It is trained by minimizing the negative log-likelihood:</p><p>$$\sum_{k=1}^{N}-logP(t_1,t_2,…,t_{k-1};\theta_{t},\theta_{rnn},\theta_{s})$$</p><p>where the parameters to be optimized are $\theta_{t}$, $\theta_{rnn}$ and $\theta_{rnn}$ is a look-up table that maps each token into a vector of fixed dimensionality. $\theta_{rnn}$ is a Recurrent Neural Network (RNN) used to summarize the sequence history up to the current time step. $\theta_s$ is a Softmax layer appended at the output of each RNN time step for estimating probability distribution over the tokens. Language modeling is a general task that requires the understanding of many aspects in language in order to perform well.</p><p>In other words, given an utterance represented as a sequence of acoustic feature vectors $(x_1, x_2, …, x_T)$, the RNN processes each sequence element $x_t$ one at a time and outputs a prediction $y_t$, where $x_t$ and $y_t$ have the same dimensionality.</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>毕业要紧</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>毕业要紧</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>JavaScript tips</title>
     <link href="/2020/07/29/200729_js/"/>
     <url>/2020/07/29/200729_js/</url>
@@ -59,31 +84,6 @@
     <url>/2020/07/16/200716_kaldi_tips/</url>
     
     <content type="html"><![CDATA[<h2 id="ark-ark-t-scp"><a href="#ark-ark-t-scp" class="headerlink" title="ark ark,t scp"></a>ark ark,t scp</h2><p><code>ark</code> is an archive format to save any <code>Kaldi objects</code>. ark can be flushed to and from unix pipe.</p><pre><code class="hljs bash">cat test.ark | copy-feats ark:- ark,t:- | less <span class="hljs-comment"># Show the contents in the ark</span></code></pre><p><strong><code>-</code> indicates standard input stream or output stream.</strong></p><h2 id="FM-amp-FV"><a href="#FM-amp-FV" class="headerlink" title="FM &amp; FV"></a>FM &amp; FV</h2><p>Kaldi has two major types: Matrix and Vector. </p><ul><li>Binary/Text - Float/Double Matrix: FM, DM</li><li>Binary/Text - Float/Double Vector: FV, DV</li></ul><p>As such, features are often stored in one of these two file types. For instance, when you extract i-vectors, they are stored as a matrix of floats (FM) and if you extract x-vectors, they are stored as vectors of float (FV). Often it may be required to convert features stored as FV to FM and vice-versa.</p><p>convert from FV to FM:</p><pre><code class="hljs bash">copy-vector --binary=<span class="hljs-literal">false</span> scp:exp/xvectors/xvector.scp ark,t:- | \  copy-matrix ark,t:- ark,scp:exp/xvectors/xvector_mat.ark,exp/xvectors/xvector_mat.scp</code></pre><p>convert from FM to FV:</p><pre><code class="hljs bash">copy-matrix --binary=<span class="hljs-literal">false</span> scp:exp/ivectors/ivector.scp ark,t:- | \  copy-vector ark,t:- ark,scp:exp/ivectors/ivector_vec.ark,exp/ivectors/ivector_vec.scp</code></pre><h2 id="Reference-and-Other-Tips"><a href="#Reference-and-Other-Tips" class="headerlink" title="Reference and Other Tips"></a>Reference and Other Tips</h2><p>[1] <a href="https://desh2608.github.io/2019-03-27-kaldi-tricks/" target="_blank" rel="noopener">desh2608 kaldi-tricks</a></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>毕业要紧</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>毕业要紧</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>【毕业要紧】 Representation Learning with Contrastive Predictive Coding</title>
-    <link href="/2020/07/14/200714_cpc/"/>
-    <url>/2020/07/14/200714_cpc/</url>
-    
-    <content type="html"><![CDATA[<p>Predictive coding is one of the oldest techniques in signal processing for data compression</p><p>One of the most common strategies for unsupervised learning has been to predict future, missing or contextual information.</p><h2 id="Mutual-Information"><a href="#Mutual-Information" class="headerlink" title="Mutual Information"></a>Mutual Information</h2><ol><li>data: $x$</li><li>context: $c$</li></ol><p>$$I(x; c) = \sum_{x,c}p(x, c)log\frac{p(x|c)}{p(x)}$$</p>]]></content>
     
     
     <categories>
