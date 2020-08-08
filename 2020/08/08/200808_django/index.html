@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>【毕业要紧】Aduio Toolkit Ref - zyzisyz</title>
+  <title>Django Tips &amp; Reference - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-01 00:00">
-      2020年8月1日 凌晨
+    <time datetime="2020-08-08 00:00">
+      2020年8月8日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      202 字
+      16 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      1
        分钟
     </span>
   
@@ -216,46 +216,18 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="sox"><a href="#sox" class="headerlink" title="sox"></a>sox</h2><pre><code class="hljs bash"><span class="hljs-comment"># 查看音频信息</span>
-soxi test.wav
-sox test.wav -n <span class="hljs-built_in">stat</span>
-
-<span class="hljs-comment"># 切割音频</span>
-sox in.wav out.wav trim 0 10
-
-<span class="hljs-comment"># 改变音量</span>
-sox -v 0.5 input.wav output.wav <span class="hljs-comment"># 音频放大0.5倍</span>
-<span class="hljs-comment"># 以 sox foo.wav -n stat -v 命令返回的数字作为放大倍数，将最大化 foo.wav 的音量而不至于出现削波</span>
-sox foo.wav -n <span class="hljs-built_in">stat</span> -v 2&gt; vc
-sox -v `cat vc` foo.wav foo-maxed.wav
-
-sox --norm=-1 &lt;inputfile&gt; &lt;outputfile&gt; <span class="hljs-comment"># 归一化音频响度</span></code></pre>
-
-<h2 id="librosa"><a href="#librosa" class="headerlink" title="librosa"></a>librosa</h2><pre><code class="hljs Python"><span class="hljs-keyword">import</span> librosa
-<span class="hljs-keyword">import</span> librosa.display
-
-<span class="hljs-comment"># load wavfile</span>
-waveform, sample_rate = librosa.load(filepath)
-
-<span class="hljs-comment"># MFCCs</span>
-MFCCs = librosa.feature.mfcc(y=waveform, sr=sample_rate, n_mfcc=<span class="hljs-number">24</span>)</code></pre>
-
-<h2 id="torchadudio"><a href="#torchadudio" class="headerlink" title="torchadudio"></a>torchadudio</h2><pre><code class="hljs Python"><span class="hljs-keyword">import</span> torch
-<span class="hljs-keyword">import</span> torchaudio
-
-<span class="hljs-comment"># load wavefile</span>
-waveform, sample_rate = torchaudio.load(filepath)
-
-<span class="hljs-comment"># MFCCs</span>
-MFCCc = torchaudio.transforms.MFCC()(waveform)
-
-<span class="hljs-comment"># Specgram</span>
-Specgram = torchaudio.transforms.Spectrogram()(waveform)</code></pre>
-
-<h2 id="Kaldi"><a href="#Kaldi" class="headerlink" title="Kaldi"></a>Kaldi</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="https://www.cnblogs.com/LXP-Never/p/11561355.html" target="_blank" rel="noopener">[博客园] librosa语音信号处理</a></p>
-<p>[2] <a href="https://librosa.org/doc/latest/index.html" target="_blank" rel="noopener">[librosa] Document</a></p>
-<p>[3] <a href="https://www.jianshu.com/p/be9e16aeb101" target="_blank" rel="noopener">[简书] SOX常用命令</a></p>
-<p>[4] <a href="https://www.cnblogs.com/zhuminghui/p/11971311.html" target="_blank" rel="noopener">[博客园] Linux 对音频万能处理的命令——SOX</a></p>
+              <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li><p><a href="https://www.cnblogs.com/maple-shaw/p/9029086.html" target="_blank" rel="noopener">Django 简介</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/maple-shaw/articles/9333821.html" target="_blank" rel="noopener">Django 模版</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/maple-shaw/articles/9285269.html" target="_blank" rel="noopener">Django 视图</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/maple-shaw/articles/9282718.html" target="_blank" rel="noopener">Django 路由</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/maple-shaw/p/9029086.html" target="_blank" rel="noopener">Django 模型</a></p>
+</li>
+</ol>
 
             </article>
             <hr>
@@ -265,7 +237,7 @@ Specgram = torchaudio.transforms.Spectrogram()(waveform)</code></pre>
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
+                      <a class="hover-with-bg" href="/categories/WEB/">WEB</a>
                     
                   </div>
                 
@@ -273,7 +245,7 @@ Specgram = torchaudio.transforms.Spectrogram()(waveform)</code></pre>
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
+                      <a class="hover-with-bg" href="/tags/WEB/">WEB</a>
                     
                   </div>
                 
@@ -288,8 +260,8 @@ Specgram = torchaudio.transforms.Spectrogram()(waveform)</code></pre>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/07/31/200714_cpc/">
-                        <span class="hidden-mobile">【毕业要紧】 CPC & APC</span>
+                      <a href="/2020/08/03/200803_aduio_toolkit_ref/">
+                        <span class="hidden-mobile">【毕业要紧】Aduio Toolkit Ref</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -428,7 +400,7 @@ Specgram = torchaudio.transforms.Spectrogram()(waveform)</code></pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "【毕业要紧】Aduio Toolkit Ref&nbsp;",
+        "Django Tips & Reference&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
