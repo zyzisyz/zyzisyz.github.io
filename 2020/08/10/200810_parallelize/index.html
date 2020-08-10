@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>Django Tips &amp; Reference - zyzisyz</title>
+  <title>Parallelized Command - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-08 00:00">
-      2020年8月8日 凌晨
+    <time datetime="2020-08-10 00:00">
+      2020年8月10日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      132 字
+      74 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      1
        分钟
     </span>
   
@@ -216,42 +216,21 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="MVT-模式"><a href="#MVT-模式" class="headerlink" title="MVT 模式"></a>MVT 模式</h2><ol>
-<li><strong>Model</strong>：负责业务对象与数据库的对象(ORM)</li>
-<li><strong>Template</strong>：负责如何把页面展示给用户</li>
-<li><strong>View</strong>：负责业务逻辑，并在适当的时候调用 Model 和 Template</li>
-</ol>
-<h2 id="CLI-tips"><a href="#CLI-tips" class="headerlink" title="CLI tips"></a>CLI tips</h2><pre><code class="hljs bash"><span class="hljs-comment"># create Django projects</span>
-django-admin startproject <span class="hljs-variable">$project_name</span>
+              <h2 id="Kaldi-run-pl-amp-queue-pl"><a href="#Kaldi-run-pl-amp-queue-pl" class="headerlink" title="Kaldi run.pl &amp; queue.pl"></a>Kaldi run.pl &amp; queue.pl</h2><p>使用方法 <code>run.pl &lt;options&gt; &lt;log-file&gt; &lt;command&gt;</code></p>
+<pre><code class="hljs bash">├── run.pl
+├── run.sh
+├── test_1.sh
+└── test_2.sh</code></pre>
 
-<span class="hljs-comment"># run Django projects</span>
-python manage.py runserver　　<span class="hljs-comment">#default port is 8000</span>
+<p><strong>run.sh</strong></p>
+<pre><code class="hljs bash"><span class="hljs-comment"># "JOB" is core to control</span>
+nj=2
+./run.pl JOB=1:<span class="hljs-variable">$nj</span> test.JOB.log bash test_JOB.sh</code></pre>
 
-<span class="hljs-comment"># create app</span>
-python manage.py startapp <span class="hljs-variable">$app_name</span></code></pre>
-
-<h2 id="Model-Tips"><a href="#Model-Tips" class="headerlink" title="Model Tips"></a>Model Tips</h2><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> myapp_person (
-    <span class="hljs-string">"id"</span> <span class="hljs-built_in">serial</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> PRIMARY <span class="hljs-keyword">KEY</span>,
-    <span class="hljs-string">"first_name"</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">30</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-    <span class="hljs-string">"last_name"</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">30</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
-);</code></pre>
-
-<pre><code class="hljs python"><span class="hljs-keyword">from</span> django.db <span class="hljs-keyword">import</span> models
- 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span><span class="hljs-params">(models.Model)</span>:</span>
-    first_name = models.CharField(max_length=<span class="hljs-number">30</span>)
-    last_name = models.CharField(max_length=<span class="hljs-number">30</span>)</code></pre>
-
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
-<li><p><a href="https://www.cnblogs.com/maple-shaw/p/9029086.html" target="_blank" rel="noopener">Django 简介</a></p>
+<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li><p><a href="https://blog.csdn.net/zongza/article/details/89715095" target="_blank" rel="noopener">[ASR_THU] flac文件转wav文件</a></p>
 </li>
-<li><p><a href="https://www.cnblogs.com/maple-shaw/articles/9333821.html" target="_blank" rel="noopener">Django 模版</a></p>
-</li>
-<li><p><a href="https://www.cnblogs.com/maple-shaw/articles/9285269.html" target="_blank" rel="noopener">Django 视图</a></p>
-</li>
-<li><p><a href="https://www.cnblogs.com/maple-shaw/articles/9282718.html" target="_blank" rel="noopener">Django 路由</a></p>
-</li>
-<li><p><a href="https://www.cnblogs.com/maple-shaw/p/9029086.html" target="_blank" rel="noopener">Django 模型</a></p>
+<li><p><a href="https://blog.csdn.net/zongza/article/details/89707462" target="_blank" rel="noopener">[ASR_THU] bash 脚本实现批量化作业与并行处理</a></p>
 </li>
 </ol>
 
@@ -263,7 +242,7 @@ python manage.py startapp <span class="hljs-variable">$app_name</span></code></p
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/WEB/">WEB</a>
+                      <a class="hover-with-bg" href="/categories/shell/">shell</a>
                     
                   </div>
                 
@@ -271,7 +250,9 @@ python manage.py startapp <span class="hljs-variable">$app_name</span></code></p
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/WEB/">WEB</a>
+                      <a class="hover-with-bg" href="/tags/Linix/">Linix</a>
+                    
+                      <a class="hover-with-bg" href="/tags/shell/">shell</a>
                     
                   </div>
                 
@@ -282,18 +263,12 @@ python manage.py startapp <span class="hljs-variable">$app_name</span></code></p
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/10/200810_parallelize/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Parallelized Command</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/08/03/200803_aduio_toolkit_ref/">
-                        <span class="hidden-mobile">【毕业要紧】Aduio Toolkit Ref</span>
+                      <a href="/2020/08/08/200808_django/">
+                        <span class="hidden-mobile">Django Tips & Reference</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -432,7 +407,7 @@ python manage.py startapp <span class="hljs-variable">$app_name</span></code></p
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Django Tips & Reference&nbsp;",
+        "Parallelized Command&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

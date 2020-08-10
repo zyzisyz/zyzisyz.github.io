@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>Parallelized Command</title>
+    <link href="/2020/08/10/200810_parallelize/"/>
+    <url>/2020/08/10/200810_parallelize/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Kaldi-run-pl-amp-queue-pl"><a href="#Kaldi-run-pl-amp-queue-pl" class="headerlink" title="Kaldi run.pl &amp; queue.pl"></a>Kaldi run.pl &amp; queue.pl</h2><p>使用方法 <code>run.pl &lt;options&gt; &lt;log-file&gt; &lt;command&gt;</code></p><pre><code class="hljs bash">├── run.pl├── run.sh├── test_1.sh└── test_2.sh</code></pre><p><strong>run.sh</strong></p><pre><code class="hljs bash"><span class="hljs-comment"># "JOB" is core to control</span>nj=2./run.pl JOB=1:<span class="hljs-variable">$nj</span> test.JOB.log bash test_JOB.sh</code></pre><h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol><li><p><a href="https://blog.csdn.net/zongza/article/details/89715095" target="_blank" rel="noopener">[ASR_THU] flac文件转wav文件</a></p></li><li><p><a href="https://blog.csdn.net/zongza/article/details/89707462" target="_blank" rel="noopener">[ASR_THU] bash 脚本实现批量化作业与并行处理</a></p></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>shell</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Linix</tag>
+      
+      <tag>shell</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Django Tips &amp; Reference</title>
     <link href="/2020/08/08/200808_django/"/>
     <url>/2020/08/08/200808_django/</url>
