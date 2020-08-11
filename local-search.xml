@@ -4,11 +4,38 @@
   
   
   <entry>
+    <title>Kaldi Split data &amp; Concatenate scp</title>
+    <link href="/2020/08/11/200811_kaldi_cat_ark/"/>
+    <url>/2020/08/11/200811_kaldi_cat_ark/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Split"><a href="#Split" class="headerlink" title="Split"></a>Split</h2><pre><code class="hljs bash">scp=<span class="hljs-variable">$data</span>/wav.scp<span class="hljs-comment"># prepare split_scps</span><span class="hljs-comment"># eg: split_scps="1.scp 2.scp"</span>split_scps=<span class="hljs-string">""</span><span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> $(seq <span class="hljs-variable">$nj</span>); <span class="hljs-keyword">do</span>    split_scps=<span class="hljs-string">"<span class="hljs-variable">$split_scps</span> <span class="hljs-variable">$logdir</span>/wav_<span class="hljs-variable">$&#123;name&#125;</span>.<span class="hljs-variable">$n</span>.scp"</span><span class="hljs-keyword">done</span><span class="hljs-comment"># split scp</span>utils/split_scp.pl <span class="hljs-variable">$scp</span> <span class="hljs-variable">$split_scps</span> || <span class="hljs-built_in">exit</span> 1;</code></pre><h2 id="Concatenate"><a href="#Concatenate" class="headerlink" title="Concatenate"></a>Concatenate</h2><pre><code class="hljs bash"><span class="hljs-comment"># concatenate the .scp files together.</span><span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> $(seq <span class="hljs-variable">$nj</span>); <span class="hljs-keyword">do</span>  cat <span class="hljs-variable">$mfccdir</span>/raw_mfcc_<span class="hljs-variable">$name</span>.<span class="hljs-variable">$n</span>.scp || <span class="hljs-built_in">exit</span> 1;<span class="hljs-keyword">done</span> &gt; <span class="hljs-variable">$data</span>/feats.scp || <span class="hljs-built_in">exit</span> 1</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>shell</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>shell</tag>
+      
+      <tag>Kaldi</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Parallelized Command</title>
     <link href="/2020/08/10/200810_parallelize/"/>
     <url>/2020/08/10/200810_parallelize/</url>
     
-    <content type="html"><![CDATA[<h2 id="Kaldi-run-pl-amp-queue-pl"><a href="#Kaldi-run-pl-amp-queue-pl" class="headerlink" title="Kaldi run.pl &amp; queue.pl"></a>Kaldi run.pl &amp; queue.pl</h2><p>使用方法 <code>run.pl &lt;options&gt; &lt;log-file&gt; &lt;command&gt;</code></p><pre><code class="hljs bash">├── run.pl├── run.sh├── cmd_1.sh└── cmd_2.sh</code></pre><p><strong>run.sh</strong></p><pre><code class="hljs bash"><span class="hljs-comment"># "JOB" is core to control</span>nj=2./run.pl JOB=1:<span class="hljs-variable">$nj</span> test.JOB.log bash test_cmd.sh</code></pre><h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol><li><p><a href="https://blog.csdn.net/zongza/article/details/89715095" target="_blank" rel="noopener">[ASR_THU] flac文件转wav文件</a></p></li><li><p><a href="https://blog.csdn.net/zongza/article/details/89707462" target="_blank" rel="noopener">[ASR_THU] bash 脚本实现批量化作业与并行处理</a></p></li></ol>]]></content>
+    <content type="html"><![CDATA[<h2 id="命令行：-尖括号-中括号的含义"><a href="#命令行：-尖括号-中括号的含义" class="headerlink" title="命令行： 尖括号 中括号的含义"></a>命令行： 尖括号 中括号的含义</h2><ol><li><code>[]</code>：内的内容意思是：可写可不写</li><li><code>{}</code>：那就必须要在{}内给出的选择里选一个。</li><li><code>&lt;&gt;</code>：表示必选</li></ol><h2 id="Kaldi-run-pl-amp-queue-pl"><a href="#Kaldi-run-pl-amp-queue-pl" class="headerlink" title="Kaldi run.pl &amp; queue.pl"></a>Kaldi run.pl &amp; queue.pl</h2><p>使用方法 <code>run.pl &lt;options&gt; &lt;log-file&gt; &lt;command&gt;</code></p><pre><code class="hljs bash">├── run.pl├── run.sh├── cmd_1.sh└── cmd_2.sh</code></pre><p><strong>run.sh</strong></p><pre><code class="hljs bash"><span class="hljs-comment"># "JOB" is core to control</span>nj=2./run.pl JOB=1:<span class="hljs-variable">$nj</span> test.JOB.log bash cmd_JOB.sh</code></pre><h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol><li><p><a href="https://blog.csdn.net/zongza/article/details/89715095" target="_blank" rel="noopener">[ASR_THU] flac文件转wav文件</a></p></li><li><p><a href="https://blog.csdn.net/zongza/article/details/89707462" target="_blank" rel="noopener">[ASR_THU] bash 脚本实现批量化作业与并行处理</a></p></li><li><p><a href="https://blog.csdn.net/yj13811596648/article/details/102817366" target="_blank" rel="noopener">[CSDN] make_mfcc.sh</a></p></li></ol>]]></content>
     
     
     <categories>
@@ -23,6 +50,8 @@
       <tag>Linix</tag>
       
       <tag>shell</tag>
+      
+      <tag>Kaldi</tag>
       
     </tags>
     
@@ -135,7 +164,7 @@
     <link href="/2020/07/16/200716_kaldi_tips/"/>
     <url>/2020/07/16/200716_kaldi_tips/</url>
     
-    <content type="html"><![CDATA[<h2 id="ark-ark-t-scp"><a href="#ark-ark-t-scp" class="headerlink" title="ark ark,t scp"></a>ark ark,t scp</h2><p><code>ark</code> is an archive format to save any <code>Kaldi objects</code>. ark can be flushed to and from unix pipe.</p><pre><code class="hljs bash">cat test.ark | copy-feats ark:- ark,t:- | less <span class="hljs-comment"># Show the contents in the ark</span></code></pre><p><strong><code>-</code> indicates standard input stream or output stream.</strong></p><h2 id="FM-amp-FV"><a href="#FM-amp-FV" class="headerlink" title="FM &amp; FV"></a>FM &amp; FV</h2><p>Kaldi has two major types: Matrix and Vector. </p><ul><li>Binary/Text - Float/Double Matrix: FM, DM</li><li>Binary/Text - Float/Double Vector: FV, DV</li></ul><p>As such, features are often stored in one of these two file types. For instance, when you extract i-vectors, they are stored as a matrix of floats (FM) and if you extract x-vectors, they are stored as vectors of float (FV). Often it may be required to convert features stored as FV to FM and vice-versa.</p><p>convert from FV to FM:</p><pre><code class="hljs bash">copy-vector --binary=<span class="hljs-literal">false</span> scp:exp/xvectors/xvector.scp ark,t:- | \  copy-matrix ark,t:- ark,scp:exp/xvectors/xvector_mat.ark,exp/xvectors/xvector_mat.scp</code></pre><p>convert from FM to FV:</p><pre><code class="hljs bash">copy-matrix --binary=<span class="hljs-literal">false</span> scp:exp/ivectors/ivector.scp ark,t:- | \  copy-vector ark,t:- ark,scp:exp/ivectors/ivector_vec.ark,exp/ivectors/ivector_vec.scp</code></pre><h2 id="Reference-and-Other-Tips"><a href="#Reference-and-Other-Tips" class="headerlink" title="Reference and Other Tips"></a>Reference and Other Tips</h2><p>[1] <a href="https://desh2608.github.io/2019-03-27-kaldi-tricks/" target="_blank" rel="noopener">desh2608 kaldi-tricks</a></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="ark-ark-t-scp"><a href="#ark-ark-t-scp" class="headerlink" title="ark ark,t scp"></a>ark ark,t scp</h2><p><code>ark</code> is an archive format to save any <code>Kaldi objects</code>. ark can be flushed to and from unix pipe.</p><pre><code class="hljs bash">cat test.ark | copy-feats ark:- ark,t:- | less <span class="hljs-comment"># Show the contents in the ark</span></code></pre><p><strong><code>-</code> indicates standard input stream or output stream.</strong></p><h2 id="s-cs-p"><a href="#s-cs-p" class="headerlink" title="s, cs, p"></a>s, cs, p</h2><ol><li><code>s</code>：keys是有序的</li><li><code>cs</code>：按顺序访问数据 （程序不满足会崩溃） </li><li><code>p</code> ：忽略错误</li></ol><h2 id="FM-amp-FV"><a href="#FM-amp-FV" class="headerlink" title="FM &amp; FV"></a>FM &amp; FV</h2><p>Kaldi has two major types: Matrix and Vector. </p><ul><li>Binary/Text - Float/Double Matrix: FM, DM</li><li>Binary/Text - Float/Double Vector: FV, DV</li></ul><p>As such, features are often stored in one of these two file types. For instance, when you extract i-vectors, they are stored as a matrix of floats (FM) and if you extract x-vectors, they are stored as vectors of float (FV). Often it may be required to convert features stored as FV to FM and vice-versa.</p><p>convert from FV to FM:</p><pre><code class="hljs bash">copy-vector --binary=<span class="hljs-literal">false</span> scp:exp/xvectors/xvector.scp ark,t:- | \  copy-matrix ark,t:- ark,scp:exp/xvectors/xvector_mat.ark,exp/xvectors/xvector_mat.scp</code></pre><p>convert from FM to FV:</p><pre><code class="hljs bash">copy-matrix --binary=<span class="hljs-literal">false</span> scp:exp/ivectors/ivector.scp ark,t:- | \  copy-vector ark,t:- ark,scp:exp/ivectors/ivector_vec.ark,exp/ivectors/ivector_vec.scp</code></pre><h2 id="Reference-and-Other-Tips"><a href="#Reference-and-Other-Tips" class="headerlink" title="Reference and Other Tips"></a>Reference and Other Tips</h2><p>[1] <a href="https://desh2608.github.io/2019-03-27-kaldi-tricks/" target="_blank" rel="noopener">desh2608 kaldi-tricks</a></p>]]></content>
     
     
     <categories>
@@ -148,6 +177,8 @@
     <tags>
       
       <tag>毕业要紧</tag>
+      
+      <tag>Kaldi</tag>
       
     </tags>
     

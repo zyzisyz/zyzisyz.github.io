@@ -180,6 +180,64 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/08/11/200811_kaldi_cat_ark/" target="_self">
+          <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="Kaldi Split data &amp; Concatenate scp">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2020/08/11/200811_kaldi_cat_ark/">Kaldi Split data &amp; Concatenate scp</a>
+
+      <a href="/2020/08/11/200811_kaldi_cat_ark/" class="index-excerpt">
+        
+        
+          
+        
+        <div>Splitscp=$data/wav.scp
+
+# prepare split_scps
+# eg: split_scps="1.scp 2.scp"
+split_scps=""
+for n in $(seq $nj); do
+    split_scps="$split_scps $logdir/wav_$&#123;name&#125;.$n.scp"
+done
+
+# split scp
+ut</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-11
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/shell/">shell</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/shell/">shell</a>
+            
+              <a href="/tags/Kaldi/">Kaldi</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2020/08/10/200810_parallelize/" target="_self">
           <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="Parallelized Command">
         </a>
@@ -193,16 +251,16 @@
         
           
         
-        <div>Kaldi run.pl &amp; queue.pl使用方法 run.pl &lt;options&gt; &lt;log-file&gt; &lt;command&gt;
+        <div>命令行： 尖括号 中括号的含义
+[]：内的内容意思是：可写可不写
+{}：那就必须要在{}内给出的选择里选一个。
+&lt;&gt;：表示必选
+
+Kaldi run.pl &amp; queue.pl使用方法 run.pl &lt;options&gt; &lt;log-file&gt; &lt;command&gt;
 ├── run.pl
 ├── run.sh
 ├── cmd_1.sh
-└── cmd_2.sh
-
-run.sh
-# "JOB" is core to control
-nj=2
-./run.pl JOB=1:$nj test.</div>
+└── cm</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -226,6 +284,8 @@ nj=2
               <a href="/tags/Linix/">Linix</a>
             
               <a href="/tags/shell/">shell</a>
+            
+              <a href="/tags/Kaldi/">Kaldi</a>
             
           </div>
         
@@ -483,6 +543,8 @@ cat test.ark | copy-feats ark:- ark,t:- | less # Show the contents in the ark
             
               <a href="/tags/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
             
+              <a href="/tags/Kaldi/">Kaldi</a>
+            
           </div>
         
       </div>
@@ -634,57 +696,6 @@ Learn useful repre</div>
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2020/07/04/002_flow/" target="_self">
-          <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="【毕业要紧】 flow 模型">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2020/07/04/002_flow/">【毕业要紧】 flow 模型</a>
-
-      <a href="/2020/07/04/002_flow/" class="index-excerpt">
-        
-        
-          
-        
-        <div>A good representation is one in which the data has a distribution that is easy to model
-基础数学生成模型要解决的问题给定两组数据 $z$ 和 $x$ ，其中 $z$ 服从已知的简单先验分布 $\pi(z)$ ，通常是高斯分布，$x$ 服从复杂的分布 $p(x)$ ,即训练数据代表的分布，现在我们想要找到一个变换</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-07-04
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
-            
-              <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
-            
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
             
           </div>
         
