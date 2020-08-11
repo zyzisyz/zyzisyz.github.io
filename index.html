@@ -196,14 +196,13 @@
         <div>Splitscp=$data/wav.scp
 
 # prepare split_scps
-# eg: split_scps="1.scp 2.scp"
 split_scps=""
 for n in $(seq $nj); do
     split_scps="$split_scps $logdir/wav_$&#123;name&#125;.$n.scp"
 done
 
 # split scp
-ut</div>
+utils/split_scp.pl $scp $split_sc</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -315,11 +314,11 @@ Model：负责业务对象与数据库的对象(ORM)
 Template：负责如何把页面展示给用户
 View：负责业务逻辑，并在适当的时候调用 Model 和 Template
 
-CLI tips# create Django projects
+CLI Tips# create Django projects
 django-admin startproject $project_name
 
-# run Django projects
-python man</div>
+# run server
+python manage.py ru</div>
       </a>
 
       <div class="index-btm post-metas">

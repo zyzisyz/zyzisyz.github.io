@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      132 字
+      157 字
     </span>
   
 
@@ -221,14 +221,22 @@
 <li><strong>Template</strong>：负责如何把页面展示给用户</li>
 <li><strong>View</strong>：负责业务逻辑，并在适当的时候调用 Model 和 Template</li>
 </ol>
-<h2 id="CLI-tips"><a href="#CLI-tips" class="headerlink" title="CLI tips"></a>CLI tips</h2><pre><code class="hljs bash"><span class="hljs-comment"># create Django projects</span>
+<h2 id="CLI-Tips"><a href="#CLI-Tips" class="headerlink" title="CLI Tips"></a>CLI Tips</h2><pre><code class="hljs bash"><span class="hljs-comment"># create Django projects</span>
 django-admin startproject <span class="hljs-variable">$project_name</span>
 
-<span class="hljs-comment"># run Django projects</span>
+<span class="hljs-comment"># run server</span>
 python manage.py runserver　　<span class="hljs-comment">#default port is 8000</span>
+python -u manage.py runserver 0.0.0.0:4000
 
 <span class="hljs-comment"># create app</span>
-python manage.py startapp <span class="hljs-variable">$app_name</span></code></pre>
+python manage.py startapp <span class="hljs-variable">$app_name</span>
+
+<span class="hljs-comment"># admin</span>
+python manage.py migrate
+python manage.py createsuperuser
+
+<span class="hljs-comment"># make migrations</span>
+python manange.py makeigrations <span class="hljs-variable">$app_name</span></code></pre>
 
 <h2 id="Model-Tips"><a href="#Model-Tips" class="headerlink" title="Model Tips"></a>Model Tips</h2><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> myapp_person (
     <span class="hljs-string">"id"</span> <span class="hljs-built_in">serial</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> PRIMARY <span class="hljs-keyword">KEY</span>,

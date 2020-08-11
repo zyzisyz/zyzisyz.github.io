@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      65 字
+      67 字
     </span>
   
 
@@ -219,7 +219,6 @@
               <h2 id="Split"><a href="#Split" class="headerlink" title="Split"></a>Split</h2><pre><code class="hljs bash">scp=<span class="hljs-variable">$data</span>/wav.scp
 
 <span class="hljs-comment"># prepare split_scps</span>
-<span class="hljs-comment"># eg: split_scps="1.scp 2.scp"</span>
 split_scps=<span class="hljs-string">""</span>
 <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> $(seq <span class="hljs-variable">$nj</span>); <span class="hljs-keyword">do</span>
     split_scps=<span class="hljs-string">"<span class="hljs-variable">$split_scps</span> <span class="hljs-variable">$logdir</span>/wav_<span class="hljs-variable">$&#123;name&#125;</span>.<span class="hljs-variable">$n</span>.scp"</span>
@@ -228,6 +227,7 @@ split_scps=<span class="hljs-string">""</span>
 <span class="hljs-comment"># split scp</span>
 utils/split_scp.pl <span class="hljs-variable">$scp</span> <span class="hljs-variable">$split_scps</span> || <span class="hljs-built_in">exit</span> 1;</code></pre>
 
+<p>tip: <code>split_scps=&quot;1.scp 2.scp&quot;</code></p>
 <h2 id="Concatenate"><a href="#Concatenate" class="headerlink" title="Concatenate"></a>Concatenate</h2><pre><code class="hljs bash"><span class="hljs-comment"># concatenate the .scp files together.</span>
 <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> $(seq <span class="hljs-variable">$nj</span>); <span class="hljs-keyword">do</span>
   cat <span class="hljs-variable">$mfccdir</span>/raw_mfcc_<span class="hljs-variable">$name</span>.<span class="hljs-variable">$n</span>.scp || <span class="hljs-built_in">exit</span> 1;
