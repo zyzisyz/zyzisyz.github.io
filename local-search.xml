@@ -5,8 +5,8 @@
   
   <entry>
     <title>Kaldi Split data &amp; Concatenate scp</title>
-    <link href="/2020/08/11/200811_kaldi_cat_ark/"/>
-    <url>/2020/08/11/200811_kaldi_cat_ark/</url>
+    <link href="/2020/08/11/2020/200811_kaldi_cat_ark/"/>
+    <url>/2020/08/11/2020/200811_kaldi_cat_ark/</url>
     
     <content type="html"><![CDATA[<h2 id="Split"><a href="#Split" class="headerlink" title="Split"></a>Split</h2><pre><code class="hljs bash">scp=<span class="hljs-variable">$data</span>/wav.scp<span class="hljs-comment"># prepare split_scps</span>split_scps=<span class="hljs-string">""</span><span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> $(seq <span class="hljs-variable">$nj</span>); <span class="hljs-keyword">do</span>    split_scps=<span class="hljs-string">"<span class="hljs-variable">$split_scps</span> <span class="hljs-variable">$logdir</span>/wav_<span class="hljs-variable">$&#123;name&#125;</span>.<span class="hljs-variable">$n</span>.scp"</span><span class="hljs-keyword">done</span><span class="hljs-comment"># split scp</span>utils/split_scp.pl <span class="hljs-variable">$scp</span> <span class="hljs-variable">$split_scps</span> || <span class="hljs-built_in">exit</span> 1;</code></pre><p>tip: <code>split_scps=&quot;1.scp 2.scp&quot;</code></p><h2 id="Concatenate"><a href="#Concatenate" class="headerlink" title="Concatenate"></a>Concatenate</h2><pre><code class="hljs bash"><span class="hljs-comment"># concatenate the .scp files together.</span><span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> $(seq <span class="hljs-variable">$nj</span>); <span class="hljs-keyword">do</span>  cat <span class="hljs-variable">$mfccdir</span>/raw_mfcc_<span class="hljs-variable">$name</span>.<span class="hljs-variable">$n</span>.scp || <span class="hljs-built_in">exit</span> 1;<span class="hljs-keyword">done</span> &gt; <span class="hljs-variable">$data</span>/feats.scp || <span class="hljs-built_in">exit</span> 1</code></pre>]]></content>
     
@@ -31,9 +31,38 @@
   
   
   <entry>
+    <title>MySQL CLI Tips</title>
+    <link href="/2020/08/11/2020/200811_mysql_cli/"/>
+    <url>/2020/08/11/2020/200811_mysql_cli/</url>
+    
+    <content type="html"><![CDATA[<h2 id="MySQL-Installation"><a href="#MySQL-Installation" class="headerlink" title="MySQL Installation"></a>MySQL Installation</h2><h2 id="CLI-Tips"><a href="#CLI-Tips" class="headerlink" title="CLI Tips"></a>CLI Tips</h2><h3 id="bash-CLI"><a href="#bash-CLI" class="headerlink" title="bash CLI"></a>bash CLI</h3><pre><code class="hljs bash"><span class="hljs-comment"># start</span>mysql.server start<span class="hljs-comment"># login</span>mysql -u root -pmysql -u <span class="hljs-variable">$user_name</span> -p<span class="hljs-comment"># status</span>systemctl status mysql.service<span class="hljs-comment"># run sql script</span><span class="hljs-built_in">source</span> <span class="hljs-variable">$sql_path</span></code></pre><h3 id="MySQL-CLI"><a href="#MySQL-CLI" class="headerlink" title="MySQL CLI"></a>MySQL CLI</h3><pre><code class="hljs SQL"><span class="hljs-comment"># create database</span><span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> <span class="hljs-keyword">test</span> <span class="hljs-built_in">character</span> <span class="hljs-keyword">set</span> utf8mb4;<span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> $database_name <span class="hljs-built_in">character</span> <span class="hljs-keyword">set</span> utf8mb4;<span class="hljs-comment"># show</span><span class="hljs-keyword">show</span> <span class="hljs-keyword">databases</span>;<span class="hljs-keyword">show</span> <span class="hljs-keyword">tables</span>;</code></pre><h2 id="mycli"><a href="#mycli" class="headerlink" title="mycli"></a>mycli</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol><li><p><a href="https://www.jianshu.com/p/4fc53d7d7620" target="_blank" rel="noopener">Mac 上安装 MySQL</a></p></li><li><p><a href="https://zhuanlan.zhihu.com/p/101697361" target="_blank" rel="noopener">mycli，一款让你忘记mysql-client的命令行客户端神器</a></p></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>WEB</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>WEB</tag>
+      
+      <tag>shell</tag>
+      
+      <tag>Tips</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Parallelized Command</title>
-    <link href="/2020/08/10/200810_parallelize/"/>
-    <url>/2020/08/10/200810_parallelize/</url>
+    <link href="/2020/08/10/2020/200810_parallelize/"/>
+    <url>/2020/08/10/2020/200810_parallelize/</url>
     
     <content type="html"><![CDATA[<h2 id="命令行：-尖括号-中括号的含义"><a href="#命令行：-尖括号-中括号的含义" class="headerlink" title="命令行： 尖括号 中括号的含义"></a>命令行： 尖括号 中括号的含义</h2><ol><li><code>[]</code>：内的内容意思是：可写可不写</li><li><code>{}</code>：那就必须要在{}内给出的选择里选一个。</li><li><code>&lt;&gt;</code>：表示必选</li></ol><h2 id="Kaldi-run-pl-amp-queue-pl"><a href="#Kaldi-run-pl-amp-queue-pl" class="headerlink" title="Kaldi run.pl &amp; queue.pl"></a>Kaldi run.pl &amp; queue.pl</h2><p>使用方法 <code>run.pl &lt;options&gt; &lt;log-file&gt; &lt;command&gt;</code></p><pre><code class="hljs bash">├── run.pl├── run.sh├── cmd_1.sh└── cmd_2.sh</code></pre><p><strong>run.sh</strong></p><pre><code class="hljs bash"><span class="hljs-comment"># "JOB" is core to control</span>nj=2./run.pl JOB=1:<span class="hljs-variable">$nj</span> test.JOB.log bash cmd_JOB.sh</code></pre><h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol><li><p><a href="https://blog.csdn.net/zongza/article/details/89715095" target="_blank" rel="noopener">[ASR_THU] flac文件转wav文件</a></p></li><li><p><a href="https://blog.csdn.net/zongza/article/details/89707462" target="_blank" rel="noopener">[ASR_THU] bash 脚本实现批量化作业与并行处理</a></p></li><li><p><a href="https://blog.csdn.net/yj13811596648/article/details/102817366" target="_blank" rel="noopener">[CSDN] make_mfcc.sh</a></p></li></ol>]]></content>
     
@@ -61,8 +90,8 @@
   
   <entry>
     <title>Django Tips &amp; Reference</title>
-    <link href="/2020/08/08/200808_django/"/>
-    <url>/2020/08/08/200808_django/</url>
+    <link href="/2020/08/08/2020/200808_django/"/>
+    <url>/2020/08/08/2020/200808_django/</url>
     
     <content type="html"><![CDATA[<h2 id="MVT-模式"><a href="#MVT-模式" class="headerlink" title="MVT 模式"></a>MVT 模式</h2><ol><li><strong>Model</strong>：负责业务对象与数据库的对象(ORM)</li><li><strong>Template</strong>：负责如何把页面展示给用户</li><li><strong>View</strong>：负责业务逻辑，并在适当的时候调用 Model 和 Template</li></ol><h2 id="CLI-Tips"><a href="#CLI-Tips" class="headerlink" title="CLI Tips"></a>CLI Tips</h2><pre><code class="hljs bash"><span class="hljs-comment"># create Django projects</span>django-admin startproject <span class="hljs-variable">$project_name</span><span class="hljs-comment"># run server</span>python manage.py runserver　　<span class="hljs-comment">#default port is 8000</span>python -u manage.py runserver 0.0.0.0:4000<span class="hljs-comment"># create app</span>python manage.py startapp <span class="hljs-variable">$app_name</span><span class="hljs-comment"># admin</span>python manage.py migratepython manage.py createsuperuser<span class="hljs-comment"># make migrations</span>python manange.py makeigrations <span class="hljs-variable">$app_name</span></code></pre><h2 id="Model-Tips"><a href="#Model-Tips" class="headerlink" title="Model Tips"></a>Model Tips</h2><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> myapp_person (    <span class="hljs-string">"id"</span> <span class="hljs-built_in">serial</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> PRIMARY <span class="hljs-keyword">KEY</span>,    <span class="hljs-string">"first_name"</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">30</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,    <span class="hljs-string">"last_name"</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">30</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>);</code></pre><pre><code class="hljs python"><span class="hljs-keyword">from</span> django.db <span class="hljs-keyword">import</span> models <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span><span class="hljs-params">(models.Model)</span>:</span>    first_name = models.CharField(max_length=<span class="hljs-number">30</span>)    last_name = models.CharField(max_length=<span class="hljs-number">30</span>)</code></pre><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol><li><p><a href="https://www.cnblogs.com/maple-shaw/p/9029086.html" target="_blank" rel="noopener">Django 简介</a></p></li><li><p><a href="https://www.cnblogs.com/maple-shaw/articles/9333821.html" target="_blank" rel="noopener">Django 模版</a></p></li><li><p><a href="https://www.cnblogs.com/maple-shaw/articles/9285269.html" target="_blank" rel="noopener">Django 视图</a></p></li><li><p><a href="https://www.cnblogs.com/maple-shaw/articles/9282718.html" target="_blank" rel="noopener">Django 路由</a></p></li><li><p><a href="https://www.cnblogs.com/maple-shaw/p/9029086.html" target="_blank" rel="noopener">Django 模型</a></p></li></ol>]]></content>
     
@@ -78,6 +107,8 @@
       
       <tag>WEB</tag>
       
+      <tag>Tips</tag>
+      
     </tags>
     
   </entry>
@@ -86,8 +117,8 @@
   
   <entry>
     <title>【毕业要紧】Aduio Toolkit Ref</title>
-    <link href="/2020/08/03/200803_aduio_toolkit_ref/"/>
-    <url>/2020/08/03/200803_aduio_toolkit_ref/</url>
+    <link href="/2020/08/03/2020/200803_aduio_toolkit_ref/"/>
+    <url>/2020/08/03/2020/200803_aduio_toolkit_ref/</url>
     
     <content type="html"><![CDATA[<h2 id="sox"><a href="#sox" class="headerlink" title="sox"></a>sox</h2><pre><code class="hljs bash"><span class="hljs-comment"># 查看音频信息</span>soxi test.wavsox test.wav -n <span class="hljs-built_in">stat</span><span class="hljs-comment"># 切割音频</span>sox in.wav out.wav trim 0 10<span class="hljs-comment"># 改变音量</span>sox -v 0.5 input.wav output.wav <span class="hljs-comment"># 音频放大0.5倍</span><span class="hljs-comment"># 以 sox foo.wav -n stat -v 命令返回的数字作为放大倍数，将最大化 foo.wav 的音量而不至于出现削波</span>sox foo.wav -n <span class="hljs-built_in">stat</span> -v 2&gt; vcsox -v `cat vc` foo.wav foo-maxed.wavsox --norm=-1 &lt;inputfile&gt; &lt;outputfile&gt; <span class="hljs-comment"># 归一化音频响度</span></code></pre><h2 id="librosa"><a href="#librosa" class="headerlink" title="librosa"></a>librosa</h2><pre><code class="hljs Python"><span class="hljs-keyword">import</span> librosa<span class="hljs-keyword">import</span> librosa.display<span class="hljs-comment"># load wavfile</span>waveform, sample_rate = librosa.load(filepath)<span class="hljs-comment"># MFCCs</span>MFCCs = librosa.feature.mfcc(y=waveform, sr=sample_rate, n_mfcc=<span class="hljs-number">24</span>)</code></pre><h2 id="torchadudio"><a href="#torchadudio" class="headerlink" title="torchadudio"></a>torchadudio</h2><pre><code class="hljs Python"><span class="hljs-keyword">import</span> torch<span class="hljs-keyword">import</span> torchaudio<span class="hljs-comment"># load wavefile</span>waveform, sample_rate = torchaudio.load(filepath)<span class="hljs-comment"># MFCCs</span>MFCCc = torchaudio.transforms.MFCC()(waveform)<span class="hljs-comment"># Specgram</span>Specgram = torchaudio.transforms.Spectrogram()(waveform)</code></pre><h2 id="Kaldi"><a href="#Kaldi" class="headerlink" title="Kaldi"></a>Kaldi</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="https://www.cnblogs.com/LXP-Never/p/11561355.html" target="_blank" rel="noopener">[博客园] librosa语音信号处理</a></p><p>[2] <a href="https://librosa.org/doc/latest/index.html" target="_blank" rel="noopener">[librosa] Document</a></p><p>[3] <a href="https://www.jianshu.com/p/be9e16aeb101" target="_blank" rel="noopener">[简书] SOX常用命令</a></p><p>[4] <a href="https://www.cnblogs.com/zhuminghui/p/11971311.html" target="_blank" rel="noopener">[博客园] Linux 对音频万能处理的命令——SOX</a></p>]]></content>
     
@@ -111,8 +142,8 @@
   
   <entry>
     <title>【毕业要紧】 CPC &amp; APC</title>
-    <link href="/2020/07/31/200714_cpc/"/>
-    <url>/2020/07/31/200714_cpc/</url>
+    <link href="/2020/07/31/2020/200714_cpc/"/>
+    <url>/2020/07/31/2020/200714_cpc/</url>
     
     <content type="html"><![CDATA[<p>Predictive coding is one of the oldest techniques in signal processing for data compression</p><p>One of the most common strategies for unsupervised learning has been to predict future, missing or contextual information.</p><h2 id="Mutual-Information"><a href="#Mutual-Information" class="headerlink" title="Mutual Information"></a>Mutual Information</h2><ol><li>data: $x$</li><li>context: $c$</li></ol><p>$$I(x; c) = \sum_{x,c}p(x, c)log\frac{p(x|c)}{p(x)}$$</p><h2 id="CPC"><a href="#CPC" class="headerlink" title="CPC"></a>CPC</h2><p>Contrastive Predictive Coding (CPC) aims to learn representations that separates the target future frame $x_{i+n}$ and randomly sampled negative frames $\tilde{x}$, given a context $h_i = (x_1, x_2, …, x_i)$</p><h2 id="APC"><a href="#APC" class="headerlink" title="APC"></a>APC</h2><p>The methodology of the APC model is largely inspired by language models (LMs) for text, which are typically a probability distribution over sequences of $N$ tokens $(t_1, t_2, …, t_N )$. Given such a sequence, an LM assigns a probability $P(t_1, t_2, …, t_N)$ to the whole sequence by modeling the probability of token $t_k$ given the history $(t_1, t_2, …, t_{k−1})$</p><p>$$P(t_1,t_2,…,t_N)=\prod_{k=1}^{N}P(t_k|t_1,t_2,…,t_{k-1})$$</p><p>It is trained by minimizing the negative log-likelihood:</p><p>$$\sum_{k=1}^{N}-logP(t_1,t_2,…,t_{k-1};\theta_{t},\theta_{rnn},\theta_{s})$$</p><p>where the parameters to be optimized are $\theta_{t}$, $\theta_{rnn}$ and $\theta_{rnn}$ is a look-up table that maps each token into a vector of fixed dimensionality. $\theta_{rnn}$ is a Recurrent Neural Network (RNN) used to summarize the sequence history up to the current time step. $\theta_s$ is a Softmax layer appended at the output of each RNN time step for estimating probability distribution over the tokens. Language modeling is a general task that requires the understanding of many aspects in language in order to perform well.</p><p>In other words, given an utterance represented as a sequence of acoustic feature vectors $(x_1, x_2, …, x_T)$, the RNN processes each sequence element $x_t$ one at a time and outputs a prediction $y_t$, where $x_t$ and $y_t$ have the same dimensionality.</p>]]></content>
     
@@ -136,15 +167,15 @@
   
   <entry>
     <title>JavaScript tips</title>
-    <link href="/2020/07/29/200729_js/"/>
-    <url>/2020/07/29/200729_js/</url>
+    <link href="/2020/07/29/2020/200729_js/"/>
+    <url>/2020/07/29/2020/200729_js/</url>
     
-    <content type="html"><![CDATA[<h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><ul><li><strong>渲染引擎</strong>:</li><li><strong>JS 引擎</strong>:</li></ul>]]></content>
+    <content type="html"><![CDATA[<h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><ul><li><strong>渲染引擎</strong>:</li><li><strong>JS 引擎</strong>:</li></ul><h2 id="NodeJS"><a href="#NodeJS" class="headerlink" title="NodeJS"></a>NodeJS</h2><h2 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h2>]]></content>
     
     
     <categories>
       
-      <category>JavaScript</category>
+      <category>WEB</category>
       
     </categories>
     
@@ -152,6 +183,8 @@
     <tags>
       
       <tag>JavaScript</tag>
+      
+      <tag>Tips</tag>
       
     </tags>
     
@@ -161,8 +194,8 @@
   
   <entry>
     <title>【毕业要紧】 Kaldi Tips</title>
-    <link href="/2020/07/16/200716_kaldi_tips/"/>
-    <url>/2020/07/16/200716_kaldi_tips/</url>
+    <link href="/2020/07/16/2020/200716_kaldi_tips/"/>
+    <url>/2020/07/16/2020/200716_kaldi_tips/</url>
     
     <content type="html"><![CDATA[<h2 id="ark-ark-t-scp"><a href="#ark-ark-t-scp" class="headerlink" title="ark ark,t scp"></a>ark ark,t scp</h2><p><code>ark</code> is an archive format to save any <code>Kaldi objects</code>. ark can be flushed to and from unix pipe.</p><pre><code class="hljs bash">cat test.ark | copy-feats ark:- ark,t:- | less <span class="hljs-comment"># Show the contents in the ark</span></code></pre><p><strong><code>-</code> indicates standard input stream or output stream.</strong></p><h2 id="s-cs-p"><a href="#s-cs-p" class="headerlink" title="s, cs, p"></a>s, cs, p</h2><ol><li><code>s</code>：keys是有序的</li><li><code>cs</code>：按顺序访问数据 （程序不满足会崩溃） </li><li><code>p</code> ：忽略错误</li></ol><h2 id="FM-amp-FV"><a href="#FM-amp-FV" class="headerlink" title="FM &amp; FV"></a>FM &amp; FV</h2><p>Kaldi has two major types: Matrix and Vector. </p><ul><li>Binary/Text - Float/Double Matrix: FM, DM</li><li>Binary/Text - Float/Double Vector: FV, DV</li></ul><p>As such, features are often stored in one of these two file types. For instance, when you extract i-vectors, they are stored as a matrix of floats (FM) and if you extract x-vectors, they are stored as vectors of float (FV). Often it may be required to convert features stored as FV to FM and vice-versa.</p><p>convert from FV to FM:</p><pre><code class="hljs bash">copy-vector --binary=<span class="hljs-literal">false</span> scp:exp/xvectors/xvector.scp ark,t:- | \  copy-matrix ark,t:- ark,scp:exp/xvectors/xvector_mat.ark,exp/xvectors/xvector_mat.scp</code></pre><p>convert from FM to FV:</p><pre><code class="hljs bash">copy-matrix --binary=<span class="hljs-literal">false</span> scp:exp/ivectors/ivector.scp ark,t:- | \  copy-vector ark,t:- ark,scp:exp/ivectors/ivector_vec.ark,exp/ivectors/ivector_vec.scp</code></pre><h2 id="Reference-and-Other-Tips"><a href="#Reference-and-Other-Tips" class="headerlink" title="Reference and Other Tips"></a>Reference and Other Tips</h2><p>[1] <a href="https://desh2608.github.io/2019-03-27-kaldi-tricks/" target="_blank" rel="noopener">desh2608 kaldi-tricks</a></p>]]></content>
     
@@ -188,8 +221,8 @@
   
   <entry>
     <title>【毕业要紧】 Facebook AI Research wav2vec</title>
-    <link href="/2020/07/09/200709_wav2vec/"/>
-    <url>/2020/07/09/200709_wav2vec/</url>
+    <link href="/2020/07/09/2020/200709_wav2vec/"/>
+    <url>/2020/07/09/2020/200709_wav2vec/</url>
     
     <content type="html"><![CDATA[<h2 id="Unknown"><a href="#Unknown" class="headerlink" title="Unknown"></a>Unknown</h2><ul><li><strong>character-based speech recognition</strong> : what’s character-based?</li></ul><h2 id="Some-Tips"><a href="#Some-Tips" class="headerlink" title="Some Tips"></a>Some Tips</h2><p>We explore unsupervised pre-training for speech recognition by learning representations of raw audio. </p><p><strong>wav2vec</strong> is trained on large amounts of unlabeled audio data and the resulting representations are then used to improve acoustic model training. </p><p><strong>We pre-train a simple multi-layer convolutional neural network optimized via a noise contrastive binary classification task.</strong></p><p>Our experiments on WSJ reduce WER of a strong character-based <strong>log-mel filterbank baseline</strong> by up to 36% when only a few hours of transcribed data is available. Our approach achieves 2.43% WER on the nov92 test set. This outperforms Deep Speech 2, the best reported character-based system in the literature while using two orders of magnitude less labeled training data</p><p>Our model, wav2vec, is a convolutional neural network that takes raw audio as input and computes a general representation that can be input to a speech recognition system.</p><p><strong>The objective is a contrastive loss that requires distinguishing a true future audio sample from negatives.</strong></p><p>Different to previous work (van den Oord et al., 2018), we move beyond frame-wise phoneme classification and apply the learned representations to improve strong supervised ASR systems. wav2vec relies on a fully convolutional architecture which can be easily parallelized over time on modern hardware compared to recurrent models used in previous work.</p><p>We introduce wav2vec, the first application of unsupervised pre-training to speech recognition with a fully convolutional model. Our approach achieves 2.43% WER on the test set of WSJ, a result that outperforms the next best known character-based speech recognition model in the literature (Amodei et al., 2016) while using two orders of magnitude less transcribed training data. </p><ul><li>improves resource-poor setups</li><li>settings where all WSJ training data is used</li></ul><h2 id="Objective"><a href="#Objective" class="headerlink" title="Objective"></a>Objective</h2><p>Our model takes raw audio signal as input and then applies two networks.</p><ul><li><strong>encoder network</strong> : embeds the audio signal in a latent space</li><li><strong>context network</strong> : combines multiple time-steps of the encoder to obtain contextualized representations</li></ul><p>Given raw audio samples $x_i \in \mathcal{X}$, we apply the encoder network $f : \mathcal{X} → \mathcal{Z}$ parameterized as a five-layer convolutional network</p><p>Next, we apply the context network $g : \mathcal{Z} → \mathcal{C}$ to the output of the encoder network to mix multiple latent representations $z_i…z_{i-v}$ into a single contextualized tensor $c_{i}= g(z_{i}…z_{i−v})$ for a receptive field size $v$.</p><p><strong>The objective is a contrastive loss that requires distinguishing a true future audio sample from negatives.</strong></p><p>We train the model to distinguish a sample $z_{i+k}$ that is $k$ steps in the future from distractor samples $\widetilde{z}$ drawn from a proposal distribution $p_n$, by minimizing the contrastive loss for each step $k = 1,…,K$:</p><p>$$L_k = -\sum_{i=1}^{T-k}(log\sigma(z_{i+k}^{T}h_k(c_i))+\lambda\mathbb{E}[log\sigma(-\widetilde{z}^{T}h_k(c_i))])$$</p><p>$$\mathcal{L} =\sum_{k=1}^{K}\mathcal{L}_k$$</p><ul><li>$\sigma(x)=1/(1+exp(-x))$ : sigmoid</li><li>$\sigma(z_{i+k}^{T}h_{k}(c_i))$ : the probability of $z_{i+k}$ being the true sample</li></ul><p>We consider a step-specific <strong>affine transformation</strong>(<a href="https://www.cnblogs.com/happystudyeveryday/p/10547316.html" target="_blank" rel="noopener">仿射变换</a>) $h_k(c_i) = W_{k}c_{i}+b_{k}$ for each step $k$, that is applied to $c_i$(van den Oord et al., 2018). We optimize the loss $\mathcal{L} =\sum_{k=1}^{K}\mathcal{L}_k$, summing (1) over different step sizes. In practice, we approximate the expectation by sampling ten negatives examples by uniformly choosing distractors from each audio sequence, i.e., $p_n(z) = \frac{1}{T}$, where $T$ is the sequence length and we set $\lambda$ to the number of negatives</p><h2 id="Code-Example"><a href="#Code-Example" class="headerlink" title="Code Example"></a>Code Example</h2><h3 id="Pre-Train-model-Useage"><a href="#Pre-Train-model-Useage" class="headerlink" title="Pre Train model Useage"></a>Pre Train model Useage</h3><ul><li>The encoder network embeds the audio signal in a latent space</li><li>the context network combines multiple time-steps of the encoder to obtain contextualized representations</li></ul><pre><code class="hljs Python"><span class="hljs-keyword">import</span> torch<span class="hljs-keyword">from</span> fairseq.models.wav2vec <span class="hljs-keyword">import</span> Wav2VecModelcp = torch.load(<span class="hljs-string">'/path/to/wav2vec.pt'</span>)model = Wav2VecModel.build_model(cp[<span class="hljs-string">'args'</span>], task=<span class="hljs-literal">None</span>)model.load_state_dict(cp[<span class="hljs-string">'model'</span>])model.eval()wav_input_16khz = torch.randn(<span class="hljs-number">1</span>,<span class="hljs-number">10000</span>)z = model.feature_extractor(wav_input_16khz)c = model.feature_aggregator(z)</code></pre>]]></content>
     
@@ -212,34 +245,9 @@
   
   
   <entry>
-    <title>【毕业要紧】 An overview of voice conversion systems</title>
-    <link href="/2020/07/05/12_VC/"/>
-    <url>/2020/07/05/12_VC/</url>
-    
-    <content type="html"><![CDATA[<h2 id="VC-systerm"><a href="#VC-systerm" class="headerlink" title="VC systerm"></a>VC systerm</h2><p><img src="https://wx2.sbimg.cn/2020/07/07/CCSsO.png" srcset="/img/loading.gif" alt="avatar"></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>毕业要紧</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>毕业要紧</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>【毕业要紧】 Self Supervised Learning in Speech Resources</title>
-    <link href="/2020/07/05/200708_self_supervised_learning/"/>
-    <url>/2020/07/05/200708_self_supervised_learning/</url>
+    <link href="/2020/07/05/2020/200708_self_supervised_learning/"/>
+    <url>/2020/07/05/2020/200708_self_supervised_learning/</url>
     
     <content type="html"><![CDATA[<h2 id="Supervised-Learning"><a href="#Supervised-Learning" class="headerlink" title="Supervised Learning"></a>Supervised Learning</h2><p>Given: </p><ul><li>a dataset $\mathcal{D} = {(x, y)}_i^N$</li><li>a loss function $\mathcal{l}$</li></ul><p>Goal:</p><p>$$min_{\theta}\mathbb{E}_{(x, y)}$$</p><ul><li>Works well when labeled data is abundant</li><li><strong>Learn useful representation with the supervision</strong></li></ul><h2 id="Yann-LeCun"><a href="#Yann-LeCun" class="headerlink" title="Yann LeCun"></a>Yann LeCun</h2><blockquote><p>in self-supervised learning, the systerm learns to predict part of its input from other parts of it input.</p></blockquote><ul><li>Goal: Learning to represent the world before learning tasks.</li><li>Predict any part of the input from any other part</li><li>Predict the <strong>future</strong> from the <strong>recent past</strong></li><li>Predict the <strong>past</strong> from the <strong>present</strong></li><li>Predict the <strong>top</strong> from the <strong>bottom</strong></li></ul><h2 id="Interspeech-2020-New-Trends-in-self-supervised-Speech-Processing"><a href="#Interspeech-2020-New-Trends-in-self-supervised-Speech-Processing" class="headerlink" title="Interspeech 2020: New Trends in self-supervised Speech Processing"></a>Interspeech 2020: New Trends in self-supervised Speech Processing</h2><p>Over the past decade, supervised deep learning models led to great strides in performance for speech processing technologies and applications. </p><p>However, unlike humans who are capable of self-learning through experiences and interactions, current real-world speech applications are heavily reliant on large volumes of human annotations. </p><p>For the next generation of speech processing systems to exhibit similar levels of cognitive intelligence as humans, they should be designed to exploit unlabeled, partially labeled, contextual and distant supervision data from multiple concurrent modalities, e.g., text and video, and learning signals from corrective user follow-ups in conversational applications. </p><p><strong>The main motivation for self-supervised learning is rooted in our need to improve ASR systems when there is a limited amount of labeled data.</strong></p><p>Self-supervised learning methods [LeCun 2016] construct proxy predictive tasks to train models for downstream scenarios by exploiting large amounts of unlabeled audio data, unpaired text and audio data in the same domain, or speech data with distant unrelated labels, e.g. A text summary or slides of an audio lecture. </p><p>Through these invented proxy tasks, models learn high-level representations that generalize well across different languages, domains, and deployment scenarios with very few in-domain labeled examples. </p><p>Self-supervised learning methods achieved major successes in Natural Language Processing (NLP) [Peters 2018, Devlin 2018, Radford 2019, Raffel 2019, Lewis 2019] and Computer Vision (CV) [Sun 2019, He 2019, Xie 2019, Misra 2019].</p><p>There is a recent surge in speech processing research work introducing predictive proxy tasks for model training, and achieving impressive results in downstream applications like ASR and speaker recognition. These self-supervised approaches include, but not limited to:</p><ul><li><strong>Future prediction</strong>: Learning an autoregressive model that generates distant future audio features from historical ones [Oard 2018, Chung 2019, Schneider 2019].</li><li><strong>Mask prediction</strong>: Learning a model that predicts masked parts of the input audio signal [Liu 2019, Song 2019, Baevski 2019a, Baevski 2019b].</li><li><strong>Generating contextual data</strong>: Learning a model to predict semantically-related contextual information that accompany the speech signal, e.g. Using social media title and comments as input audio labels [Singh 2019, Pascual 2019].</li><li><strong>Chaining ASR and TTS</strong>: Using unpaired audio and text data to train an ASR system and a TTS system jointly, where one is generating training paired data for the other [Tjandra 2019, Hori 2019, Baskar 2019]. This family of self-supervised methods can be viewed as auto-encoders of speech signals through latent text representations. Effective use of external language models falls into this category to regularize the text representations.</li></ul><h2 id="Workshop-ICML-2019-Self-Supervised-Learning"><a href="#Workshop-ICML-2019-Self-Supervised-Learning" class="headerlink" title="Workshop - ICML 2019 Self-Supervised Learning"></a>Workshop - ICML 2019 Self-Supervised Learning</h2><p>Big data has driven a revolution to many domains of machine learning thanks to modern high-capacity models, but the standard approaches – supervised learning from labels, or reinforcement learning from a reward function – have become a bottleneck. </p><p>Even when data is abundant, getting the labels or rewards that specify exactly what the model must do is often intractable. Collecting simple category labels for classification is prohibitive for millions of billions of examples, and structured outputs (scene interpretations, interactions, demonstrations) are far worse, especially when the data distribution is non-stationary.</p><p><strong>Self-supervised learning</strong> is a promising alternative where proxy tasks are developed that allow models and agents to learn without explicit supervision in a way that helps with downstream performance on tasks of interest. One of the major benefits of self-supervised learning is increasing data efficiency: achieving comparable or better performance with less labeled data or fewer environment steps (in Reinforcement learning / Robotics).</p><p>The field of self-supervised learning (SSL) is rapidly evolving, and the performance of these methods is creeping closer to the fully supervised approaches. However, many of these methods are still developed in domain-specific sub-communities, such as Vision, RL and NLP, even though many similarities exist between them. While SSL is an emerging topic and there is great interest in these techniques, there are currently few workshops, tutorials or other scientific events dedicated to this topic.</p><p>This workshop aims to bring together experts with different backgrounds and applications areas to share inter-domain ideas and increase cross-pollination, tackle current shortcomings and explore new directions. The focus will be on the machine learning point of view rather than the domain side.</p><h2 id="ICML-2020-Self-supervision-in-Audio-and-Speech"><a href="#ICML-2020-Self-supervision-in-Audio-and-Speech" class="headerlink" title="ICML 2020 Self-supervision in Audio and Speech"></a>ICML 2020 Self-supervision in Audio and Speech</h2><p>The ongoing success of deep learning techniques depends on the quality of the representations automatically discovered from data. </p><p><strong>These representations must capture important underlying structures from the raw input, e.g., intermediate concepts, features, or latent variables that are useful for the downstream task</strong>. </p><p>While supervised learning using large annotated corpora can leverage useful representations, collecting large amounts of annotated examples is costly, time-consuming, and not always feasible. </p><p>This is particularly problematic for a large variety of applications. In the speech domain, for instance, there are many low-resource languages, where the progress is dramatically slower than in high-resource languages such as English. Moreover, annotations are often underspecified for many potential downstream applications, and the related supervised representations might be biased towards the task they are trained on, limiting their exportability to other applications 2.</p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="https://docs.google.com/presentation/d/1qq8t8a3decJfJyA6t9wCRJfNDkvAnbg1WxTFvx0hG4g/edit?usp=sharing" target="_blank" rel="noopener">NTU 2020 Spring ML Self-Supervised Learning slide, vpn</a></p><p>[2] <a href="https://self-supervised-sp.github.io/Interspeech2020-Special-Session" target="_blank" rel="noopener">interspeech2020: New Trends in self-supervised speech processing</a></p><p>[3] <a href="https://icml-sas.gitlab.io/" target="_blank" rel="noopener">ICML 2020 Self-supervision in Audio and Speech</a></p><p>[4] <a href="https://sites.google.com/view/self-supervised-icml2019" target="_blank" rel="noopener">Workshop - ICML 2019 Self-Supervised Learning</a></p><p>[5] <a href="https://www.bilibili.com/video/BV1oD4y1D7V2" target="_blank" rel="noopener">[CVPR2020 Tutorial] Talk#5 Self-supervised Learning by Licheng, Yen-Chun, Linjie</a></p>]]></content>
     
@@ -262,11 +270,11 @@
   
   
   <entry>
-    <title>【毕业要紧】 flow 模型</title>
-    <link href="/2020/07/04/002_flow/"/>
-    <url>/2020/07/04/002_flow/</url>
+    <title>【毕业要紧】 An overview of voice conversion systems</title>
+    <link href="/2020/07/05/research_note/012_VC/"/>
+    <url>/2020/07/05/research_note/012_VC/</url>
     
-    <content type="html"><![CDATA[<p>A good representation is one in which the data has a distribution that is easy to model</p><h2 id="基础数学"><a href="#基础数学" class="headerlink" title="基础数学"></a>基础数学</h2><h3 id="生成模型要解决的问题"><a href="#生成模型要解决的问题" class="headerlink" title="生成模型要解决的问题"></a>生成模型要解决的问题</h3><p>给定两组数据 $z$ 和 $x$ ，其中 $z$ 服从已知的简单先验分布 $\pi(z)$ ，通常是高斯分布，$x$ 服从复杂的分布 $p(x)$ ,即训练数据代表的分布，现在我们想要找到一个变换函数 $f$ ，它能建立一种 $z$ 到 $x$ 的映射，使得每对于 $\pi(z)$ 中的一个采样点，都能在 $p(x)$ 中有一个（新）样本点与之对应。</p><p>$$ p_g(x) = \int_z p(x|z)p(z)dz\ $$</p><p>其中，$ p(x|z) $ - $ the \  probability \  of \  x \  given \  z$</p><h3 id="概率分布的变换数学例题"><a href="#概率分布的变换数学例题" class="headerlink" title="概率分布的变换数学例题"></a>概率分布的变换数学例题</h3><p>设随机变量X具有概率密度</p><p>求随机变量 $Y=2X+8$ 的概率密度</p><h3 id="Jacobian-Matrix"><a href="#Jacobian-Matrix" class="headerlink" title="Jacobian Matrix"></a>Jacobian Matrix</h3><p>$$<br>\left[<br>    \begin{array}{ccc}<br>        \frac{\partial f_1 }{\partial x_1 } &amp; \cdots &amp; \frac{\partial f_1 }{\partial x_n } \\<br>        \vdots\quad &amp; \ddots &amp; \vdots\quad \\<br>        \frac{\partial f_n }{\partial x_1 } &amp; \cdots &amp; \frac{\partial f_n }{\partial x_n } \\<br>    \end{array}<br>\right]<br>$$</p><p>$$J_{ij}=\frac{\partial f_i }{\partial x_j }$$</p><h3 id="Determinant"><a href="#Determinant" class="headerlink" title="Determinant"></a>Determinant</h3><h3 id="耦合层（Coupling-Layer）"><a href="#耦合层（Coupling-Layer）" class="headerlink" title="耦合层（Coupling Layer）"></a>耦合层（Coupling Layer）</h3><h2 id="NICE"><a href="#NICE" class="headerlink" title="NICE"></a><a href="">NICE</a></h2><p>We propose a deep learning framework for modeling complex high-dimensional densities called <strong>Non-linear Independent Component Estimation</strong> (NICE). It is based on the idea that <strong>a good representation is one in which the data has a distribution that is easy to model</strong>. </p><p>For this purpose, a non-linear deterministic transformation of the data is learned that maps it to a latent space so as to <strong>make the transformed data conform to a factorized distribution</strong>, i.e., resulting in independent latent variables. We parametrize this transformation so that computing the <strong>determinant of the Jacobian</strong> and inverse Jacobian is trivial, yet we maintain the ability to learn complex non-linear transformations, via a composition of simple building blocks, each based on a deep neural network. The training criterion is simply the exact <strong>log-likelihood</strong>, which is tractable. </p><p>Unbiased ancestral sampling is also easy. We show that this approach yields good generative models on four image datasets and can be used for inpainting.</p><h2 id="RealNVP"><a href="#RealNVP" class="headerlink" title="RealNVP"></a><a href="">RealNVP</a></h2><p>Unsupervised learning of probabilistic models is a central yet challenging problem in machine learning. Specifically, designing models with tractable learning, sampling, inference and evaluation is crucial in solving this task. </p><p>We extend the space of such models using real-valued non-volume preserving (real NVP) transformations, a set of powerful, stably invertible, and learnable transformations, resulting in an unsupervised learning algorithm with exact log-likelihood computation, exact and efficient sampling, exact and efficient inference of latent variables, and an interpretable latent space. </p><p>We demonstrate its ability to model natural images on four datasets through sampling, log-likelihood evaluation, and latent variable manipulations.</p><p>“The advantage of Real NVP compared to MAF and IAF is that it can both generate data and estimate densities with one forward pass only, whereas MAF would need D passes to generate data and IAF would need D passes to estimate densities.”</p><h2 id="Glow"><a href="#Glow" class="headerlink" title="Glow"></a><a href="">Glow</a></h2><p>Flow-based generative models (Dinh et al., 2014) are conceptually attractive due to tractability of the exact log-likelihood, tractability of exact latent-variable inference, and parallelizability of both training and synthesis. </p><p>In this paper we propose Glow, a simple type of generative flow using an invertible $1 \times 1$ convolution. Using our method we demonstrate a significant improvement in log-likelihood on standard benchmarks. Perhaps most strikingly, we demonstrate that a generative model optimized towards the plain log-likelihood objective is capable of efficient realisticlooking synthesis and manipulation of large images.</p><h2 id="Normalizing-Flows-for-Probabilistic-Modeling-and-Inference"><a href="#Normalizing-Flows-for-Probabilistic-Modeling-and-Inference" class="headerlink" title="Normalizing Flows for Probabilistic Modeling and Inference"></a><a href="">Normalizing Flows for Probabilistic Modeling and Inference</a></h2><p>Normalizing flows provide a general mechanism for defining expressive probability distributions, only requiring the specification of a (usually simple) base distribution and a series of bijective(<a href="https://www.cnblogs.com/wanghetao/archive/2012/03/16/2400619.html">双射</a>) transformations. </p><p>There has been much recent work on normalizing flows, ranging from improving their expressive power to expanding their application. We believe the field has now matured and is in need of <strong>a unified perspective</strong>. </p><p><strong>In this review, we attempt to provide such a perspective by describing flows through the lens of probabilistic modeling and inference.</strong></p><p>We place special emphasis on the fundamental principles of flow design, and discuss foundational topics such as expressive power and computational trade-offs. We also broaden the conceptual framing of flows by relating them to more general probability transformations. Lastly, we summarize the use of flows for tasks such as generative modeling, approximate inference, and supervised learning.</p><h2 id="相关论文"><a href="#相关论文" class="headerlink" title="相关论文"></a>相关论文</h2><p><a href="https://arxiv.org/abs/1410.8516" target="_blank" rel="noopener">NICE: Non-linear Independent Components Estimation, Dinh et al. 2014</a></p><p><a href="https://arxiv.org/abs/1505.05770" target="_blank" rel="noopener">Variational Inference with Normalizing Flows, Rezende and Mohamed 2015</a></p><p><a href="https://arxiv.org/abs/1605.08803" target="_blank" rel="noopener">Density estimation using Real NVP, Dinh et al. May 2016</a></p><p><a href="https://arxiv.org/abs/1606.04934" target="_blank" rel="noopener">Improved Variational Inference with Inverse Autoregressive Flow, Kingma et al June 2016</a></p><p><a href="https://arxiv.org/abs/1705.07057" target="_blank" rel="noopener">Masked Autoregressive Flow for Density Estimation, Papamakarios et al. May 2017</a></p><p><a href="https://arxiv.org/abs/1807.03039" target="_blank" rel="noopener">Glow: Generative Flow with Invertible 1x1 Convolutions, Kingma and Dhariwal, Jul 2018</a></p><p><a href="https://arxiv.org/abs/1912.02762" target="_blank" rel="noopener">Normalizing Flows for Probabilistic Modeling and Inference. 2019</a></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2>]]></content>
+    <content type="html"><![CDATA[<h2 id="VC-systerm"><a href="#VC-systerm" class="headerlink" title="VC systerm"></a>VC systerm</h2><p><img src="https://wx2.sbimg.cn/2020/07/07/CCSsO.png" srcset="/img/loading.gif" alt="avatar"></p>]]></content>
     
     
     <categories>
@@ -278,11 +286,32 @@
     
     <tags>
       
-      <tag>机器学习</tag>
+      <tag>毕业要紧</tag>
       
-      <tag>笔记</tag>
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【毕业要紧】 Evaluate Metric</title>
+    <link href="/2020/07/04/2020/200705_eval_metric/"/>
+    <url>/2020/07/04/2020/200705_eval_metric/</url>
+    
+    <content type="html"><![CDATA[<h3 id="Accuracy-Acc"><a href="#Accuracy-Acc" class="headerlink" title="Accuracy, Acc"></a>Accuracy, Acc</h3><h3 id=""><a href="#" class="headerlink" title=""></a></h3>]]></content>
+    
+    
+    <categories>
       
-      <tag>深度学习</tag>
+      <category>毕业要紧</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>毕业要紧</tag>
       
     </tags>
     
@@ -292,8 +321,8 @@
   
   <entry>
     <title>makefile &amp; cmake &amp; pybind11</title>
-    <link href="/2020/07/04/200704_makefile/"/>
-    <url>/2020/07/04/200704_makefile/</url>
+    <link href="/2020/07/04/2020/200704_makefile/"/>
+    <url>/2020/07/04/2020/200704_makefile/</url>
     
     <content type="html"><![CDATA[<h2 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h2><h3 id="makefile-的好处"><a href="#makefile-的好处" class="headerlink" title="makefile 的好处"></a>makefile 的好处</h3><p>Makefile 带来的好处就是——“自动化编译”，一旦写好，只需要一个make 命令，整个工程完全自动编译，极大的提高了软件开发的效率。make 是一个命令工具，是一个解释 Makefile 中指令的命令工具。</p><p>Makefile 关系到了整个工程的编译规则。一个工程中的源文件不计其数，并且按类型、功能、模块分别放在若干个目录中，makefile 定义了一系列的规则来指定，哪些文件需要先编译，哪些文件需要后编译，哪些文件需要重新编译，甚至于进行更复杂的功能操作，因为 Makefile 就像一个Shell 脚本一样，其中也可以执行操作系统的命令。</p><h3 id="rules"><a href="#rules" class="headerlink" title="rules"></a>rules</h3><p>源文件首先会生成中间目标文件，再由中间目标文件生成执行文件</p><pre><code class="hljs bash"><span class="hljs-comment"># work pipline</span><span class="hljs-comment"># 写代码-&gt; *.cpp -&gt; 编译 -&gt; *.o -&gt; 链接 -&gt; *.a / *.so</span><span class="hljs-comment"># Makefile rules</span>target ... : prerequisites ...    <span class="hljs-built_in">command</span>    ...    ...</code></pre><h3 id="exmaple"><a href="#exmaple" class="headerlink" title="exmaple"></a>exmaple</h3><h3 id="about-cc"><a href="#about-cc" class="headerlink" title="about cc"></a><a href="https://blog.csdn.net/dddd0216/article/details/51152234" target="_blank" rel="noopener">about <code>cc</code></a></h3><ul><li>cc是unix下面用的编译命令；</li><li>gcc是linux下面用的编译命令；</li></ul><p>很多makefile文件是在Unix下面写的，编译用的是 cc,但是现在很多人喜欢用linux来编译，总不能把makefile文件中所有的cc改成gcc吧，多麻烦啊！</p><p>最后某个大神想到了用连接的方法把cc连接的gcc命令上，运行cc就是运行gcc。</p><h3 id="resource"><a href="#resource" class="headerlink" title="resource"></a>resource</h3><ol><li><a href="https://github.com/seisman/how-to-write-makefile" target="_blank" rel="noopener">Github how to write makefile</a></li></ol><h2 id="Cmake"><a href="#Cmake" class="headerlink" title="Cmake"></a>Cmake</h2><p>CMake is an open-source, <strong>cross-platform</strong> family of tools designed to build, test and package software. CMake is used to control the software compilation process using simple platform and compiler independent configuration files, and generate native makefiles and workspaces that can be used in the compiler environment of your choice. The suite of CMake tools were created by Kitware in response to the need for a powerful, cross-platform build environment for open-source projects such as ITK and VTK.</p><h3 id="installation"><a href="#installation" class="headerlink" title="installation"></a>installation</h3><h3 id="rules-1"><a href="#rules-1" class="headerlink" title="rules"></a>rules</h3><h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><h3 id="resource-1"><a href="#resource-1" class="headerlink" title="resource"></a>resource</h3><ul><li><a href="https://github.com/Akagi201/learning-cmake" target="_blank" rel="noopener">learning-cmake</a></li><li><a href="docs/cmake-practice.pdf">CMake Practice</a></li><li><a href="docs/cmake-rules.pdf">CMake rules</a></li><li><a href="docs/mastering-cmake.pdf">Mastering CMake</a></li><li><a href="https://cgold.readthedocs.io/en/latest/index.html" target="_blank" rel="noopener">CGold: The Hitchhiker’s Guide to the CMake</a></li><li><a href="https://cmake.org/cmake/help/latest/index.html" target="_blank" rel="noopener">Latest Official CMake doc</a></li><li><a href="https://github.com/ttroy50/cmake-examples" target="_blank" rel="noopener">CMake Example</a></li></ul><h2 id="Pybind11"><a href="#Pybind11" class="headerlink" title="Pybind11"></a>Pybind11</h2><p>pybind11 is a lightweight header-only library that exposes C++ types in Python and vice versa, mainly to create Python bindings of existing C++ code. Its goals and syntax are similar to the excellent Boost.Python library by David Abrahams: to minimize boilerplate code in traditional extension modules by inferring type information using compile-time introspection.</p><h3 id="installation-1"><a href="#installation-1" class="headerlink" title="installation"></a>installation</h3><h3 id="examples"><a href="#examples" class="headerlink" title="examples"></a>examples</h3><h3 id="resource-2"><a href="#resource-2" class="headerlink" title="resource"></a>resource</h3><ol><li><a href="https://pybind11.readthedocs.io/en/stable/" target="_blank" rel="noopener">pybind11 doc</a></li></ol>]]></content>
     
@@ -320,11 +349,11 @@
   
   
   <entry>
-    <title>【毕业要紧】 Evaluate Metric</title>
-    <link href="/2020/07/04/200705_eval_metric/"/>
-    <url>/2020/07/04/200705_eval_metric/</url>
+    <title>【毕业要紧】 flow 模型</title>
+    <link href="/2020/07/04/research_note/002_flow/"/>
+    <url>/2020/07/04/research_note/002_flow/</url>
     
-    <content type="html"><![CDATA[<h3 id="Accuracy-Acc"><a href="#Accuracy-Acc" class="headerlink" title="Accuracy, Acc"></a>Accuracy, Acc</h3><h3 id=""><a href="#" class="headerlink" title=""></a></h3>]]></content>
+    <content type="html"><![CDATA[<p>A good representation is one in which the data has a distribution that is easy to model</p><h2 id="基础数学"><a href="#基础数学" class="headerlink" title="基础数学"></a>基础数学</h2><h3 id="生成模型要解决的问题"><a href="#生成模型要解决的问题" class="headerlink" title="生成模型要解决的问题"></a>生成模型要解决的问题</h3><p>给定两组数据 $z$ 和 $x$ ，其中 $z$ 服从已知的简单先验分布 $\pi(z)$ ，通常是高斯分布，$x$ 服从复杂的分布 $p(x)$ ,即训练数据代表的分布，现在我们想要找到一个变换函数 $f$ ，它能建立一种 $z$ 到 $x$ 的映射，使得每对于 $\pi(z)$ 中的一个采样点，都能在 $p(x)$ 中有一个（新）样本点与之对应。</p><p>$$ p_g(x) = \int_z p(x|z)p(z)dz\ $$</p><p>其中，$ p(x|z) $ - $ the \  probability \  of \  x \  given \  z$</p><h3 id="概率分布的变换数学例题"><a href="#概率分布的变换数学例题" class="headerlink" title="概率分布的变换数学例题"></a>概率分布的变换数学例题</h3><p>设随机变量X具有概率密度</p><p>求随机变量 $Y=2X+8$ 的概率密度</p><h3 id="Jacobian-Matrix"><a href="#Jacobian-Matrix" class="headerlink" title="Jacobian Matrix"></a>Jacobian Matrix</h3><p>$$<br>\left[<br>    \begin{array}{ccc}<br>        \frac{\partial f_1 }{\partial x_1 } &amp; \cdots &amp; \frac{\partial f_1 }{\partial x_n } \\<br>        \vdots\quad &amp; \ddots &amp; \vdots\quad \\<br>        \frac{\partial f_n }{\partial x_1 } &amp; \cdots &amp; \frac{\partial f_n }{\partial x_n } \\<br>    \end{array}<br>\right]<br>$$</p><p>$$J_{ij}=\frac{\partial f_i }{\partial x_j }$$</p><h3 id="Determinant"><a href="#Determinant" class="headerlink" title="Determinant"></a>Determinant</h3><h3 id="耦合层（Coupling-Layer）"><a href="#耦合层（Coupling-Layer）" class="headerlink" title="耦合层（Coupling Layer）"></a>耦合层（Coupling Layer）</h3><h2 id="NICE"><a href="#NICE" class="headerlink" title="NICE"></a><a href="">NICE</a></h2><p>We propose a deep learning framework for modeling complex high-dimensional densities called <strong>Non-linear Independent Component Estimation</strong> (NICE). It is based on the idea that <strong>a good representation is one in which the data has a distribution that is easy to model</strong>. </p><p>For this purpose, a non-linear deterministic transformation of the data is learned that maps it to a latent space so as to <strong>make the transformed data conform to a factorized distribution</strong>, i.e., resulting in independent latent variables. We parametrize this transformation so that computing the <strong>determinant of the Jacobian</strong> and inverse Jacobian is trivial, yet we maintain the ability to learn complex non-linear transformations, via a composition of simple building blocks, each based on a deep neural network. The training criterion is simply the exact <strong>log-likelihood</strong>, which is tractable. </p><p>Unbiased ancestral sampling is also easy. We show that this approach yields good generative models on four image datasets and can be used for inpainting.</p><h2 id="RealNVP"><a href="#RealNVP" class="headerlink" title="RealNVP"></a><a href="">RealNVP</a></h2><p>Unsupervised learning of probabilistic models is a central yet challenging problem in machine learning. Specifically, designing models with tractable learning, sampling, inference and evaluation is crucial in solving this task. </p><p>We extend the space of such models using real-valued non-volume preserving (real NVP) transformations, a set of powerful, stably invertible, and learnable transformations, resulting in an unsupervised learning algorithm with exact log-likelihood computation, exact and efficient sampling, exact and efficient inference of latent variables, and an interpretable latent space. </p><p>We demonstrate its ability to model natural images on four datasets through sampling, log-likelihood evaluation, and latent variable manipulations.</p><p>“The advantage of Real NVP compared to MAF and IAF is that it can both generate data and estimate densities with one forward pass only, whereas MAF would need D passes to generate data and IAF would need D passes to estimate densities.”</p><h2 id="Glow"><a href="#Glow" class="headerlink" title="Glow"></a><a href="">Glow</a></h2><p>Flow-based generative models (Dinh et al., 2014) are conceptually attractive due to tractability of the exact log-likelihood, tractability of exact latent-variable inference, and parallelizability of both training and synthesis. </p><p>In this paper we propose Glow, a simple type of generative flow using an invertible $1 \times 1$ convolution. Using our method we demonstrate a significant improvement in log-likelihood on standard benchmarks. Perhaps most strikingly, we demonstrate that a generative model optimized towards the plain log-likelihood objective is capable of efficient realisticlooking synthesis and manipulation of large images.</p><h2 id="Normalizing-Flows-for-Probabilistic-Modeling-and-Inference"><a href="#Normalizing-Flows-for-Probabilistic-Modeling-and-Inference" class="headerlink" title="Normalizing Flows for Probabilistic Modeling and Inference"></a><a href="">Normalizing Flows for Probabilistic Modeling and Inference</a></h2><p>Normalizing flows provide a general mechanism for defining expressive probability distributions, only requiring the specification of a (usually simple) base distribution and a series of bijective(<a href="https://www.cnblogs.com/wanghetao/archive/2012/03/16/2400619.html">双射</a>) transformations. </p><p>There has been much recent work on normalizing flows, ranging from improving their expressive power to expanding their application. We believe the field has now matured and is in need of <strong>a unified perspective</strong>. </p><p><strong>In this review, we attempt to provide such a perspective by describing flows through the lens of probabilistic modeling and inference.</strong></p><p>We place special emphasis on the fundamental principles of flow design, and discuss foundational topics such as expressive power and computational trade-offs. We also broaden the conceptual framing of flows by relating them to more general probability transformations. Lastly, we summarize the use of flows for tasks such as generative modeling, approximate inference, and supervised learning.</p><h2 id="相关论文"><a href="#相关论文" class="headerlink" title="相关论文"></a>相关论文</h2><p><a href="https://arxiv.org/abs/1410.8516" target="_blank" rel="noopener">NICE: Non-linear Independent Components Estimation, Dinh et al. 2014</a></p><p><a href="https://arxiv.org/abs/1505.05770" target="_blank" rel="noopener">Variational Inference with Normalizing Flows, Rezende and Mohamed 2015</a></p><p><a href="https://arxiv.org/abs/1605.08803" target="_blank" rel="noopener">Density estimation using Real NVP, Dinh et al. May 2016</a></p><p><a href="https://arxiv.org/abs/1606.04934" target="_blank" rel="noopener">Improved Variational Inference with Inverse Autoregressive Flow, Kingma et al June 2016</a></p><p><a href="https://arxiv.org/abs/1705.07057" target="_blank" rel="noopener">Masked Autoregressive Flow for Density Estimation, Papamakarios et al. May 2017</a></p><p><a href="https://arxiv.org/abs/1807.03039" target="_blank" rel="noopener">Glow: Generative Flow with Invertible 1x1 Convolutions, Kingma and Dhariwal, Jul 2018</a></p><p><a href="https://arxiv.org/abs/1912.02762" target="_blank" rel="noopener">Normalizing Flows for Probabilistic Modeling and Inference. 2019</a></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2>]]></content>
     
     
     <categories>
@@ -336,7 +365,11 @@
     
     <tags>
       
-      <tag>毕业要紧</tag>
+      <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
+      
+      <tag>深度学习</tag>
       
     </tags>
     
@@ -346,8 +379,8 @@
   
   <entry>
     <title>【毕业要紧】 Speech 领域专业名词（持续更新）</title>
-    <link href="/2020/07/03/001_speech_note/"/>
-    <url>/2020/07/03/001_speech_note/</url>
+    <link href="/2020/07/03/research_note/001_speech_note/"/>
+    <url>/2020/07/03/research_note/001_speech_note/</url>
     
     <content type="html"><![CDATA[<h3 id="16bit-脉冲编码调制-16-bit-Pulse-code-Modulation-PCM"><a href="#16bit-脉冲编码调制-16-bit-Pulse-code-Modulation-PCM" class="headerlink" title="16bit-脉冲编码调制 16 bit Pulse-code Modulation, PCM"></a>16bit-脉冲编码调制 16 bit Pulse-code Modulation, PCM</h3><p>16bit 代表这个⾳频将会按照信号的振幅取离散的 $2^{16}$ 个值，即 -32768～+32767，振幅越⼤，声⾳的强度越⼤。⾳频信号的另⼀个重要参数是采样率，⽐如采样率为 44.1 kHz，意思就是每秒采样 441000 个点。</p><p>如果需要提取⾳频信号中的信息，就需要对 <code>采样时间 × 采样率数⽬的点</code> 做预处理。<br>⾸先需要把振幅从整数转变为-1～+1 之间的浮点数，即对所有的振幅先加 32768，除以 32768，然后减去 1.0。我们可以画出振幅随着时间的变化。</p><h3 id="预加重"><a href="#预加重" class="headerlink" title="预加重"></a>预加重</h3><p>在数学上，预加重相当于⼀个⾼通滤波器，起到了提⾼⾼频信号分量、滤除低频噪声的作⽤。在实际应⽤中，预加重是⼀个可选的预处理步骤，对于信号中噪声的滤除有⼀定的效果。</p><ol><li>有限长单位冲激响应滤波器 Finite Impulse Response, <strong>FIR</strong></li><li>递归滤波器，无限脉冲响应数字滤波器 Infinite Impulse Response, <strong>IIR</strong></li></ol><h3 id="频率-Frequency-amp-幅度-Magnitude-amp-相位-Phase"><a href="#频率-Frequency-amp-幅度-Magnitude-amp-相位-Phase" class="headerlink" title="频率 Frequency &amp; 幅度 Magnitude &amp; 相位 Phase"></a>频率 Frequency &amp; 幅度 Magnitude &amp; 相位 Phase</h3><h3 id="音高-Pitch-amp-音量-Loudness-amp-音色-Timbre"><a href="#音高-Pitch-amp-音量-Loudness-amp-音色-Timbre" class="headerlink" title="音高 Pitch &amp; 音量 Loudness &amp; 音色 Timbre"></a>音高 Pitch &amp; 音量 Loudness &amp; 音色 Timbre</h3><h3 id="分贝-dB"><a href="#分贝-dB" class="headerlink" title="分贝 dB"></a>分贝 dB</h3><h3 id="语音特征"><a href="#语音特征" class="headerlink" title="语音特征"></a>语音特征</h3><ul><li><strong>Spectrogram</strong></li><li><strong>Fbanks</strong></li><li><strong>MFCC</strong></li><li><strong>PLP</strong>  </li><li><strong>Pitch</strong></li><li><strong>∆/∆∆</strong> </li></ul><h3 id="模数转换-Analog-to-Digital-Conversion，ADC"><a href="#模数转换-Analog-to-Digital-Conversion，ADC" class="headerlink" title="模数转换 Analog to Digital Conversion，ADC"></a>模数转换 Analog to Digital Conversion，ADC</h3><h3 id="音素-Phoneme"><a href="#音素-Phoneme" class="headerlink" title="音素 Phoneme"></a>音素 Phoneme</h3><p>描述一种语言的基本单位被称为音素Phoneme，例如BRYAN这个词就可以看做是由B, R, AY, AX, N五个音素构成的。英语中大概有50多个音素，可以用50几个HMM state来表示这些音素。</p><h3 id="掩蔽效应-Masking-Effects"><a href="#掩蔽效应-Masking-Effects" class="headerlink" title="掩蔽效应 Masking Effects"></a>掩蔽效应 Masking Effects</h3><h3 id="频谱图-Spectrogram"><a href="#频谱图-Spectrogram" class="headerlink" title="频谱图 Spectrogram"></a>频谱图 Spectrogram</h3><h3 id="声学模型-Acoustic-model"><a href="#声学模型-Acoustic-model" class="headerlink" title="声学模型 Acoustic model"></a>声学模型 Acoustic model</h3><p>语音中很多发音都是连在一起的，很难区分，所以一般用左中右三个HMM state来描述一个音素。举例来说BRYAN这个词中的R音素就变成了用B-R, R, R-AY三个HMM state来表示。这样BRYAN这个词根据上下文就需要15个state了，根据所有单词的上下文总共大概需要几千个HMM state，这种方式属于context dependent模型中的三音素triphone模式。这个HMM state的个数在各家语音识别系统中都不一样，是一个需要调的参数。所以声学模型就是如何设置HMM state。</p><h3 id="语音模型-Language-Model-LM"><a href="#语音模型-Language-Model-LM" class="headerlink" title="语音模型 Language Model, LM"></a>语音模型 Language Model, LM</h3><h3 id="Lexicon"><a href="#Lexicon" class="headerlink" title="Lexicon"></a>Lexicon</h3><h3 id="帧-Frame"><a href="#帧-Frame" class="headerlink" title="帧 Frame"></a>帧 Frame</h3><h3 id="Chunk"><a href="#Chunk" class="headerlink" title="Chunk"></a>Chunk</h3><h3 id="Mean-Opinion-Score-MOS"><a href="#Mean-Opinion-Score-MOS" class="headerlink" title="Mean Opinion Score, MOS"></a>Mean Opinion Score, MOS</h3><p>MOS测试的主要原理是让测评人根据5个等级划分对测试语音的主观感受进行打分，它既可以用于对语音质量进行主观评价，也可以用于对说话人特征相似度的评价。MOS 分是对所有测试语句和所有测评人的综合平均结果。</p><p>Shuang Z, Bakis R, Qin Y. IBM voice conversion systems for 2007 TC⁃STAR evaluation‌[J]. Tsinghua Science &amp; Technology, 2008, 13(4): 510⁃514.</p><h3 id="An-ABX-Blind-Test-ABX"><a href="#An-ABX-Blind-Test-ABX" class="headerlink" title="An ABX Blind Test, ABX"></a>An ABX Blind Test, ABX</h3><p>盲听测试（ABX测试）主要针对转换后语音的说话人特征相似度进行转换效果评价，借鉴了说话人识别的原理。测试过程中，测评人分别测听3段语音A、B和X，并判断在语音的个性特征方面语音A还是B更接近于X。其中，X是转换后得到的语音，而A和B分别为源语音和目标语音。最后统计所有测评人员的判决结果，计算出听起来像目标语音的百分比。</p><h3 id="Text-to-Speech-TTS"><a href="#Text-to-Speech-TTS" class="headerlink" title="Text to Speech, TTS"></a>Text to Speech, TTS</h3><h3 id="Voice-Conversion-VC"><a href="#Voice-Conversion-VC" class="headerlink" title="Voice Conversion, VC"></a>Voice Conversion, VC</h3><p>Voice conversion (VC) is a technique to modify the speech from source speaker to make it sound like being uttered by target speaker while keeping the linguistic content unchanged</p><h3 id="声码器-vocoder"><a href="#声码器-vocoder" class="headerlink" title="声码器 vocoder"></a>声码器 vocoder</h3><p>声码器（vocoder)语音信号某种模型的语音分析合成系统。在传输中只利用模型参数，在编译码时利用模型参数估计和语音合成技术的语音信号编译码器，一种对话音进行分析和合成的编、译码器，也称话音分析合成系统或话音频带压缩系统。它是压缩通信频带和进行保密通信的有力工具。</p><h3 id="隐马尔可夫模型-Hidden-Markov-Model-HMM"><a href="#隐马尔可夫模型-Hidden-Markov-Model-HMM" class="headerlink" title="隐马尔可夫模型 Hidden Markov Model, HMM"></a>隐马尔可夫模型 Hidden Markov Model, HMM</h3><h3 id="强制对齐"><a href="#强制对齐" class="headerlink" title="强制对齐"></a>强制对齐</h3><p>训练DNN的时候，需要知道每一帧对应的是什么音素（甚至HMM状态）。而一般语音数据的标注，只有音素串，并不知道每个音素（或HMM状态）的起止时间。“强制对齐”就是利用一个GMM-HMM模型，求出每个音素（或HMM状态）的起止时间。</p><p>基于联结时序分类(CTC)的声学模型不再需要对训练的音频序列和文本序列进行强制对齐</p><h3 id="Linguistic"><a href="#Linguistic" class="headerlink" title="Linguistic"></a>Linguistic</h3><h3 id="双语者-Bilingual"><a href="#双语者-Bilingual" class="headerlink" title="双语者 Bilingual"></a>双语者 Bilingual</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://mp.weixin.qq.com/s/_jK4eTdboU9A-E785FUBJg" target="_blank" rel="noopener">CSLT微信公众号-语音识别基础：（一）语音是什么</a></p><p>[2] <a href="https://mp.weixin.qq.com/s/XRTCCcEdmQTk4XitVo8U2Q" target="_blank" rel="noopener">CSLT微信公众号-语音识别基础：（二）语音识别方法</a></p><p>[3] <a href="https://mp.weixin.qq.com/s/e4bO-koOmIrAfqC-zwOvwg" target="_blank" rel="noopener">语音识别基础：（三）完整的语音识别实验</a></p><p>[4] <a href="http://sjcj.nuaa.edu.cn/sjcjycl/article/html/201905001" target="_blank" rel="noopener">陆军工程大学-语音转换技术研究现状及展望(2019)</a></p>]]></content>
     
@@ -371,8 +404,8 @@
   
   <entry>
     <title>【毕业要紧】 Tacotron &amp; WaveNet Resources</title>
-    <link href="/2020/07/03/008_tacotron_wavenet/"/>
-    <url>/2020/07/03/008_tacotron_wavenet/</url>
+    <link href="/2020/07/03/research_note/008_tacotron_wavenet/"/>
+    <url>/2020/07/03/research_note/008_tacotron_wavenet/</url>
     
     <content type="html"><![CDATA[<ol><li>衔接式 <strong>Concatenative TTS</strong>：这里首先记住单个的语音片段，然后需要重新生成时，再把这些声音片段联合起来。但是，这种方法不能扩展，因为它只能重现记忆中的声音片段，并且如果没有从开始记忆语音片段，就不能生成新的讲话人或不同类型的语音。</li><li>参数式 <strong>Parametric TTS</strong>：这里创建一个模型，用以存储所有要合成语音的音频特征。在 WaveNet 之前，使用参数式 TTS 生成的音频比衔接式 TTS 更不自然。WaveNet 通过直接对音频的产生过程建模改进了当前最先进的技术，而不是使用以前的中间信号处理算法。</li></ol><h2 id="WaveNet"><a href="#WaveNet" class="headerlink" title="WaveNet"></a>WaveNet</h2><p>Wavenet由DeepMind提出，是一种利用神经网络系统对原始音频波形（Raw SoundWave）建模的技术，生成的音频质量优于所有的文本转语音（Text-to-Speech，TTS）系统，将计算机输出音频与人类自然语音差距缩小50%，被称为世界最佳。</p>]]></content>
     
@@ -396,8 +429,8 @@
   
   <entry>
     <title>【毕业要紧】 Word Embedding Resources</title>
-    <link href="/2020/07/03/010_NLP/"/>
-    <url>/2020/07/03/010_NLP/</url>
+    <link href="/2020/07/03/research_note/010_NLP/"/>
+    <url>/2020/07/03/research_note/010_NLP/</url>
     
     <content type="html"><![CDATA[<p>one-hot 编码存在的⼀个主要问题是它⽆法表示出词汇间的相似度。</p>]]></content>
     
@@ -421,8 +454,8 @@
   
   <entry>
     <title>【毕业要紧】 TTS &amp; VC Resources</title>
-    <link href="/2020/07/03/009_tts_vc_tips/"/>
-    <url>/2020/07/03/009_tts_vc_tips/</url>
+    <link href="/2020/07/03/research_note/009_tts_vc_tips/"/>
+    <url>/2020/07/03/research_note/009_tts_vc_tips/</url>
     
     <content type="html"><![CDATA[<h2 id="TTS-vs-VC"><a href="#TTS-vs-VC" class="headerlink" title="TTS vs VC"></a>TTS vs VC</h2><p><strong>Voice Conversion, VC</strong>: 语音转换处理的问题是输入一段声音，输出另外一段声音，但这两段声音有些不同，一般我们希望保留声音的内容，改变说话者的音色</p><p>Voice conversion (VC) is a technique to modify the speech from source speaker to make it sound like being uttered by target speaker while keeping the linguistic content unchanged</p><p><strong>Text to Speech, TTS</strong>: 文字转语音系统是将一般语言的文字转换为语音。输入一段文本，输出一段语音</p><h2 id="Toolkits"><a href="#Toolkits" class="headerlink" title="Toolkits"></a>Toolkits</h2><h3 id="Pytorch-WaveNet-vocoder"><a href="#Pytorch-WaveNet-vocoder" class="headerlink" title="Pytorch WaveNet vocoder"></a><a href="https://github.com/r9y9/wavenet_vocoder" target="_blank" rel="noopener">Pytorch WaveNet vocoder</a></h3><p>The goal of the repository is to provide an implementation of the WaveNet vocoder, which can generate high quality raw speech samples conditioned on linguistic or acoustic features.</p><h3 id="Pytorch-tacotron2"><a href="#Pytorch-tacotron2" class="headerlink" title="Pytorch tacotron2"></a><a href="https://github.com/NVIDIA/tacotron2" target="_blank" rel="noopener">Pytorch tacotron2</a></h3><p>PyTorch implementation of Natural TTS Synthesis By Conditioning Wavenet On Mel Spectrogram Predictions.</p><p>This implementation includes distributed and automatic mixed precision support and uses the LJSpeech dataset.</p><p>Distributed and Automatic Mixed Precision support relies on NVIDIA’s Apex and AMP.</p><h3 id="Pytorch-waveglow"><a href="#Pytorch-waveglow" class="headerlink" title="Pytorch waveglow"></a><a href="https://github.com/NVIDIA/waveglow/tree/master" target="_blank" rel="noopener">Pytorch waveglow</a></h3><p>WaveGlow combines insights from Glow and WaveNet in order to provide fast, efficient and high-quality audio synthesis, without the need for auto-regression.</p><h3 id="Pytorch-MelGan-official"><a href="#Pytorch-MelGan-official" class="headerlink" title="Pytorch MelGan (official)"></a><a href="https://github.com/descriptinc/melgan-neurips" target="_blank" rel="noopener">Pytorch MelGan (official)</a></h3><p>Train GANs reliably to generate high quality coherent waveforms by introducing a set of architectural changes and simple training techniques. </p><h2 id="VC-articles-amp-Papers"><a href="#VC-articles-amp-Papers" class="headerlink" title="VC articles &amp; Papers"></a>VC articles &amp; Papers</h2><h3 id="陆军工程大学-语音转换技术研究现状及展望-2019"><a href="#陆军工程大学-语音转换技术研究现状及展望-2019" class="headerlink" title="陆军工程大学-语音转换技术研究现状及展望(2019)"></a><a href="http://sjcj.nuaa.edu.cn/sjcjycl/article/html/201905001" target="_blank" rel="noopener">陆军工程大学-语音转换技术研究现状及展望(2019)</a></h3><p>语音转换通常是指将一个人的声音个性化特征通过“修改变换”，使之听起来像另外一个人的声音，同时保持说话内容信息不变。近年来，随着信息处理和机器学习技术的快速发展，语音转换技术也得到了突飞猛进的进步。为此，在简要介绍语音转换基本概念的基础上，重点综述了近几年语音转换的典型模型和方法，分析了语音转换的关键技术，列举了语音转换技术的主要应用场景，梳理了目前语音转换中仍存在的若干技术问题，并展望了语音转换研究的发展方向。</p><h3 id="An-overview-of-voice-conversion-systems-2017"><a href="#An-overview-of-voice-conversion-systems-2017" class="headerlink" title="An overview of voice conversion systems(2017)"></a><a href="https://www.sciencedirect.com/science/article/abs/pii/S0167639315300698" target="_blank" rel="noopener">An overview of voice conversion systems(2017)</a></h3><p>Voice transformation (VT) aims to change one or more aspects of a speech signal while preserving lin- guistic information. A subset of VT, Voice conversion (VC) specifically aims to change a source speaker’s speech in such a way that the generated output is perceived as a sentence uttered by a target speaker. Despite many years of research, VC systems still exhibit deficiencies in accurately mimicking a target speaker spectrally and prosodically, and simultaneously maintaining high speech quality. In this work we provide an overview of real-world applications, extensively study existing systems proposed in the literature, and discuss remaining challenges.</p><h3 id="Maigo-语音转换技术综述-2019"><a href="#Maigo-语音转换技术综述-2019" class="headerlink" title="Maigo-语音转换技术综述(2019)"></a><a href="https://zhuanlan.zhihu.com/p/89763124" target="_blank" rel="noopener">Maigo-语音转换技术综述(2019)</a></h3><p>i-vector 与 PLDA 的数学推导是出了名的复杂，我曾在 2011 年的夏天推导过一个多星期。在这里，我尽可能避开数学细节，用最简洁的语言引入相关概念和方法。</p><h4 id="几种传统的语音转换方法"><a href="#几种传统的语音转换方法" class="headerlink" title="几种传统的语音转换方法"></a>几种传统的语音转换方法</h4><ul><li>高斯混合模型（Gaussian mixture models, GMM）</li><li>频率弯折法（frequency warping）</li><li>基于样例的方法（exemplar-based method）</li></ul><h4 id="几种现代的语音转换方法"><a href="#几种现代的语音转换方法" class="headerlink" title="几种现代的语音转换方法"></a>几种现代的语音转换方法</h4><ul><li>生成对抗式网络（generative adversarial networks, GAN）</li><li>i-vector + PLDA（probabilistic linear discriminant analysis）</li><li>自编码器（autoencoders）</li></ul><h2 id="TTS-articles-amp-Papers"><a href="#TTS-articles-amp-Papers" class="headerlink" title="TTS articles &amp; Papers"></a>TTS articles &amp; Papers</h2><h3 id="清华大学王东老师-TTS"><a href="#清华大学王东老师-TTS" class="headerlink" title="清华大学王东老师-TTS"></a><a href="http://cslt.riit.tsinghua.edu.cn/mediawiki/images/a/a8/Tts.pdf" target="_blank" rel="noopener">清华大学王东老师-TTS</a></h3>]]></content>
     
@@ -446,8 +479,8 @@
   
   <entry>
     <title>【毕业要紧】 Speaker Embedding Resources</title>
-    <link href="/2020/07/03/011_speaker_embedding/"/>
-    <url>/2020/07/03/011_speaker_embedding/</url>
+    <link href="/2020/07/03/research_note/011_speaker_embedding/"/>
+    <url>/2020/07/03/research_note/011_speaker_embedding/</url>
     
     <content type="html"><![CDATA[<h2 id="Eval-Metrics"><a href="#Eval-Metrics" class="headerlink" title="Eval Metrics"></a>Eval Metrics</h2><h3 id="ROC-amp-EER"><a href="#ROC-amp-EER" class="headerlink" title="ROC &amp; EER"></a>ROC &amp; EER</h3><h2 id="Embeddings"><a href="#Embeddings" class="headerlink" title="Embeddings"></a>Embeddings</h2><h3 id="i-vector"><a href="#i-vector" class="headerlink" title="i-vector"></a>i-vector</h3><h3 id="x-vector"><a href="#x-vector" class="headerlink" title="x-vector"></a>x-vector</h3><h2 id="Backends"><a href="#Backends" class="headerlink" title="Backends"></a>Backends</h2>]]></content>
     
@@ -471,8 +504,8 @@
   
   <entry>
     <title>线性代数复习</title>
-    <link href="/2020/06/30/006_solver/"/>
-    <url>/2020/06/30/006_solver/</url>
+    <link href="/2020/06/30/research_note/006_solver/"/>
+    <url>/2020/06/30/research_note/006_solver/</url>
     
     <content type="html"><![CDATA[<h2 id="solver"><a href="#solver" class="headerlink" title="solver"></a>solver</h2><ul><li>SVD: Singular value decomposition</li><li>LSQR: Least squares solution, can be combined with shrinkage</li><li>EIGEN: Eigenvalue decomposition, can be combined with shrinkage</li></ul><h2 id="线性空间"><a href="#线性空间" class="headerlink" title="线性空间"></a>线性空间</h2><h3 id="什么是线性空间"><a href="#什么是线性空间" class="headerlink" title="什么是线性空间"></a>什么是线性空间</h3><ul><li>空集 $\varnothing$</li><li>有理数集 $\mathbb{Q}$</li><li>实数集合 $\mathbb{R}$</li><li>复数集 $\mathbb{C}$</li></ul><p><strong>数域</strong>：对加、减、乘、除四则运算封闭的非空数集</p><h3 id="线性空间的性质"><a href="#线性空间的性质" class="headerlink" title="线性空间的性质"></a>线性空间的性质</h3>]]></content>
     
@@ -498,8 +531,8 @@
   
   <entry>
     <title>美化 Python 异常信息</title>
-    <link href="/2020/06/17/200617_pyerrors/"/>
-    <url>/2020/06/17/200617_pyerrors/</url>
+    <link href="/2020/06/17/2020/200617_pyerrors/"/>
+    <url>/2020/06/17/2020/200617_pyerrors/</url>
     
     <content type="html"><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Github链接<a href="https://github.com/onelivesleft/PrettyErrors" target="_blank" rel="noopener">PrettyErrors</a></p><pre><code class="hljs bash">python -m pip install pretty_errorspython -m pretty_errors</code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://zhuanlan.zhihu.com/p/100234650" target="_blank" rel="noopener">知乎-一行代码简化Python异常信息</a></p>]]></content>
     
@@ -527,8 +560,8 @@
   
   <entry>
     <title>计算机网络复习</title>
-    <link href="/2020/06/17/200621_computer_network/"/>
-    <url>/2020/06/17/200621_computer_network/</url>
+    <link href="/2020/06/17/2020/200621_computer_network/"/>
+    <url>/2020/06/17/2020/200621_computer_network/</url>
     
     <content type="html"><![CDATA[<h2 id="工作装备"><a href="#工作装备" class="headerlink" title="工作装备"></a>工作装备</h2><ol><li>物理层：中继器，集线器</li><li>数据链路：网桥，交换机</li><li>网络层：路由器 </li><li>传输层： 网关</li></ol><h2 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h2><ol><li>物理层： RJ45 、 CLOCK 、 IEEE802.3</li><li>数据链路： PPP 、 FR 、 HDLC 、 VLAN 、 MAC</li><li>网络层： IP 、 ICMP 、 ARP 、 RARP 、 OSPF 、 IPX 、 RIP 、 IGRP</li><li>传输层： TCP 、 UDP 、 SPX</li><li>会话层： NFS 、 SQL 、 NETBIOS 、 RPC</li><li>表示层： JPEG 、 MPEG 、 ASII</li><li>应用层： FTP 、 DNS 、 Telnet 、 SMTP 、 HTTP 、 WWW 、 NFS</li></ol>]]></content>
     
@@ -552,37 +585,8 @@
   
   <entry>
     <title>DNF 模型</title>
-    <link href="/2020/06/16/003_DNF/"/>
-    <url>/2020/06/16/003_DNF/</url>
-    
-    <content type="html"><![CDATA[]]></content>
-    
-    
-    <categories>
-      
-      <category>flows</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>机器学习</tag>
-      
-      <tag>笔记</tag>
-      
-      <tag>深度学习</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>DNF 模型的Pytorch实现</title>
-    <link href="/2020/06/16/005_DNF_implement/"/>
-    <url>/2020/06/16/005_DNF_implement/</url>
+    <link href="/2020/06/16/research_note/003_DNF/"/>
+    <url>/2020/06/16/research_note/003_DNF/</url>
     
     <content type="html"><![CDATA[]]></content>
     
@@ -610,8 +614,37 @@
   
   <entry>
     <title>flow 模型的Pytorch实现</title>
-    <link href="/2020/06/16/004_flow_implement/"/>
-    <url>/2020/06/16/004_flow_implement/</url>
+    <link href="/2020/06/16/research_note/004_flow_implement/"/>
+    <url>/2020/06/16/research_note/004_flow_implement/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>flows</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
+      
+      <tag>深度学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>DNF 模型的Pytorch实现</title>
+    <link href="/2020/06/16/research_note/005_DNF_implement/"/>
+    <url>/2020/06/16/research_note/005_DNF_implement/</url>
     
     <content type="html"><![CDATA[]]></content>
     
@@ -639,8 +672,8 @@
   
   <entry>
     <title>Linear Discriminant Analysis</title>
-    <link href="/2020/06/14/200614_Linear_Discriminant_Analysis/"/>
-    <url>/2020/06/14/200614_Linear_Discriminant_Analysis/</url>
+    <link href="/2020/06/14/2020/200614_Linear_Discriminant_Analysis/"/>
+    <url>/2020/06/14/2020/200614_Linear_Discriminant_Analysis/</url>
     
     <content type="html"><![CDATA[<p>线性判别分析（Linear Discriminant Analysis，LDA）是一种经典的线性分类方法。LDA是一种有监督的线性分类算法。LDA的基本思想是将数据投影到低维空间后，使得：<strong>同一类数据尽可能接近，不同类数据尽可能疏远</strong>。在对新样本进行分类时，将其投影到同样的低维空间上，再根据投影点的位置来确定新样本的类别。</p><p><img src="https://wx1.sbimg.cn/2020/06/14/lda.png" srcset="/img/loading.gif" alt="avatar"></p><p>值得一提的是，LDA 可从贝时斯决策理论的角度来阐释，并可证明，当两类数据同先验、满足高斯分布且协方差相等时，LDA 可达到最优分类。</p><h2 id="Fisher-discriminant-criterion"><a href="#Fisher-discriminant-criterion" class="headerlink" title="Fisher discriminant criterion"></a>Fisher discriminant criterion</h2><ol><li>$X_i$ 表示 $i$ 类示例的集合</li><li>$N$ 表示有 $N$ 类，且第 $i$ 类的样本数为 $N_i$</li><li>$n$ 表示总共有 $n$ 个数据</li><li>$\mu_i$ 表示 $i$ 类示例的均值向量，$\mu$ 表示总的均值向量</li><li>$\Sigma_i$ 表示 $i$ 类示例的协方差矩阵</li><li>$S_w$ 表示类内散度矩阵（within-class scatter matrix）</li><li>$S_b$ 表示类间散度矩阵（between-class scatter matrix）</li><li>$S_t$ 表示全局散度矩阵</li><li>$w$ 为变换矩阵</li><li>$J(w)$ 是最大目标Fisher判别准则</li></ol><p>$$\boldsymbol{\mu_i} = \frac{1}{N_i} \sum_{\boldsymbol{x} \in X_i}\boldsymbol{x}$$</p><p>$$\Sigma_i = \sum_{\boldsymbol{x} \in X_i}(\boldsymbol{x}-\boldsymbol{\mu_i})(\boldsymbol{x}-\boldsymbol{\mu_i})^T$$</p><p>$$S_w = \sum^N_{i=1}S_{w_i} = \sum^N_{i=1}\Sigma_i = \sum^N_{i=1}\sum_{\boldsymbol{x} \in X_i}(\boldsymbol{x}-\boldsymbol{\mu_i})(\boldsymbol{x}-\boldsymbol{\mu_i})^T$$</p><p>$$S_b = S_t - S_w = \sum^N_{i=1}N_i(\boldsymbol{\mu_i}-\boldsymbol{\mu})(\boldsymbol{\mu_i}-\boldsymbol{\mu})^T$$</p><p>$$S_t = S_b + S_w =\sum_{i=1}^{n}(\boldsymbol{x_i}-\boldsymbol{\mu})(\boldsymbol{x_i}-\boldsymbol{\mu})^T$$</p><p>$$J(w) = \frac{w^TS_bw}{w^TS_ww}$$</p><p>优化目标推导过程</p><p>$$ \frac{\mathrm{d}J(w)}{\mathrm{d}w} = 0 $$</p><p>$$<br>\frac{\mathrm{d}J(w)}{\mathrm{d}w} = \frac{\mathrm{d}}{\mathrm{d}w}(\frac{w^TS_bw}{w^TS_ww}) =<br>$$</p><p><img src="https://wx2.sbimg.cn/2020/06/14/lda_s.png" srcset="/img/loading.gif" alt="avatar"></p><p>多分类 LDA 可以有多种实现方法：使用 $S_b$, $S_w$ , $S_t$ 三者中的任何两个即可</p><h2 id="LDA-算法的训练流程"><a href="#LDA-算法的训练流程" class="headerlink" title="LDA 算法的训练流程"></a>LDA 算法的训练流程</h2><ol><li>计算类内散度矩阵 $S_w$</li><li>计算类间散度矩阵 $S_b$</li><li>计算矩阵 $S_w^{-1}S_b$</li><li>计算矩阵 $S_w^{-1}S_b$ 的特征值与特征向量，按从小到大的顺序选取前 $d$ 个特征值和对应的 $d$ 个特征向量，得到投影矩阵 $w$</li></ol><h2 id="sklearn包-LDA-的使用"><a href="#sklearn包-LDA-的使用" class="headerlink" title="sklearn包 LDA 的使用"></a>sklearn包 LDA 的使用</h2><pre><code class="hljs Python"><span class="hljs-keyword">from</span> sklearn.discriminant_analysis <span class="hljs-keyword">import</span> LinearDiscriminantAnalysis <span class="hljs-keyword">as</span> LDAlda = LDA(solver=<span class="hljs-string">'svd'</span>, n_components=LDA_components)<span class="hljs-comment"># fit</span>lda.fit(train_data, train_label)<span class="hljs-comment"># transform</span>train_data = lda.transform(train_data)test_data = lda.transform(test_data)</code></pre><h2 id="LDA-Python-代码实现"><a href="#LDA-Python-代码实现" class="headerlink" title="LDA Python 代码实现"></a>LDA Python 代码实现</h2><h2 id="相关论文"><a href="#相关论文" class="headerlink" title="相关论文"></a>相关论文</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="http://wangd.cslt.org/teach/speech-processing/3.2-SA-LDA.ppt" target="_blank" rel="noopener">CSLT-THU王东老师PPT-Static Analysis: LDA</a></p><p>[2] <a href="">西瓜书-线性判别分析</a></p><p>[3] <a href="http://166.111.134.19:7777/mlbook/" target="_blank" rel="noopener">CSLT-THU王东老师-现代机器学习导论</a></p><p>[4] <a href="https://mp.weixin.qq.com/s/PZpEtcdiPUxIv6M3sGOaGA" target="_blank" rel="noopener">机器学习实验室微信公众号-数学推导LDA线性判别分析</a></p><p>[5] <a href="https://www.cnblogs.com/timlong/p/11403709.html" target="_blank" rel="noopener">博客园-LDA</a></p><p>[6] <a href="https://zhuanlan.zhihu.com/p/79696530" target="_blank" rel="noopener">知乎-线性判别分析LDA原理及推导过程（非常详细）</a></p><p>[7] <a href="https://www.bilibili.com/video/BV15t411v7Pg?p=7" target="_blank" rel="noopener">THU袁博老师数据挖掘课程-数据预处理PPT</a></p><p>[8] <a href="https://zhuanlan.zhihu.com/p/33742983" target="_blank" rel="noopener">知乎-Fisher判别分析(Fisher Discriminant Analysis)</a></p>]]></content>
     
@@ -666,8 +699,8 @@
   
   <entry>
     <title>多个 PDF 文件的快速合并</title>
-    <link href="/2020/06/10/200610_pdf_merge/"/>
-    <url>/2020/06/10/200610_pdf_merge/</url>
+    <link href="/2020/06/10/2020/200610_pdf_merge/"/>
+    <url>/2020/06/10/2020/200610_pdf_merge/</url>
     
     <content type="html"><![CDATA[<p>毕设论文需要合并多个pdf文件，记录一下pdf文件的合并过程</p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code class="hljs bash">sudo apt-get install poppler-utils</code></pre><h2 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h2><pre><code class="hljs bash"><span class="hljs-comment"># 全部</span>pdfunite *.pdf all.pdf<span class="hljs-comment"># 顺序</span>pdfunite 1.pdf 2.pdf 3.pdf 4.pdf all-1234.pdf</code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://blog.csdn.net/a912952381/article/details/80682669" target="_blank" rel="noopener">linux bash合并PDF文件</a></p>]]></content>
     
@@ -695,8 +728,8 @@
   
   <entry>
     <title>Softmax &amp; Cross-Entropy &amp; KLD</title>
-    <link href="/2020/06/09/200609_softmax/"/>
-    <url>/2020/06/09/200609_softmax/</url>
+    <link href="/2020/06/09/2020/200609_softmax/"/>
+    <url>/2020/06/09/2020/200609_softmax/</url>
     
     <content type="html"><![CDATA[<h2 id="Softmax"><a href="#Softmax" class="headerlink" title="Softmax"></a>Softmax</h2><p>$ Softmax $ 的作用是把一个序列$\boldsymbol{a}$，变成概率。</p><p>$$ Softmax(\boldsymbol{a}) = \frac{e^{a_i}}{\sum_j e^{a_j}} $$</p><p>从概率的角度解释 $Softmax$ 的话，就是 $S_i = \frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}} = P(y=i|a)$</p><p>其中，$LR$ 是 $Softmax$ 的类别数为 2 时 $Softmax$ 的特殊形式</p><h2 id="Cross-Entropy"><a href="#Cross-Entropy" class="headerlink" title="Cross-Entropy"></a>Cross-Entropy</h2><p>给定两个概率分布： $p$ （理想结果即正确标签向量）和 $q$ （神经网络输出结果即经过 $softmax$ 转换后的结果向量），则通过 $q$ 来表示 $p$ 的交叉熵为</p><p>$$ H(p, q) = -\sum_x p(x)log(q(x)) $$</p><p>例如</p><p>$$H(p=[1,0,0], q=[0.5,0.4,0.1])  = -(1 \cdot log(0.5) + 0 \cdot log(0.4) + 0 \cdot log(0.1)) $$</p><h2 id="nll-loss-negative-log-likelihood-loss"><a href="#nll-loss-negative-log-likelihood-loss" class="headerlink" title="nll_loss (negative log likelihood loss)"></a>nll_loss (negative log likelihood loss)</h2>]]></content>
     
@@ -722,8 +755,8 @@
   
   <entry>
     <title>Pytorch Data Loader</title>
-    <link href="/2020/06/09/200609_pytorch_data_loader/"/>
-    <url>/2020/06/09/200609_pytorch_data_loader/</url>
+    <link href="/2020/06/09/2020/200609_pytorch_data_loader/"/>
+    <url>/2020/06/09/2020/200609_pytorch_data_loader/</url>
     
     <content type="html"><![CDATA[<h2 id="GIL"><a href="#GIL" class="headerlink" title="GIL"></a>GIL</h2><p>Python 自带 Gobal Interpreter Lock (GIL)，任何时候，Python只能运行一个线程</p><h2 id="DotaLoader的构建"><a href="#DotaLoader的构建" class="headerlink" title="DotaLoader的构建"></a><code>DotaLoader</code>的构建</h2><pre><code class="hljs Python">DataLoader(dataset, batch_size=<span class="hljs-number">200</span>, shuffle=<span class="hljs-literal">False</span>, sampler=<span class="hljs-literal">None</span>,           batch_sampler=<span class="hljs-literal">None</span>, num_workers=<span class="hljs-number">0</span>, collate_fn=<span class="hljs-literal">None</span>,           pin_memory=<span class="hljs-literal">False</span>, drop_last=<span class="hljs-literal">False</span>, timeout=<span class="hljs-number">0</span>,           worker_init_fn=<span class="hljs-literal">None</span>)</code></pre><h2 id="官方模板"><a href="#官方模板" class="headerlink" title="官方模板"></a>官方模板</h2><p>PyTorch官方为我们提供了自定义数据读取的标准化代码代码模块。</p><pre><code class="hljs Python"><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> Dataset<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomDataset</span><span class="hljs-params">(Dataset)</span>:</span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, ...)</span>:</span>        <span class="hljs-keyword">pass</span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__getitem__</span><span class="hljs-params">(self, index)</span>:</span>        <span class="hljs-keyword">return</span> (img, label)    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__len__</span><span class="hljs-params">(self)</span>:</span>        <span class="hljs-comment"># return examples size</span>        <span class="hljs-keyword">return</span> count</code></pre><ol><li><code>__init__()</code>函数用于初始化数据读取逻辑，比如读取包含标签和图片地址的csv文件、定义transform组合等。</li><li><code>__getitem__()</code>函数用来返回数据和标签。目的上是为了能够被后续的dataloader所调用。</li><li><code>__len__()</code>函数则用于返回样本数量。</li></ol><p>其中，<code>__getitem__()</code> 和<code>__len__()</code>用于构建Map-style datasets；<code>__iter__()</code>用于构建Iterable-style datasets（一般不太用）</p><h2 id="训练集和验证集的划分"><a href="#训练集和验证集的划分" class="headerlink" title="训练集和验证集的划分"></a>训练集和验证集的划分</h2><p>如果需要对数据划分训练集和验证集，torch的Dataset对象也提供了<code>random_split</code>函数作为数据划分工具，且划分结果可直接供后续的DataLoader使用。</p><pre><code class="hljs Python"><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> random_splittrainset, valset = random_split(dataset, [len_dataset*<span class="hljs-number">0.7</span>, len_dataset*<span class="hljs-number">0.3</span>])</code></pre><h2 id="Pytorch-并行化"><a href="#Pytorch-并行化" class="headerlink" title="Pytorch 并行化"></a>Pytorch 并行化</h2><ol><li>Data Parallel, DP: 数据并行化</li><li>Distributed Data Parallel, DDP: 分布式数据并行化</li></ol><h2 id="Mnist-Dataset-的实现"><a href="#Mnist-Dataset-的实现" class="headerlink" title="Mnist Dataset 的实现"></a>Mnist Dataset 的实现</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://pytorch.org/docs/stable/data.html" target="_blank" rel="noopener">官方文档 torch.utils.data</a></p><p>[2] <a href="https://mp.weixin.qq.com/s/5fXsPCpI_eYeEC12CbF17g" target="_blank" rel="noopener">夕小瑶的卖萌屋-PyTorch数据Pipeline标准化代码模板</a></p>]]></content>
     
@@ -743,8 +776,8 @@
   
   <entry>
     <title>概率论复习</title>
-    <link href="/2020/06/08/007_bayes/"/>
-    <url>/2020/06/08/007_bayes/</url>
+    <link href="/2020/06/08/research_note/007_bayes/"/>
+    <url>/2020/06/08/research_note/007_bayes/</url>
     
     <content type="html"><![CDATA[<h2 id="加法公式"><a href="#加法公式" class="headerlink" title="加法公式"></a>加法公式</h2><p>$$ P(A \cup B) = P(A) + P(B) - P(A\cap B) $$</p><h2 id="乘法公式"><a href="#乘法公式" class="headerlink" title="乘法公式"></a>乘法公式</h2><p>$$ P(AB) = P(A)P(B|A) $$</p><h2 id="协方差矩阵-与-散度矩阵"><a href="#协方差矩阵-与-散度矩阵" class="headerlink" title="协方差矩阵 与 散度矩阵"></a>协方差矩阵 与 散度矩阵</h2><p>将协方差矩阵乘以系数 $n-1$ 就得到了散度矩阵，矩阵的大小由特征维数 $d$ 决定，是一个为 $d×d$ 的半正定矩阵</p><h2 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h2><p>贝叶斯公式用于描述两个<strong>条件概率</strong>之间的关系，比如 $P(A|B)$ 和 $P(B|A)$。</p><p>$$ P(A|B) = P(A) \frac{P(B|A)}{P(B)} $$</p><ol><li>$P(A|B)$ ：后验概率</li><li>$P(A)$：先验概率</li></ol><p>$$ P(A_i|B) = \frac{P(A_i)P(B|A_i)}{\sum^n_{j=1} P(A_j)P(B|A_j)} $$</p><h2 id="全概率公式"><a href="#全概率公式" class="headerlink" title="全概率公式"></a>全概率公式</h2><p>$$ P(B) = \sum^n_{i=1} P(A_i)P(B|A_i) $$</p><p>事件 $B$ 总伴随着某个 $A_i$ 出现</p><h2 id="贝叶斯公式与全概率公式之间的关系"><a href="#贝叶斯公式与全概率公式之间的关系" class="headerlink" title="贝叶斯公式与全概率公式之间的关系"></a>贝叶斯公式与全概率公式之间的关系</h2><p>$P(A_i|B)$ 后验概率（新信息 $B$ 出现后 $A$ 发生的概率） = $P(A)$ 先验概率（ $A$ 发生的概率） $ｘ$ 可能性函数（新信息带出现来的调整）</p><h2 id="条件概率"><a href="#条件概率" class="headerlink" title="条件概率"></a>条件概率</h2><p>条件概率是指事件 $A$ 在另外一个事件 $B$ 已经发生条件下的发生概率。条件概率表示为：$P(A|B)$，读作“在B的条件下A的概率”或是the probability of x given z</p><h2 id="边缘概率"><a href="#边缘概率" class="headerlink" title="边缘概率"></a>边缘概率</h2><h2 id="贝叶斯估计和极大似然估计"><a href="#贝叶斯估计和极大似然估计" class="headerlink" title="贝叶斯估计和极大似然估计"></a>贝叶斯估计和极大似然估计</h2><ol><li>MLE, Maxium Likelihood Estimator：极大似然估计</li><li>MAP, Maxium a Posterior：最大后验概率</li></ol><p>最大似然估计和贝叶斯估计最大区别便在于估计的<strong>参数</strong>不同。</p><p>最大似然估计是一种确定模型参数值的方法。确定参数值的过程，是找到能最大化模型产生真实观察数据可能性的那一组参数。要估计的参数 $θ$ 被当作是固定形式的一个未知变量，然后我们结合真实数据通过最大化似然函数来求解这个固定形式的未知变量。</p><p>贝叶斯估计则是将参数视为是有某种已知先验分布的随机变量，意思便是这个参数他不是一个固定的未知数，而是符合一定先验分布如：随机变量θ符合正态分布等！那么在贝叶斯估计中除了类条件概率密度 $p(x|w)$ 符合一定的先验分布，参数 $θ$ 也符合一定的先验分布。我们通过贝叶斯规则将参数的先验分布转化成后验分布进行求解。</p><p>在贝叶斯模型使用过程中，贝叶斯估计用的是后验概率，而最大似然估计直接使用的是类条件概率密度。</p><blockquote><p>最大似然估计（和其他类似方法）把待估计的参数看作是确定性的量，只是其取值未知。最佳估计就是使得产生已观测到的样本（即训练样本）的概率为最大的那个值。</p><p>与此不同的是，贝叶斯估计则把待估计的参数看成是符合某种先验分布的随机变量。对样本进行观测的过程，就是把先验概率密度转化为后验概率密度，这样就利用样本的信息修正了对参数的初始估计值。</p></blockquote><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://www.bilibili.com/video/BV1a4411B7B4" target="_blank" rel="noopener">B站-「一个模型」教你搞定贝叶斯和全概率公式</a></p><p>[2] <a href="https://zhuanlan.zhihu.com/p/32803109" target="_blank" rel="noopener">知乎-从最大似然估计开始，你需要打下的机器学习基石</a></p><p>[3] <a href="https://www.bilibili.com/video/BV1C7411c7bs?p=1" target="_blank" rel="noopener">B站-MLE(极大似然)和MAP(最大后验)</a></p>]]></content>
     
@@ -769,9 +802,34 @@
   
   
   <entry>
+    <title>神经网络结构</title>
+    <link href="/2020/05/31/2020/200531_nnet/"/>
+    <url>/2020/05/31/2020/200531_nnet/</url>
+    
+    <content type="html"><![CDATA[<h2 id="多层感知机（MLP-Multilayer-Perceptron）"><a href="#多层感知机（MLP-Multilayer-Perceptron）" class="headerlink" title="多层感知机（MLP, Multilayer Perceptron）"></a>多层感知机（MLP, Multilayer Perceptron）</h2><p>Fully Connected Layer</p><h2 id="时延神经网络-TDNN-Time-Delay-Neural-Networks"><a href="#时延神经网络-TDNN-Time-Delay-Neural-Networks" class="headerlink" title="时延神经网络(TDNN, Time-Delay Neural Networks)"></a>时延神经网络(TDNN, Time-Delay Neural Networks)</h2><p>TDNN是一个常用于语音信号处理领域卷积神经网络，使用 FFT 预处理的语音信号作为输入，其隐含层由2个一维卷积核组成，以提取频率域上的平移不变特征。</p><h2 id="卷积神经网络（CNN-Convolutional-Neural-Networks）"><a href="#卷积神经网络（CNN-Convolutional-Neural-Networks）" class="headerlink" title="卷积神经网络（CNN, Convolutional Neural Networks）"></a>卷积神经网络（CNN, Convolutional Neural Networks）</h2><h3 id="内积-dot-product-scalar-product"><a href="#内积-dot-product-scalar-product" class="headerlink" title="内积 (dot product, scalar product)"></a>内积 (dot product, scalar product)</h3><h3 id="Architect"><a href="#Architect" class="headerlink" title="Architect"></a>Architect</h3><ol><li>Convolution</li><li>Pooling</li><li>Flatten</li></ol><h3 id="Property"><a href="#Property" class="headerlink" title="Property"></a>Property</h3><ol><li>Some of patterns are much smaller than the whole image</li><li>The smae pattterns appear in different regions</li><li>Subsampling the pixels will not change the object</li></ol><h3 id="1-x-1-Convolution"><a href="#1-x-1-Convolution" class="headerlink" title="1 x 1 Convolution"></a>1 x 1 Convolution</h3><p>1 x 1 的卷积核用来实现降通道数的操作</p><h2 id="循环神经网络（RNN-Recurrent-Neural-Networks）"><a href="#循环神经网络（RNN-Recurrent-Neural-Networks）" class="headerlink" title="循环神经网络（RNN, Recurrent Neural Networks）"></a>循环神经网络（RNN, Recurrent Neural Networks）</h2><h2 id="长短期记忆网络（LSTM-Long-Short-Term-Memorys）"><a href="#长短期记忆网络（LSTM-Long-Short-Term-Memorys）" class="headerlink" title="长短期记忆网络（LSTM, Long Short-Term Memorys）"></a>长短期记忆网络（LSTM, Long Short-Term Memorys）</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://www.bilibili.com/video/BV1Lb411b7BS?from=search&seid=17888903676501609442" target="_blank" rel="noopener">B站-李宏毅讲解卷积神经网络（带字幕</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
+      
+      <tag>深度学习</tag>
+      
+      <tag>神经网络</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>FFT 板子</title>
-    <link href="/2020/05/31/200601_FFT/"/>
-    <url>/2020/05/31/200601_FFT/</url>
+    <link href="/2020/05/31/2020/200601_FFT/"/>
+    <url>/2020/05/31/2020/200601_FFT/</url>
     
     <content type="html"><![CDATA[<h2 id="傅里叶变换-VS-离散傅里叶变换"><a href="#傅里叶变换-VS-离散傅里叶变换" class="headerlink" title="傅里叶变换 VS 离散傅里叶变换"></a>傅里叶变换 VS 离散傅里叶变换</h2>]]></content>
     
@@ -799,8 +857,8 @@
   
   <entry>
     <title>线段树</title>
-    <link href="/2020/05/31/200531_segment_tree/"/>
-    <url>/2020/05/31/200531_segment_tree/</url>
+    <link href="/2020/05/31/2020/200531_segment_tree/"/>
+    <url>/2020/05/31/2020/200531_segment_tree/</url>
     
     <content type="html"><![CDATA[<h2 id="线段树的功能"><a href="#线段树的功能" class="headerlink" title="线段树的功能"></a>线段树的功能</h2><p>线段树用来处理数组的<strong>区间查询</strong>（range query）和<strong>元素更新</strong>（update）操作。可以进行<strong>区间最大值</strong>，<strong>区间最小值</strong>或者<strong>区间异或值</strong>的查询。对应于树状数组，线段树进行更新（update）的操作为<code>O(logn)</code>，进行区间查询（range query）的操作也为<code>O(logn)</code>。</p><h2 id="线段树的初始化"><a href="#线段树的初始化" class="headerlink" title="线段树的初始化"></a>线段树的初始化</h2><h2 id="更新（update）"><a href="#更新（update）" class="headerlink" title="更新（update）"></a>更新（update）</h2><h2 id="区间查询（range-query）"><a href="#区间查询（range-query）" class="headerlink" title="区间查询（range query）"></a>区间查询（range query）</h2><h2 id="完整的板子"><a href="#完整的板子" class="headerlink" title="完整的板子"></a>完整的板子</h2><h2 id="参考练习题"><a href="#参考练习题" class="headerlink" title="参考练习题"></a>参考练习题</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2>]]></content>
     
@@ -827,34 +885,9 @@
   
   
   <entry>
-    <title>神经网络结构</title>
-    <link href="/2020/05/31/200531_nnet/"/>
-    <url>/2020/05/31/200531_nnet/</url>
-    
-    <content type="html"><![CDATA[<h2 id="多层感知机（MLP-Multilayer-Perceptron）"><a href="#多层感知机（MLP-Multilayer-Perceptron）" class="headerlink" title="多层感知机（MLP, Multilayer Perceptron）"></a>多层感知机（MLP, Multilayer Perceptron）</h2><p>Fully Connected Layer</p><h2 id="时延神经网络-TDNN-Time-Delay-Neural-Networks"><a href="#时延神经网络-TDNN-Time-Delay-Neural-Networks" class="headerlink" title="时延神经网络(TDNN, Time-Delay Neural Networks)"></a>时延神经网络(TDNN, Time-Delay Neural Networks)</h2><p>TDNN是一个常用于语音信号处理领域卷积神经网络，使用 FFT 预处理的语音信号作为输入，其隐含层由2个一维卷积核组成，以提取频率域上的平移不变特征。</p><h2 id="卷积神经网络（CNN-Convolutional-Neural-Networks）"><a href="#卷积神经网络（CNN-Convolutional-Neural-Networks）" class="headerlink" title="卷积神经网络（CNN, Convolutional Neural Networks）"></a>卷积神经网络（CNN, Convolutional Neural Networks）</h2><h3 id="内积-dot-product-scalar-product"><a href="#内积-dot-product-scalar-product" class="headerlink" title="内积 (dot product, scalar product)"></a>内积 (dot product, scalar product)</h3><h3 id="Architect"><a href="#Architect" class="headerlink" title="Architect"></a>Architect</h3><ol><li>Convolution</li><li>Pooling</li><li>Flatten</li></ol><h3 id="Property"><a href="#Property" class="headerlink" title="Property"></a>Property</h3><ol><li>Some of patterns are much smaller than the whole image</li><li>The smae pattterns appear in different regions</li><li>Subsampling the pixels will not change the object</li></ol><h3 id="1-x-1-Convolution"><a href="#1-x-1-Convolution" class="headerlink" title="1 x 1 Convolution"></a>1 x 1 Convolution</h3><p>1 x 1 的卷积核用来实现降通道数的操作</p><h2 id="循环神经网络（RNN-Recurrent-Neural-Networks）"><a href="#循环神经网络（RNN-Recurrent-Neural-Networks）" class="headerlink" title="循环神经网络（RNN, Recurrent Neural Networks）"></a>循环神经网络（RNN, Recurrent Neural Networks）</h2><h2 id="长短期记忆网络（LSTM-Long-Short-Term-Memorys）"><a href="#长短期记忆网络（LSTM-Long-Short-Term-Memorys）" class="headerlink" title="长短期记忆网络（LSTM, Long Short-Term Memorys）"></a>长短期记忆网络（LSTM, Long Short-Term Memorys）</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://www.bilibili.com/video/BV1Lb411b7BS?from=search&seid=17888903676501609442" target="_blank" rel="noopener">B站-李宏毅讲解卷积神经网络（带字幕</a></p>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>机器学习</tag>
-      
-      <tag>笔记</tag>
-      
-      <tag>深度学习</tag>
-      
-      <tag>神经网络</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>生成式模型 VS 判别式模型</title>
-    <link href="/2020/05/30/200530_Difference_between_generative_model_and_discriminative_model/"/>
-    <url>/2020/05/30/200530_Difference_between_generative_model_and_discriminative_model/</url>
+    <link href="/2020/05/30/2020/200530_Difference_between_generative_model_and_discriminative_model/"/>
+    <url>/2020/05/30/2020/200530_Difference_between_generative_model_and_discriminative_model/</url>
     
     <content type="html"><![CDATA[<h2 id="生成式模型-VS-判别式模型"><a href="#生成式模型-VS-判别式模型" class="headerlink" title="生成式模型 VS 判别式模型"></a>生成式模型 VS 判别式模型</h2><p><strong>Discriminative models</strong> learn the classification (hard or soft) boundary between classes. A discriminative model learns the conditional probability distribution p(y|x) - which you should read as “the probability of y given x”.</p><p><strong>Generative models</strong> model the distribution of individual classes. A generative model learns the joint probability distribution p(x,y)</p><p>生成模型是模拟这个结果是如何产生的,然后算出产生各个结果的概率。判别模型是发现各个结果之间的不同,不关心产生结果的过程。</p><p><img src="https://wx1.sbimg.cn/2020/05/30/diff_g_d.png" srcset="/img/loading.gif" alt="avatar"></p><h2 id="典型代表模型"><a href="#典型代表模型" class="headerlink" title="典型代表模型"></a>典型代表模型</h2><h3 id="生成式模型"><a href="#生成式模型" class="headerlink" title="生成式模型"></a>生成式模型</h3><ol><li>朴素贝叶斯</li><li>K紧邻（KNN）</li><li>混合高斯模型</li><li>隐马尔科夫模型（HMM）</li><li>贝叶斯网络</li><li>Sigmoid Belief Networks </li><li>马尔科夫随机场（Markov Random Fields）</li><li>深度信念网络（DBN）</li></ol><h3 id="判别式模型"><a href="#判别式模型" class="headerlink" title="判别式模型"></a>判别式模型</h3><ol><li>线性回归（Linear Regression）</li><li>逻辑斯蒂回归（Logistic Regression）</li><li>神经网络（NN）</li><li>支持向量机（SVM）</li><li>高斯过程（Gaussian Process）</li><li>条件随机场（CRF）</li><li>CART(Classification and Regression Tree)</li></ol><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="http://papers.nips.cc/paper/2020-on-discriminative-vs-generative-classifiers-a-comparison-of-logistic-regression-and-naive-bayes.pdf" target="_blank" rel="noopener">On Discriminative vs. Generative classifiers: A comparison of logistic regression and naive Bayes</a></p><p>[2] <a href="https://stackoverflow.com/questions/879432/what-is-the-difference-between-a-generative-and-a-discriminative-algorithm/879591#879591" target="_blank" rel="noopener">The difference between a generative and a discriminative algorithm?</a></p><p>[3] <a href="https://www.cnblogs.com/yejintianming00/p/9378810.html" target="_blank" rel="noopener">判别式模型与生成式模型</a></p>]]></content>
     
@@ -876,8 +909,8 @@
   
   <entry>
     <title>优化器</title>
-    <link href="/2020/05/30/200530_optimizer/"/>
-    <url>/2020/05/30/200530_optimizer/</url>
+    <link href="/2020/05/30/2020/200530_optimizer/"/>
+    <url>/2020/05/30/2020/200530_optimizer/</url>
     
     <content type="html"><![CDATA[<p>深度学习中的优化算法主要围绕梯度下降算法展开，其主要思想是：选取一定的训练样本，按照一定的步长（学习率）沿着梯度的方向调整更新参数，优化模型的目标函数。</p><h2 id="SGD"><a href="#SGD" class="headerlink" title="SGD"></a>SGD</h2><p><strong>随机梯度下降法</strong>是每次使用一批数据进行梯度的计算，而非计算全部数据的梯度，因为如果每次计算全部数据的梯度，会导致运算量加大，运算时间变长，容易陷入局部最优解，而随机梯度下降可能每次不是朝着真正最小的方向，这样反而可以跳出局部的最优解。</p>]]></content>
     
@@ -899,8 +932,8 @@
   
   <entry>
     <title>My First Blog</title>
-    <link href="/2020/05/27/200527_first/"/>
-    <url>/2020/05/27/200527_first/</url>
+    <link href="/2020/05/27/2020/200527_first/"/>
+    <url>/2020/05/27/2020/200527_first/</url>
     
     <content type="html"><![CDATA[<p>欢迎来到zyz的个人网站。这是我的第一篇博客。</p>]]></content>
     
@@ -919,9 +952,22 @@
   
   
   <entry>
+    <title>Contrastive Learning for Speaker Recogition</title>
+    <link href="/2000/01/01/research_note/014_pretrain/"/>
+    <url>/2000/01/01/research_note/014_pretrain/</url>
+    
+    <content type="html"><![CDATA[<ul><li>We don’t know something is blue until we see red.</li><li>We don’t know something is music until we hear noise.</li></ul><p>在过去，无监督学习以例如 VAE、GAN 这样的生成式模型比较多，生成式模型期望利用数据表征重构完整数据。但最近判别式模型逐渐走进了人们的视野。对比学习是何恺明、Hinton、LeCun等大佬最近关注的研究重点之一。对比学习通过数据之间的对比进行表示学习，期望数据表征包含足够多信息即可。近日，唐杰老师对 Self-Supervised Learning 发表了一篇综述性的文章。</p><p>CN-Celeb 数据集的发布展现出当前说话人识别系统在真实环境下的性能表现可能并不理想，系统的鲁棒性还有待增强。<strong>我认为 SimCLR 为代表的对比学习方法可以更好的提高当前说话人识别系统的鲁棒性，特别是可以提高在 CN-Celeb 数据集上的表现。</strong></p><h2 id="Contrastive-Learning"><a href="#Contrastive-Learning" class="headerlink" title="Contrastive Learning"></a>Contrastive Learning</h2><p>对比学习的思路可以用一句话来概括 “We don’t know something is blue until we see red”。它通过数据之间的对比进行表示学习，从而让像的样本所得表示差异小，让不像的样本所得表示差异大。“对比学习”中的“对比”是 positive 样本 和 negative 样本的对比。在学习到的“表示空间”内，增大某样本与其 positive 样本之间的相似度，减少与negative 样本的相似度：</p><p>$$\textrm{score}(f(x),f(x^{+})) &gt;&gt; \textrm{score}(f(x), f(x^{-}))$$</p><p>其中，互信息(Mutual Information, MI)在对比学习中是一个非常重要的概念，是指一个随机变量由于已知另一个随机变量而减少的不确定性，通过最大化互信息进行表征学习，从而期望数据表征包含足够多信息。 $MI(x;c) = \sum_{x,c}p(x,c)log\frac{p(x|c)}{p(x)}$ 。很多大佬也提出了一系列对比学习的 Loss，其中比较有代表性的是：</p><ul><li>InfoNCE (InfoNCE 是 MI 的下界)</li><li>NCE</li><li>Margin Triplet</li></ul><p>在对比学习中，我认为有 3 个非常典型的学习框架可以应用于说话人识别这样的语音信号处理领域中，分别如下:</p><h3 id="1-CPC"><a href="#1-CPC" class="headerlink" title="1. CPC"></a>1. CPC</h3><ul><li>Anchor: 自回归模型历史时序</li><li>Positive: 同一时序未来时刻的信息</li><li>Negative: 不同时序未来时刻的信息</li></ul><h3 id="2-MoCo"><a href="#2-MoCo" class="headerlink" title="2. MoCo"></a>2. MoCo</h3><p>MoCo 是由何恺明一作提出用于 CV 领域的方法。它的网络训练的方法和我之前用 Pytorch 写的 flow 的训练模式很像</p><h3 id="3-SimCLR"><a href="#3-SimCLR" class="headerlink" title="3. SimCLR"></a>3. SimCLR</h3><p>SimCLR 是由 Hinton 参与提出的一个 Constractive Learning 通用学习框架，我认为它的核心是<strong>Data Argument</strong>。</p><h2 id="CN-Celeb-Pretrain-Experiment"><a href="#CN-Celeb-Pretrain-Experiment" class="headerlink" title="CN-Celeb Pretrain Experiment"></a>CN-Celeb Pretrain Experiment</h2><p>CN-Celeb 数据集的发布展现出当前说话人识别系统在真实环境下的性能表现可能并不理想，系统的鲁棒性还有待增强。</p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="https://amitness.com/2020/03/illustrated-simclr/" target="_blank" rel="noopener">[Amit Chaudhary] illustrated-simclr</a></p><p>[2] <a href="https://amitness.com/2020/02/illustrated-self-supervised-learning/" target="_blank" rel="noopener">[Amit Chaudhary] SSL</a></p><p>[3] <a href="https://sthalles.github.io/simple-self-supervised-learning/" target="_blank" rel="noopener">[sthalles] simple-self-supervised-learning</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【CSLT-THU cvss SELF】</title>
-    <link href="/2000/01/01/014_self_cvss/"/>
-    <url>/2000/01/01/014_self_cvss/</url>
+    <link href="/2000/01/01/research_note/014_self_cvss/"/>
+    <url>/2000/01/01/research_note/014_self_cvss/</url>
     
     <content type="html"><![CDATA[<p>Self-Supervised Pretrain speech representation for Speaker Recogntion</p><p>The ongoing success of deep learning techniques depends on the quality of the representations automatically discovered from data. What is a good representation?</p><ol><li>high-performing on a diverse set of downstream tasks using simple models.</li><li>useful in transfer learning with small amounts of data for a new task.</li></ol><p>[1] Introduction</p><p>Recently, Self-Supervised Learning(SSL) shows a promising approach for data representation. Self-Supervised Learning is a version of unsupervised learning where data provides the supervision, and the goal of SSL is learning represent the world before learning tasks. For instance, BERT is a well-know NLP model developed by Google for pre-training language representations. It leverages an enormous amount of plain text data publicly available on the web and is trained in an unsupervised manner, and it can map a variable-length sentence or word to a fixed-length vector for many NLP downstream tasks.</p><p>In speech processing filed, the extraction and selection of the best parametric representation of acoustic signals is an important task in the design of any speech recognition system or speaker recognition sysytem. However, the characteristics of the speakers in speech signal are poorly captured by the traditional acoustic features, such as the amplitudes of a wave signal, log Mel spectrograms, Mel frequency cepstral coefficients(MFCCs), or Filter banks(Fbanks). </p><p>The goal of Self-Supervised speech representation is to leverages an enormous amount of unlabeled speech data publicly available on the web and is trained in an unsupervised manner and find a transformation from the surface features that makes high-level properties of speech more accessible to downstream tasks, such as speech recognition and speaker recognition.</p><p>Therefore, inspired by the idea of Self-Supervised Learning, I did some experiments about Self-Supervised Speech Representation Feature for Speaker Recongnition task.</p><p>[2] Experiment</p><ol><li><p>Toolkits</p><ul><li>fairseq: fairseq is powerful seq2seq model toolkit developed by Facebook AI research. wav2vec is a subset project in fairseq, which is trained on large amounts of unlabeled audio data and the resulting representations are then used to improve acoustic model training.</li><li>Kaldi: Kaldi is a powerful toolkit for speech signal processing, speech recognition and speaker recognition.</li></ul></li><li><p>Dataset</p><ul><li>P100: a small speech command dataset which contains 100 speakers.</li><li>P80(dev): for ASV system training, subset of P100 which contains 80 speakers</li><li>P20(enroll &amp; test): for ASV system evalutation, subset of P100 which contains 20 speakers</li></ul></li><li><p>Config</p></li></ol><p>Group 1: Average Pooling</p><pre><code>- baseline MFCC average: MFCC feature with average pooling- wav2vec c average: wav2vec pretrain feature c with average pooling- wav2vec z average: wav2vec pretrain feature z with average pooling</code></pre><p>Group 2: i-vector</p><pre><code>- baseline MFCC i-vector: MFCC feature with i-vector ASV system- wav2vec c i-vector: wav2vec pretrain feature c with i-vector ASV system- wav2vec z i-vector: wav2vec pretrain feature z with i-vector ASV system</code></pre><p>Group 3: x-vector</p><pre><code>- baseline MFCC x-vector: MFCC feature with x-vector ASV system- wav2vec c x-vector: wav2vec pretrain feature c with x-vector ASV system- wav2vec z x-vector: wav2vec pretrain feature z with x-vector ASV system</code></pre><ol start="4"><li><p>Result</p></li><li><p>Analyze</p></li></ol><p>The Result show wav2vec pretrain Speech feature.</p><p>See <a href="">Yang Zhang’s Chinese Blog</a> for more detail.</p><hr><p>Contrastive Learning for ASV</p><p>Contrastive learning has recently shown encouraging progress in Self-Supervised Learning, e.g., in Momentum Contrast (MoCo) and SimCLR.</p><p>SimCLR</p>]]></content>
     
@@ -933,23 +979,10 @@
   
   <entry>
     <title>Self-Supervised Pretrain Speech Representation for Speaker Recongnition</title>
-    <link href="/2000/01/01/014_self/"/>
-    <url>/2000/01/01/014_self/</url>
+    <link href="/2000/01/01/research_note/014_self/"/>
+    <url>/2000/01/01/research_note/014_self/</url>
     
     <content type="html"><![CDATA[<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>使用预训练模型提取语音声学特征从而提高当前说话人识别系统的性能。</p><p>Self-Supervised Pretrain speech representation for Speaker Recogntion</p><p>The goal of speech representation learning is to find a transformation from the surface features that makes high-level properties of speech more accessible to downstream tasks.</p><p><img src="https://wx2.sbimg.cn/2020/07/12/CuUHw.png" srcset="/img/loading.gif" alt="avatar"></p><h3 id="Backgroud"><a href="#Backgroud" class="headerlink" title="Backgroud"></a>Backgroud</h3><p>在说话人识别任务中，第一步大多都是对语音进行<strong>声学特征提取</strong>，从语音信号中提取例如 mfcc, fbank 这样的声学特征。通过提取声学特征，一帧高维度的语音信号(waveform)可以号用一个12~40维向量简洁地表示出来；一整段语音信号，就被表示为这种向量的一个序列。例如，<strong>梅尔刻度 (Mel scale)</strong>是一种基于人耳对等距的音高(pitch)变化的感官判断而定的非线性频率刻度，它与频率关系如下:</p><p>$$M(f) = 2595 \cdot log_{10}(1+\frac{f}{700})$$</p><p>MFCC 的性能表现可能会受到如下因素的影响: </p><ol><li>the number of filters</li><li>the shape of filters </li><li>the way that filters are spaced</li><li>the way that the power spectrum is warped</li></ol><p>这些传统的声学特征是根据人耳的感知机理，例如掩蔽效应，人为设计的特征提取方法。这类方法可能并不适用于计算机的模式识别，使用传统的声学特征用于说话人识别可能存在一定的不合理性。例如:</p><ol><li>声学特征提取过程中可能会存在一定的信息损失，导致识别性能降低。</li><li>声学特征参数的选取往往依赖于人的经验。不同的参数设置，会导致不同的系统识别的性能。</li><li>提取特征的过程中可能没有考虑人说话的上下文 context 信息。</li></ol><h3 id="What-is-self-supervised-learning"><a href="#What-is-self-supervised-learning" class="headerlink" title="What is self-supervised learning?"></a>What is self-supervised learning?</h3><p>最近，self-supervised learning 逐渐成为科研工作者们的关注重点。self-supervised learning 是无监督学习里的一类方法，主要是希望能够<strong>学习到一种通用的特征表达用于下游任务</strong></p><p>Yann LeCun in AAAI2020</p><blockquote><p>in self-supervised learning, the systerm learns to predict part of its input from other parts of it input.</p></blockquote><ul><li>Goal: Learning to represent the world before learning tasks.</li><li>Predict any part of the input from any other part</li><li>Predict the <strong>future</strong> from the <strong>recent past</strong></li><li>Predict the <strong>past</strong> from the <strong>present</strong></li><li>Predict the <strong>top</strong> from the <strong>bottom</strong></li></ul><p>什么是一个好的 Representation ?</p><ol><li>high-performing on a diverse set of downstream tasks using simple models</li><li>useful in transfer learning with small amounts of data for a new task</li></ol><p>自监督学习已经在 CV 和 NLP 领域取得了极大的成功，以大名鼎鼎的 BERT 模型为例，它利用大规模无标注语料训练、获得文本的包含丰富语义信息的 Representation，然后将文本的语义表示在特定 NLP 任务中作微调后应用于该任务上。</p><p>目前self-supervised learning的主要有如下方法：</p><p><img src="https://wx1.sbimg.cn/2020/07/12/Cubk8.png" srcset="/img/loading.gif" alt="avatar"></p><p>在 speech 领域，也有很多大佬进行了一系列的探索。从 interspeech2020 和 ICML2020 两个学术会议中，我们可以看出未来应该会有更多的大佬加入 self supervised learning 在 speech 领域的研究。</p><ol><li><a href="https://self-supervised-sp.github.io/Interspeech2020-Special-Session" target="_blank" rel="noopener">Interspeech2020 Special Session: New Trends in self-supervised speech processing</a></li><li><a href="https://icml-sas.gitlab.io/" target="_blank" rel="noopener">ICML2020: Self-supervision in Audio and Speech</a></li></ol><h3 id="Contrastive-Predictive-Coding"><a href="#Contrastive-Predictive-Coding" class="headerlink" title="Contrastive Predictive Coding"></a>Contrastive Predictive Coding</h3><p>Contrastive Predictive Coding (CPC) 是由 Google DeepMind 出品的非常有代表性的自监督学习方法，可以用于语音、图片、文本以及强化学习。<strong>CPC的主要思想就是基于 context 信息的未来数据预测，以及通过采样的方式进行训练。</strong></p><p><img src="https://wx2.sbimg.cn/2020/07/20/CfofV.png" srcset="/img/loading.gif" alt="avatar"></p><p>CPC 的出发点是最大化context vector $c$ 和数据输入 $x$ 之间的<strong>互信息（Mutual Information）</strong>，使得 $c$ 包含足够的原始数据信息，因而可以作为新的特征表示。互信息定义如下：</p><p>$$MI(x;c) = \sum_{x,c}p(x,c)log\frac{p(x|c)}{p(x)}$$</p><p>“对比学习”中的“对比”是 positive 样本 和 negative 样本的对比。在学习到的“表示空间”内，增大某样本与其 positive 样本之间的相似度，减少与negative 样本的相似度。CPC 目标是学习一个 encoder $f$</p><p>$$\textrm{score}(f(x),f(x^{+})) &gt;&gt; \textrm{score}(f(x), f(x^{-}))$$</p><p>score 函数是相似度的度量，例如可以设置为 $\textrm{score}(a, b) = a^Tb$。一般在一个训练批量的 $N$ 个样本中，使用 1 个 positive 样本和 $N-1$ 个 negative 样本。</p><p>如果大量无监督但数据采样训练，最大化互信息，我们可以得到数据新的表征。非常值得一提的是，论文中对不同说话人表征在 $t-SNE$ 可视化图中展现出了不错的区分性。</p><p><img src="https://wx2.sbimg.cn/2020/07/15/CZBTR.md.png" srcset="/img/loading.gif" alt="avatar"></p><h3 id="WAV2VEC"><a href="#WAV2VEC" class="headerlink" title="WAV2VEC"></a>WAV2VEC</h3><p>依据 CPC 论文的思路，FaceBook FAIR 团队提出了 wav2vec 模型利用大量未标记的音频数据预训练的方法用于提高 ASR 系统的性能。预训练模型是在 Fairseq 工具包中的 PyTorch 中实现的。</p><p><img src="https://wx2.sbimg.cn/2020/07/15/CZqK2.png" srcset="/img/loading.gif" alt="avatar"></p><p>模型由两个卷积神经网络组成:</p><ul><li><strong>Encoder Network</strong> $x \rightarrow z$ : embeds the audio signal in a latent space</li><li><strong>Context Network</strong> $z \rightarrow c$ : combines multiple time-steps of the encoder to obtain contextualized representations</li></ul><p>与 CPC 原论文里略有不同的是，在 Context Network 上，wav2vec 采用的是卷积神经网络，而 CPC 采用的 Autoregressive Model 自回归模型，因此在 infer 的速度上 wav2vec 会更快。</p><p>预训练结束后，将上下文网络 $c_i$ 生成的表示形式作为声学特征输入，而不是使用 log-mel 滤波器组特征。</p><h3 id="Self-Supervised-Feature-for-Speaker-Recongnition"><a href="#Self-Supervised-Feature-for-Speaker-Recongnition" class="headerlink" title="Self-Supervised Feature for Speaker Recongnition"></a>Self-Supervised Feature for Speaker Recongnition</h3><p>我想使用 self supervised learning 的方法改进当前说话人识别系统。创新点在于利用了大量无说话人 label 的语音数据去提高当前说话人识别系统的性能</p><p>首先通过大量没有任何标注的语音数据，依据语音时序上的上下文 context 信息，使用神经网络去重新学一个更加合理 speech 的 representation。这类 self-supervised features 对语音信号前后关系有更好地建模。可以对于说话人长时性描述更强。之后我们通过预训练好的模型，对语音进行特征提取，新的声学特征将取代 mfcc 和 fbank 这类传统的声学特征，作为说话人模型对输入。我们利用这种新的特征，和传统 i-vector 和 x-vector 表征学习相互结合。</p><p>总结来说就是使用预训练模型提取语音声学特征取代 mfcc 和 fbank 从而提高当前说话人识别系统的性能。预期可能取得如下结果:</p><ol><li>进一步提高当前的说话人识别系统的性能，成为新的STOA。</li><li>说话人训练数据在 low resources 的情况下取得更好的性能。例如 self supervised feature＋100个spk数据集训练出来的模型性能约等于甚至好于 mfcc＋500个spk数据集训练出的模型。</li><li>降低当前说话人识别模型的参数量，即 x-vector 模型的网络结构不需要很深很复杂也可以达到不错的说话人识别效果。</li><li>进一步提高当前 anti-spoofing 系统的性能。</li></ol><h2 id="My-Experiment"><a href="#My-Experiment" class="headerlink" title="My Experiment"></a>My Experiment</h2><h3 id="Toolkits"><a href="#Toolkits" class="headerlink" title="Toolkits"></a>Toolkits</h3><p>我的实验主要使用了如下两个工具:</p><ol><li><strong><a href="https://github.com/pytorch/fairseq" target="_blank" rel="noopener">fairseq</a></strong>: 它是一个由 facebook AI research 团队维护的 seq2seq 模型工具包，wav2vec 是 fairseq 内的一个子项目，其中同时开源了相关的一些预训练模型</li><li><strong><a href="https://github.com/kaldi-asr/kaldi" target="_blank" rel="noopener">Kaldi</a></strong>: 它是一个主要由 Danney Povey 等人主要维护的语音工具包，其中包含了经典的说话人识别模型 (i-vector, x-vector等) 的全部 pipline 代码</li></ol><h3 id="Dataset-amp-Configs"><a href="#Dataset-amp-Configs" class="headerlink" title="Dataset &amp; Configs"></a>Dataset &amp; Configs</h3><p>为了快速验证这个想法，我在一个含有100个说话人的小规模的命令词数据集上，分别使用了几个不同的声学特征提取方法进行了3组实验。我们使用80个说话人进行说话人模型的训练，另外20个人用于测试。具体配置如下：</p><h4 id="Group-1-Average-Pooling"><a href="#Group-1-Average-Pooling" class="headerlink" title="Group 1: Average Pooling"></a>Group 1: Average Pooling</h4><ul><li><strong>baseline MFCC average</strong>: MFCC feature with average pooling</li><li><strong>wav2vec c average</strong>: wav2vec pretrain feature c with average pooling</li><li><strong>wav2vec z average</strong>: wav2vec pretrain feature z with average pooling</li></ul><h4 id="Group-2-i-vector"><a href="#Group-2-i-vector" class="headerlink" title="Group 2: i-vector"></a>Group 2: i-vector</h4><ul><li><strong>baseline MFCC i-vector</strong>: MFCC feature with i-vector ASV system</li><li><strong>wav2vec c i-vector</strong>: wav2vec pretrain feature c with i-vector ASV system</li><li><strong>wav2vec z i-vector</strong>: wav2vec pretrain feature z with i-vector ASV system</li></ul><h4 id="Group-3-x-vector"><a href="#Group-3-x-vector" class="headerlink" title="Group 3: x-vector"></a>Group 3: x-vector</h4><ul><li><strong>baseline MFCC x-vector</strong>: MFCC feature with x-vector ASV system</li><li><strong>wav2vec c x-vector</strong>: wav2vec pretrain feature c with x-vector ASV system</li><li><strong>wav2vec z x-vector</strong>: wav2vec pretrain feature z with x-vector ASV system</li></ul><h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><h4 id="Group-1-Average-Pooling-1"><a href="#Group-1-Average-Pooling-1" class="headerlink" title="Group 1: Average Pooling"></a>Group 1: Average Pooling</h4><table><thead><tr><th align="center">Equel Error Rate</th><th align="center">MFCC average</th><th align="center">wav2vec c average</th><th align="center">wav2vec z average</th></tr></thead><tbody><tr><td align="center">cosine</td><td align="center"><strong>24.59 %</strong></td><td align="center">33.52 %</td><td align="center">27.51 %</td></tr><tr><td align="center">PLDA</td><td align="center">11.68 %</td><td align="center">8.697 %</td><td align="center"><strong>5.92 %</strong></td></tr><tr><td align="center">LDA PLDA</td><td align="center">13.25 %</td><td align="center">8.614 %</td><td align="center"><strong>5.981 %</strong></td></tr></tbody></table><h4 id="Group-2-i-vector-1"><a href="#Group-2-i-vector-1" class="headerlink" title="Group 2: i-vector"></a>Group 2: i-vector</h4><table><thead><tr><th align="center">Equel Error Rate</th><th align="center">MFCC i-vector</th><th align="center">wav2vec c i-vector</th><th align="center">wav2vec z i-vector</th></tr></thead><tbody><tr><td align="center">cosine</td><td align="center">19.2 %</td><td align="center">22.23 %</td><td align="center"></td></tr><tr><td align="center">PLDA</td><td align="center">10.45 %</td><td align="center">10.35 %</td><td align="center"></td></tr><tr><td align="center">LDA PLDA</td><td align="center">9.972 %</td><td align="center">10.4 %</td><td align="center"></td></tr></tbody></table><h4 id="Group-3-x-vector-1"><a href="#Group-3-x-vector-1" class="headerlink" title="Group 3: x-vector"></a>Group 3: x-vector</h4><table><thead><tr><th align="center">Equel Error Rate</th><th align="center">MFCC x-vector</th><th align="center">wav2vec c x-vector</th><th align="center">wav2vec z x-vector</th></tr></thead><tbody><tr><td align="center">cosine</td><td align="center">12.23 %</td><td align="center">17.32 %</td><td align="center"><strong>11.71 %</strong></td></tr><tr><td align="center">PLDA</td><td align="center">12.04 %</td><td align="center">15.53 %</td><td align="center"><strong>8.926 %</strong></td></tr><tr><td align="center">LDA PLDA</td><td align="center">11.48 %</td><td align="center">11.71 %</td><td align="center"><strong>8.784 %</strong></td></tr></tbody></table><h4 id="T-SNE"><a href="#T-SNE" class="headerlink" title="T-SNE"></a>T-SNE</h4><p><img src="https://wx1.sbimg.cn/2020/07/24/DEeCM.png" srcset="/img/loading.gif" alt="avatar"></p><h3 id="Future-Work"><a href="#Future-Work" class="headerlink" title="Future Work"></a>Future Work</h3><ol><li><strong>Dataset</strong>: VoxCeleb dataset</li><li><strong>Dataset</strong>: VAD &amp; Data Arguement</li><li><strong>Pretrain</strong>: center loss for pretrain</li><li><strong>Pretrain</strong>: triplet loss for pretrain</li></ol><h2 id="Related-Research"><a href="#Related-Research" class="headerlink" title="Related Research"></a>Related Research</h2><h3 id="Speech-Pretrain-Papers"><a href="#Speech-Pretrain-Papers" class="headerlink" title="Speech Pretrain Papers"></a>Speech Pretrain Papers</h3><ol><li><a href="https://arxiv.org/abs/1904.05862" target="_blank" rel="noopener">[Facebook] wav2vec: Unsupervised Pre-Training for Speech Recognition, 2019</a></li><li><a href="https://arxiv.org/abs/2002.12764" target="_blank" rel="noopener">[Google] Towards Learning a Universal Non-Semantic Representation of Speech, 2020</a></li><li><a href="https://arxiv.org/abs/1807.03748" target="_blank" rel="noopener">[DeepMind] Representation Learning with Contrastive Predictive Coding, 2019</a></li><li><a href="https://arxiv.org/abs/1904.03240" target="_blank" rel="noopener">[MIT] An Unsupervised Autoregressive Model for Speech Representation Learning, 2019</a></li><li><a href="https://arxiv.org/abs/1912.01679" target="_blank" rel="noopener">[Amazon] Deep Contextualized Acoustic Representations for Semi-Supervised Speech Recognition, 2020</a></li><li><a href="https://arxiv.org/abs/1910.12638" target="_blank" rel="noopener">[NTU] MOCKINGJAY: Unsupervised Speech Representation Learning with Deep Bidirectional Transformer Encoders, 2020</a></li></ol><h3 id="Speaker-Related-Papers"><a href="#Speaker-Related-Papers" class="headerlink" title="Speaker Related Papers"></a>Speaker Related Papers</h3><ol><li><a href="https://arxiv.org/abs/1812.00271" target="_blank" rel="noopener">[Yoshua Bengio] Learning Speaker Representations with Mutual Information, 2018</a></li><li><a href="https://arxiv.org/abs/2002.12764" target="_blank" rel="noopener">[Google] Towards Learning a Universal Non-Semantic Representation of Speech, 2020</a></li><li><a href="https://arxiv.org/abs/1904.03240" target="_blank" rel="noopener">[MIT] An Unsupervised Autoregressive Model for Speech Representation Learning, 2019</a></li></ol><h3 id="Pretrain-Related-Toolkits-amp-Code"><a href="#Pretrain-Related-Toolkits-amp-Code" class="headerlink" title="Pretrain Related Toolkits &amp; Code"></a>Pretrain Related Toolkits &amp; Code</h3><ol><li><a href="https://github.com/pytorch/fairseq" target="_blank" rel="noopener">[FaceBook] fairseq</a></li><li><a href="https://github.com/awslabs/speech-representations" target="_blank" rel="noopener">[Amazon] speech-representations</a></li><li><a href="https://github.com/andi611/Self-Supervised-Speech-Pretraining-and-Representation-Learning" target="_blank" rel="noopener">[NTU] MOCKINGJAY</a></li><li><a href="https://github.com/google-research/google-research/tree/master/non_semantic_speech_benchmark" target="_blank" rel="noopener">[Google] non semantic speech benchmark</a></li></ol><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol><li><a href="https://ankeshanand.com/blog/2020/01/26/contrative-self-supervised-learning.html" target="_blank" rel="noopener">ankeshanand Contrative SSL blog</a></li><li><a href="https://self-supervised-sp.github.io/Interspeech2020-Special-Session" target="_blank" rel="noopener">Interspeech2020 Special Session: New Trends in self-supervised speech processing</a></li><li><a href="https://icml-sas.gitlab.io/" target="_blank" rel="noopener">ICML2020: Self-supervision in Audio and Speech</a></li></ol>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Contrastive Learning for Speaker Recogition</title>
-    <link href="/2000/01/01/14_pretrain/"/>
-    <url>/2000/01/01/14_pretrain/</url>
-    
-    <content type="html"><![CDATA[<ul><li>We don’t know something is blue until we see red.</li><li>We don’t know something is music until we hear noise.</li></ul><p>在过去，无监督学习以例如 VAE、GAN 这样的生成式模型比较多，生成式模型期望利用数据表征重构完整数据。但最近判别式模型逐渐走进了人们的视野。对比学习是何恺明、Hinton、LeCun等大佬最近关注的研究重点之一。对比学习通过数据之间的对比进行表示学习，期望数据表征包含足够多信息即可。近日，唐杰老师对 Self-Supervised Learning 发表了一篇综述性的文章。</p><p>CN-Celeb 数据集的发布展现出当前说话人识别系统在真实环境下的性能表现可能并不理想，系统的鲁棒性还有待增强。<strong>我认为 SimCLR 为代表的对比学习方法可以更好的提高当前说话人识别系统的鲁棒性，特别是可以提高在 CN-Celeb 数据集上的表现。</strong></p><h2 id="Contrastive-Learning"><a href="#Contrastive-Learning" class="headerlink" title="Contrastive Learning"></a>Contrastive Learning</h2><p>对比学习的思路可以用一句话来概括 “We don’t know something is blue until we see red”。它通过数据之间的对比进行表示学习，从而让像的样本所得表示差异小，让不像的样本所得表示差异大。“对比学习”中的“对比”是 positive 样本 和 negative 样本的对比。在学习到的“表示空间”内，增大某样本与其 positive 样本之间的相似度，减少与negative 样本的相似度：</p><p>$$\textrm{score}(f(x),f(x^{+})) &gt;&gt; \textrm{score}(f(x), f(x^{-}))$$</p><p>其中，互信息(Mutual Information, MI)在对比学习中是一个非常重要的概念，是指一个随机变量由于已知另一个随机变量而减少的不确定性，通过最大化互信息进行表征学习，从而期望数据表征包含足够多信息。 $MI(x;c) = \sum_{x,c}p(x,c)log\frac{p(x|c)}{p(x)}$ 。很多大佬也提出了一系列对比学习的 Loss，其中比较有代表性的是：</p><ul><li>InfoNCE (InfoNCE 是 MI 的下界)</li><li>NCE</li><li>Margin Triplet</li></ul><p>在对比学习中，我认为有 3 个非常典型的学习框架可以应用于说话人识别这样的语音信号处理领域中，分别如下:</p><h3 id="1-CPC"><a href="#1-CPC" class="headerlink" title="1. CPC"></a>1. CPC</h3><ul><li>Anchor: 自回归模型历史时序</li><li>Positive: 同一时序未来时刻的信息</li><li>Negative: 不同时序未来时刻的信息</li></ul><h3 id="2-MoCo"><a href="#2-MoCo" class="headerlink" title="2. MoCo"></a>2. MoCo</h3><p>MoCo 是由何恺明一作提出用于 CV 领域的方法。它的网络训练的方法和我之前用 Pytorch 写的 flow 的训练模式很像</p><h3 id="3-SimCLR"><a href="#3-SimCLR" class="headerlink" title="3. SimCLR"></a>3. SimCLR</h3><p>SimCLR 是由 Hinton 参与提出的一个 Constractive Learning 通用学习框架，我认为它的核心是<strong>Data Argument</strong>。</p><h2 id="CN-Celeb-Pretrain-Experiment"><a href="#CN-Celeb-Pretrain-Experiment" class="headerlink" title="CN-Celeb Pretrain Experiment"></a>CN-Celeb Pretrain Experiment</h2><p>CN-Celeb 数据集的发布展现出当前说话人识别系统在真实环境下的性能表现可能并不理想，系统的鲁棒性还有待增强。</p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="https://amitness.com/2020/03/illustrated-simclr/" target="_blank" rel="noopener">[Amit Chaudhary] illustrated-simclr</a></p><p>[2] <a href="https://amitness.com/2020/02/illustrated-self-supervised-learning/" target="_blank" rel="noopener">[Amit Chaudhary] SSL</a></p><p>[3] <a href="https://sthalles.github.io/simple-self-supervised-learning/" target="_blank" rel="noopener">[sthalles] simple-self-supervised-learning</a></p>]]></content>
     
     
     

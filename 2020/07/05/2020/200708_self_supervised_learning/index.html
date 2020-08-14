@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.png">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yang Zhang">
+  <meta name="keywords" content="">
+  <title>【毕业要紧】 Self Supervised Learning in Speech Resources - zyzisyz</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>zyz's space</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://wx1.sbimg.cn/2020/06/09/yourname.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.2)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-07-05 00:00">
+      2020年7月5日 凌晨
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      997 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="Supervised-Learning"><a href="#Supervised-Learning" class="headerlink" title="Supervised Learning"></a>Supervised Learning</h2><p>Given: </p>
+<ul>
+<li>a dataset $\mathcal{D} = {(x, y)}_i^N$</li>
+<li>a loss function $\mathcal{l}$</li>
+</ul>
+<p>Goal:</p>
+<p>$$min_{\theta}\mathbb{E}_{(x, y)}$$</p>
+<ul>
+<li>Works well when labeled data is abundant</li>
+<li><strong>Learn useful representation with the supervision</strong></li>
+</ul>
+<h2 id="Yann-LeCun"><a href="#Yann-LeCun" class="headerlink" title="Yann LeCun"></a>Yann LeCun</h2><blockquote>
+<p>in self-supervised learning, the systerm learns to predict part of its input from other parts of it input.</p>
+</blockquote>
+<ul>
+<li>Goal: Learning to represent the world before learning tasks.</li>
+<li>Predict any part of the input from any other part</li>
+<li>Predict the <strong>future</strong> from the <strong>recent past</strong></li>
+<li>Predict the <strong>past</strong> from the <strong>present</strong></li>
+<li>Predict the <strong>top</strong> from the <strong>bottom</strong></li>
+</ul>
+<h2 id="Interspeech-2020-New-Trends-in-self-supervised-Speech-Processing"><a href="#Interspeech-2020-New-Trends-in-self-supervised-Speech-Processing" class="headerlink" title="Interspeech 2020: New Trends in self-supervised Speech Processing"></a>Interspeech 2020: New Trends in self-supervised Speech Processing</h2><p>Over the past decade, supervised deep learning models led to great strides in performance for speech processing technologies and applications. </p>
+<p>However, unlike humans who are capable of self-learning through experiences and interactions, current real-world speech applications are heavily reliant on large volumes of human annotations. </p>
+<p>For the next generation of speech processing systems to exhibit similar levels of cognitive intelligence as humans, they should be designed to exploit unlabeled, partially labeled, contextual and distant supervision data from multiple concurrent modalities, e.g., text and video, and learning signals from corrective user follow-ups in conversational applications. </p>
+<p><strong>The main motivation for self-supervised learning is rooted in our need to improve ASR systems when there is a limited amount of labeled data.</strong></p>
+<p>Self-supervised learning methods [LeCun 2016] construct proxy predictive tasks to train models for downstream scenarios by exploiting large amounts of unlabeled audio data, unpaired text and audio data in the same domain, or speech data with distant unrelated labels, e.g. A text summary or slides of an audio lecture. </p>
+<p>Through these invented proxy tasks, models learn high-level representations that generalize well across different languages, domains, and deployment scenarios with very few in-domain labeled examples. </p>
+<p>Self-supervised learning methods achieved major successes in Natural Language Processing (NLP) [Peters 2018, Devlin 2018, Radford 2019, Raffel 2019, Lewis 2019] and Computer Vision (CV) [Sun 2019, He 2019, Xie 2019, Misra 2019].</p>
+<p>There is a recent surge in speech processing research work introducing predictive proxy tasks for model training, and achieving impressive results in downstream applications like ASR and speaker recognition. These self-supervised approaches include, but not limited to:</p>
+<ul>
+<li><strong>Future prediction</strong>: Learning an autoregressive model that generates distant future audio features from historical ones [Oard 2018, Chung 2019, Schneider 2019].</li>
+<li><strong>Mask prediction</strong>: Learning a model that predicts masked parts of the input audio signal [Liu 2019, Song 2019, Baevski 2019a, Baevski 2019b].</li>
+<li><strong>Generating contextual data</strong>: Learning a model to predict semantically-related contextual information that accompany the speech signal, e.g. Using social media title and comments as input audio labels [Singh 2019, Pascual 2019].</li>
+<li><strong>Chaining ASR and TTS</strong>: Using unpaired audio and text data to train an ASR system and a TTS system jointly, where one is generating training paired data for the other [Tjandra 2019, Hori 2019, Baskar 2019]. This family of self-supervised methods can be viewed as auto-encoders of speech signals through latent text representations. Effective use of external language models falls into this category to regularize the text representations.</li>
+</ul>
+<h2 id="Workshop-ICML-2019-Self-Supervised-Learning"><a href="#Workshop-ICML-2019-Self-Supervised-Learning" class="headerlink" title="Workshop - ICML 2019 Self-Supervised Learning"></a>Workshop - ICML 2019 Self-Supervised Learning</h2><p>Big data has driven a revolution to many domains of machine learning thanks to modern high-capacity models, but the standard approaches – supervised learning from labels, or reinforcement learning from a reward function – have become a bottleneck. </p>
+<p>Even when data is abundant, getting the labels or rewards that specify exactly what the model must do is often intractable. Collecting simple category labels for classification is prohibitive for millions of billions of examples, and structured outputs (scene interpretations, interactions, demonstrations) are far worse, especially when the data distribution is non-stationary.</p>
+<p><strong>Self-supervised learning</strong> is a promising alternative where proxy tasks are developed that allow models and agents to learn without explicit supervision in a way that helps with downstream performance on tasks of interest. One of the major benefits of self-supervised learning is increasing data efficiency: achieving comparable or better performance with less labeled data or fewer environment steps (in Reinforcement learning / Robotics).</p>
+<p>The field of self-supervised learning (SSL) is rapidly evolving, and the performance of these methods is creeping closer to the fully supervised approaches. However, many of these methods are still developed in domain-specific sub-communities, such as Vision, RL and NLP, even though many similarities exist between them. While SSL is an emerging topic and there is great interest in these techniques, there are currently few workshops, tutorials or other scientific events dedicated to this topic.</p>
+<p>This workshop aims to bring together experts with different backgrounds and applications areas to share inter-domain ideas and increase cross-pollination, tackle current shortcomings and explore new directions. The focus will be on the machine learning point of view rather than the domain side.</p>
+<h2 id="ICML-2020-Self-supervision-in-Audio-and-Speech"><a href="#ICML-2020-Self-supervision-in-Audio-and-Speech" class="headerlink" title="ICML 2020 Self-supervision in Audio and Speech"></a>ICML 2020 Self-supervision in Audio and Speech</h2><p>The ongoing success of deep learning techniques depends on the quality of the representations automatically discovered from data. </p>
+<p><strong>These representations must capture important underlying structures from the raw input, e.g., intermediate concepts, features, or latent variables that are useful for the downstream task</strong>. </p>
+<p>While supervised learning using large annotated corpora can leverage useful representations, collecting large amounts of annotated examples is costly, time-consuming, and not always feasible. </p>
+<p>This is particularly problematic for a large variety of applications. In the speech domain, for instance, there are many low-resource languages, where the progress is dramatically slower than in high-resource languages such as English. Moreover, annotations are often underspecified for many potential downstream applications, and the related supervised representations might be biased towards the task they are trained on, limiting their exportability to other applications 2.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="https://docs.google.com/presentation/d/1qq8t8a3decJfJyA6t9wCRJfNDkvAnbg1WxTFvx0hG4g/edit?usp=sharing" target="_blank" rel="noopener">NTU 2020 Spring ML Self-Supervised Learning slide, vpn</a></p>
+<p>[2] <a href="https://self-supervised-sp.github.io/Interspeech2020-Special-Session" target="_blank" rel="noopener">interspeech2020: New Trends in self-supervised speech processing</a></p>
+<p>[3] <a href="https://icml-sas.gitlab.io/" target="_blank" rel="noopener">ICML 2020 Self-supervision in Audio and Speech</a></p>
+<p>[4] <a href="https://sites.google.com/view/self-supervised-icml2019" target="_blank" rel="noopener">Workshop - ICML 2019 Self-Supervised Learning</a></p>
+<p>[5] <a href="https://www.bilibili.com/video/BV1oD4y1D7V2" target="_blank" rel="noopener">[CVPR2020 Tutorial] Talk#5 Self-supervised Learning by Licheng, Yen-Chun, Linjie</a></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/07/09/2020/200709_wav2vec/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【毕业要紧】 Facebook AI Research wav2vec</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/07/05/research_note/012_VC/">
+                        <span class="hidden-mobile">【毕业要紧】 An overview of voice conversion systems</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 1,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "【毕业要紧】 Self Supervised Learning in Speech Resources&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/mermaid/8.5.0/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>
