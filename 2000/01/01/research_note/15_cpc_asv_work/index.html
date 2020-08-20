@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>Kaldi Split data &amp; Concatenate scp - zyzisyz</title>
+  <title>CPC Work Plan - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-11 00:00">
-      2020年8月11日 凌晨
+    <time datetime="2000-01-01 00:00">
+      2000年1月1日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      67 字
+      135 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      2
        分钟
     </span>
   
@@ -216,43 +216,143 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="Split"><a href="#Split" class="headerlink" title="Split"></a>Split</h2><pre><code class="hljs bash">scp=<span class="hljs-variable">$data</span>/wav.scp
+              <p>实验分为两个阶段，</p>
+<ol>
+<li>搭建 基于MFCC 的 baseline;</li>
+<li>之后是引入 wav2vec 获取语音的 CPC feature 进行实验。</li>
+</ol>
+<h3 id="DataSet"><a href="#DataSet" class="headerlink" title="DataSet"></a>DataSet</h3><p>使用 LibSpeech 训练说话人识别模型和做语音预训练，使用 sitw 和 CN-Celeb 测试 ASV 系统性能</p>
+<ul>
+<li>LibSpeech (Pretain &amp; Dev)</li>
+<li>sitw (Test)</li>
+<li>CN-Celeb (Test)</li>
+</ul>
+<h3 id="Toolkit"><a href="#Toolkit" class="headerlink" title="Toolkit"></a>Toolkit</h3><ul>
+<li>Kaldi</li>
+<li>fariseq-wav2vec</li>
+</ul>
+<h2 id="Sitw"><a href="#Sitw" class="headerlink" title="Sitw"></a>Sitw</h2><p><strong>i-vector</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">Equel Error Rate</th>
+<th align="center">MFCC</th>
+<th align="center">wav2vec c</th>
+<th align="center">wav2vec z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">cosine</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">PLDA</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">LDA PLDA</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p><strong>x-vector</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">Equel Error Rate</th>
+<th align="center">MFCC</th>
+<th align="center">wav2vec c</th>
+<th align="center">wav2vec z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">cosine</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">PLDA</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">LDA PLDA</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h2 id="CN-Celeb"><a href="#CN-Celeb" class="headerlink" title="CN-Celeb"></a>CN-Celeb</h2><p><strong>i-vector</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">Equel Error Rate</th>
+<th align="center">MFCC</th>
+<th align="center">wav2vec c</th>
+<th align="center">wav2vec z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">cosine</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">PLDA</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">LDA PLDA</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p><strong>x-vector</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">Equel Error Rate</th>
+<th align="center">MFCC</th>
+<th align="center">wav2vec c</th>
+<th align="center">wav2vec z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">cosine</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">PLDA</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">LDA PLDA</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
 
-<span class="hljs-comment"># prepare split_scps</span>
-split_scps=<span class="hljs-string">""</span>
-<span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> $(seq <span class="hljs-variable">$nj</span>); <span class="hljs-keyword">do</span>
-    split_scps=<span class="hljs-string">"<span class="hljs-variable">$split_scps</span> <span class="hljs-variable">$logdir</span>/wav_<span class="hljs-variable">$&#123;name&#125;</span>.<span class="hljs-variable">$n</span>.scp"</span>
-<span class="hljs-keyword">done</span>
-
-<span class="hljs-comment"># split scp</span>
-utils/split_scp.pl <span class="hljs-variable">$scp</span> <span class="hljs-variable">$split_scps</span> || <span class="hljs-built_in">exit</span> 1;</code></pre>
-
-<p>tip: <code>split_scps=&quot;1.scp 2.scp&quot;</code></p>
-<h2 id="Concatenate"><a href="#Concatenate" class="headerlink" title="Concatenate"></a>Concatenate</h2><pre><code class="hljs bash"><span class="hljs-comment"># concatenate the .scp files together.</span>
-<span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> $(seq <span class="hljs-variable">$nj</span>); <span class="hljs-keyword">do</span>
-  cat <span class="hljs-variable">$mfccdir</span>/raw_mfcc_<span class="hljs-variable">$name</span>.<span class="hljs-variable">$n</span>.scp || <span class="hljs-built_in">exit</span> 1;
-<span class="hljs-keyword">done</span> &gt; <span class="hljs-variable">$data</span>/feats.scp || <span class="hljs-built_in">exit</span> 1</code></pre>
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/shell/">shell</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/shell/">shell</a>
-                    
-                      <a class="hover-with-bg" href="/tags/Kaldi/">Kaldi</a>
-                    
-                  </div>
                 
               </div>
               
@@ -261,21 +361,15 @@ utils/split_scp.pl <span class="hljs-variable">$scp</span> <span class="hljs-var
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/15/2020/200815_os_io/">
+                      <a href="/2000/01/01/research_note/014_self/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">IO 概念区分</span>
+                        <span class="hidden-mobile">Self-Supervised Pretrain Speech Representation for Speaker Recongnition</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </div>
                   <div class="post-next col-6">
                     
-                    
-                      <a href="/2020/08/11/2020/200811_mysql_cli/">
-                        <span class="hidden-mobile">MySQL CLI Tips</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </div>
                 </div>
@@ -411,7 +505,7 @@ utils/split_scp.pl <span class="hljs-variable">$scp</span> <span class="hljs-var
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Kaldi Split data & Concatenate scp&nbsp;",
+        "CPC Work Plan&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
