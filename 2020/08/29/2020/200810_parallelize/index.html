@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-10 00:00">
-      2020年8月10日 凌晨
+    <time datetime="2020-08-29 00:00">
+      2020年8月29日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      123 字
+      248 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      3
        分钟
     </span>
   
@@ -232,12 +232,30 @@
 nj=2
 ./run.pl JOB=1:<span class="hljs-variable">$nj</span> test.JOB.log bash cmd_JOB.sh</code></pre>
 
-<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<h2 id="wait-和-amp-命令"><a href="#wait-和-amp-命令" class="headerlink" title="wait 和 &amp; 命令"></a>wait 和 &amp; 命令</h2><ul>
+<li>在每个进程中使用&amp;符号进行让脚本在后台运行，无需等待当前进程结束。</li>
+<li>为了确保每个进程都执行完成，最后务必使用 wait 关键字，用来确保每一个子进程都执行完成。</li>
+<li>&amp; + wait 方法对线程并发数不可控</li>
+</ul>
+<pre><code class="hljs bash">./1.sh &amp;
+./2.sh &amp;
+<span class="hljs-built_in">wait</span></code></pre>
+
+<pre><code class="hljs bash"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> `seq 1 3`
+<span class="hljs-keyword">do</span>
+	&#123;	
+       	<span class="hljs-built_in">echo</span> <span class="hljs-variable">$i</span>
+	&#125;&amp;
+<span class="hljs-keyword">done</span></code></pre>
+
+<h2 id="模拟队列"><a href="#模拟队列" class="headerlink" title="模拟队列"></a>模拟队列</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
 <li><p><a href="https://blog.csdn.net/zongza/article/details/89715095" target="_blank" rel="noopener">[ASR_THU] flac文件转wav文件</a></p>
 </li>
 <li><p><a href="https://blog.csdn.net/zongza/article/details/89707462" target="_blank" rel="noopener">[ASR_THU] bash 脚本实现批量化作业与并行处理</a></p>
 </li>
 <li><p><a href="https://blog.csdn.net/yj13811596648/article/details/102817366" target="_blank" rel="noopener">[CSDN] make_mfcc.sh</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/yangshangwei/article/details/87691890" target="_blank" rel="noopener">使用&amp;和wait让你的脚本并行执行</a></p>
 </li>
 </ol>
 
@@ -272,18 +290,12 @@ nj=2
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/11/2020/200811_mysql_cli/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MySQL CLI Tips</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/08/08/2020/200808_django/">
-                        <span class="hidden-mobile">Django Tips & Reference</span>
+                      <a href="/2020/08/29/2020/200829_cmd_art/">
+                        <span class="hidden-mobile">The art of Command line</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

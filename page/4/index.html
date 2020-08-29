@@ -180,6 +180,66 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/06/10/2020/200610_pdf_merge/" target="_self">
+          <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="多个 PDF 文件的快速合并">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2020/06/10/2020/200610_pdf_merge/">多个 PDF 文件的快速合并</a>
+
+      <a href="/2020/06/10/2020/200610_pdf_merge/" class="index-excerpt">
+        
+        
+          
+        
+        <div>毕设论文需要合并多个pdf文件，记录一下pdf文件的合并过程
+安装sudo apt-get install poppler-utils
+
+合并# 全部
+pdfunite *.pdf all.pdf
+
+# 顺序
+pdfunite 1.pdf 2.pdf 3.pdf 4.pdf all-1234.pdf
+
+参考[1] linux bash合并PDF文件
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-10
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/toolkit/">toolkit</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%BC%80%E5%8F%91/">开发</a>
+            
+              <a href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+            
+              <a href="/tags/%E6%95%88%E7%8E%87/">效率</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2020/06/09/2020/200609_softmax/" target="_self">
           <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="Softmax &amp; Cross-Entropy &amp; KLD">
         </a>
@@ -325,20 +385,21 @@ DotaLoader的构建DataLoader(dataset, batch_size=200, shuffle=False, sampler=No
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2020/05/31/2020/200601_FFT/" target="_self">
-          <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="FFT 板子">
+        <a href="/2020/05/31/2020/200531_segment_tree/" target="_self">
+          <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="线段树">
         </a>
       </div>
     
     <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2020/05/31/2020/200601_FFT/">FFT 板子</a>
+      <a class="index-header" href="/2020/05/31/2020/200531_segment_tree/">线段树</a>
 
-      <a href="/2020/05/31/2020/200601_FFT/" class="index-excerpt">
+      <a href="/2020/05/31/2020/200531_segment_tree/" class="index-excerpt">
         
         
           
         
-        <div>傅里叶变换 VS 离散傅里叶变换</div>
+        <div>线段树的功能线段树用来处理数组的区间查询（range query）和元素更新（update）操作。可以进行区间最大值，区间最小值或者区间异或值的查询。对应于树状数组，线段树进行更新（update）的操作为O(logn)，进行区间查询（range query）的操作也为O(logn)。
+线段树的初始化更新（update）区间查询（range query）完整的板子参考练习题参考</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -375,21 +436,20 @@ DotaLoader的构建DataLoader(dataset, batch_size=200, shuffle=False, sampler=No
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2020/05/31/2020/200531_segment_tree/" target="_self">
-          <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="线段树">
+        <a href="/2020/05/31/2020/200601_FFT/" target="_self">
+          <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="FFT 板子">
         </a>
       </div>
     
     <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2020/05/31/2020/200531_segment_tree/">线段树</a>
+      <a class="index-header" href="/2020/05/31/2020/200601_FFT/">FFT 板子</a>
 
-      <a href="/2020/05/31/2020/200531_segment_tree/" class="index-excerpt">
+      <a href="/2020/05/31/2020/200601_FFT/" class="index-excerpt">
         
         
           
         
-        <div>线段树的功能线段树用来处理数组的区间查询（range query）和元素更新（update）操作。可以进行区间最大值，区间最小值或者区间异或值的查询。对应于树状数组，线段树进行更新（update）的操作为O(logn)，进行区间查询（range query）的操作也为O(logn)。
-线段树的初始化更新（update）区间查询（range query）完整的板子参考练习题参考</div>
+        <div>傅里叶变换 VS 离散傅里叶变换</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -594,42 +654,6 @@ SGD随机梯度下降法是每次使用一批数据进行梯度的计算，而�
               <a href="/tags/%E5%8D%9A%E5%AE%A2/">博客</a>
             
           </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2000/01/01/research_note/014_pretrain/" target="_self">
-          <img src="https://wx2.sbimg.cn/2020/05/28/13.png" srcset="/img/loading.gif" alt="Contrastive Learning for Speaker Recogition">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2000/01/01/research_note/014_pretrain/">Contrastive Learning for Speaker Recogition</a>
-
-      <a href="/2000/01/01/research_note/014_pretrain/" class="index-excerpt">
-        
-        
-          
-        
-        <div>
-We don’t know something is blue until we see red.
-We don’t know something is music until we hear noise.
-
-在过去，无监督学习以例如 VAE、GAN 这样的生成式模型比较多，生成式模型期望利用数据表征重构完整数据。但最近判别式模型逐渐走进了人们的视野。对比学习是何恺明、Hinton、LeCun等</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2000-01-01
-          </div>
-        
-        
         
       </div>
     </div>
