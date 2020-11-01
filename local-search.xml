@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>Trainer</title>
+    <link href="/2020/11/01/research_note/17_trainer/"/>
+    <url>/2020/11/01/research_note/17_trainer/</url>
+    
+    <content type="html"><![CDATA[<p>编写一个具有可复用性的机器学习代码模版。</p><p>当前机器学习特别是深度学习的代码大部分工作流程都是相同或是类似的。我想在 PyTorch 的基础构建一个通用的代码模板统一和规范，通过对模版的代码复用快速复现其他人的论文的结果，或是用于生产环境。</p><h2 id="PyTorch-Lightning"><a href="#PyTorch-Lightning" class="headerlink" title="PyTorch-Lightning"></a>PyTorch-Lightning</h2><p>调研了一下，我认为使用 <a href="https://pytorchlightning.ai/" target="_blank" rel="noopener">PyTorch-Lightning</a> 会是一个不错的选择。</p><h2 id="工程文件结构"><a href="#工程文件结构" class="headerlink" title="工程文件结构"></a>工程文件结构</h2><h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><ol><li>CheckPoint 和 超参数 的 save 和 reload</li><li>数据可视化(loss, T-sne)</li><li>高效率的DataLoader</li><li>分布式多 GPU 训练</li><li>自动生成文档</li><li>warmup, early stop, lr_scheduler</li></ol><h2 id="CheckPoint-和-超参数-的-save-和-reload"><a href="#CheckPoint-和-超参数-的-save-和-reload" class="headerlink" title="CheckPoint 和 超参数 的 save 和 reload"></a>CheckPoint 和 超参数 的 save 和 reload</h2><p>看了很多别人的代码，很多都是使用 yaml 文件配置超参数和模型结构，使用特定的命令去调用，例如 opennmt-py。</p><p>但这并不是我想要的， 我认为首先应该约定模型 checkpoint 的存放文件夹和超参数的存放文件名</p><h2 id="数据可视化-loss-T-sne"><a href="#数据可视化-loss-T-sne" class="headerlink" title="数据可视化(loss, T-sne)"></a>数据可视化(loss, T-sne)</h2><ul><li>wandb</li><li>TensorBoardX</li></ul><h2 id="高效率的DataLoader"><a href="#高效率的DataLoader" class="headerlink" title="高效率的DataLoader"></a>高效率的DataLoader</h2><p>基于 PyTorch 编写的很多代码模型训练速度瓶颈常在于数据 IO</p><h3 id="DataLoader-在-RNN-和-LSTM-上的不同"><a href="#DataLoader-在-RNN-和-LSTM-上的不同" class="headerlink" title="DataLoader 在 RNN 和 LSTM 上的不同"></a>DataLoader 在 RNN 和 LSTM 上的不同</h3><h2 id="分布式多GPU训练"><a href="#分布式多GPU训练" class="headerlink" title="分布式多GPU训练"></a>分布式多GPU训练</h2><ul><li>dp</li><li>ddp</li><li>ddp2</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>毕业要紧</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
+      
+      <tag>深度学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>RPC 与 REST</title>
     <link href="/2020/08/30/2020/200830_rpc_rest/"/>
     <url>/2020/08/30/2020/200830_rpc_rest/</url>
@@ -1085,6 +1114,35 @@
   
   
   <entry>
+    <title>Weekly</title>
+    <link href="/2000/10/31/research_note/16_new_flow/"/>
+    <url>/2000/10/31/research_note/16_new_flow/</url>
+    
+    <content type="html"><![CDATA[<h2 id="2020-10-31"><a href="#2020-10-31" class="headerlink" title="2020-10-31"></a>2020-10-31</h2><p>当前很多网上开源的 Normalizing Flow 模型都是在一些 toy 数据测试的，例如使用 <code>np.random.randn()</code> 函数随机生成的 2d 数据。本周我尝试复现了一下toy数据集的结果，下周我想抽时间编写和实现 NF 模型的多 GPU 训练代码（基于 PyTorch 框架）, 换 mnist 数据集测试一下。</p><p><img src="/img/nf/toy_data.png" srcset="/img/loading.gif" alt="avatar"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>毕业要紧</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
+      
+      <tag>深度学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Contrastive Learning for Speaker Recogition</title>
     <link href="/2000/01/01/research_note/014_pretrain/"/>
     <url>/2000/01/01/research_note/014_pretrain/</url>
@@ -1115,7 +1173,7 @@
     <link href="/2000/01/01/research_note/014_self_cvss/"/>
     <url>/2000/01/01/research_note/014_self_cvss/</url>
     
-    <content type="html"><![CDATA[<p>Self-Supervised Pretrain speech representation for Speaker Recogntion</p><p>The ongoing success of deep learning techniques depends on the quality of the representations automatically discovered from data. What is a good representation?</p><ol><li>high-performing on a diverse set of downstream tasks using simple models.</li><li>useful in transfer learning with small amounts of data for a new task.</li></ol><p>[1] Introduction</p><p>Recently, Self-Supervised Learning(SSL) shows a promising approach for data representation. Self-Supervised Learning is a version of unsupervised learning where data provides the supervision, and the goal of SSL is learning represent the world before learning tasks. For instance, BERT is a well-know NLP model developed by Google for pre-training language representations. It leverages an enormous amount of plain text data publicly available on the web and is trained in an unsupervised manner, and it can map a variable-length sentence or word to a fixed-length vector for many NLP downstream tasks.</p><p>In speech processing filed, the extraction and selection of the best parametric representation of acoustic signals is an important task in the design of any speech recognition system or speaker recognition sysytem. However, the characteristics of the speakers in speech signal are poorly captured by the traditional acoustic features, such as the amplitudes of a wave signal, log Mel spectrograms, Mel frequency cepstral coefficients(MFCCs), or Filter banks(Fbanks). </p><p>The goal of Self-Supervised speech representation is to leverages an enormous amount of unlabeled speech data publicly available on the web and is trained in an unsupervised manner and find a transformation from the surface features that makes high-level properties of speech more accessible to downstream tasks, such as speech recognition and speaker recognition.</p><p>Therefore, inspired by the idea of Self-Supervised Learning, I did some experiments about Self-Supervised Speech Representation Feature for Speaker Recongnition task.</p><p>[2] Experiment</p><ol><li><p>Toolkits</p><ul><li>fairseq: fairseq is powerful seq2seq model toolkit developed by Facebook AI research. wav2vec is a subset project in fairseq, which is trained on large amounts of unlabeled audio data and the resulting representations are then used to improve acoustic model training.</li><li>Kaldi: Kaldi is a powerful toolkit for speech signal processing, speech recognition and speaker recognition.</li></ul></li><li><p>Dataset</p><ul><li>P100: a small speech command dataset which contains 100 speakers.</li><li>P80(dev): for ASV system training, subset of P100 which contains 80 speakers</li><li>P20(enroll &amp; test): for ASV system evalutation, subset of P100 which contains 20 speakers</li></ul></li><li><p>Config</p></li></ol><p>Group 1: Average Pooling</p><pre><code>- baseline MFCC average: MFCC feature with average pooling- wav2vec c average: wav2vec pretrain feature c with average pooling- wav2vec z average: wav2vec pretrain feature z with average pooling</code></pre><p>Group 2: i-vector</p><pre><code>- baseline MFCC i-vector: MFCC feature with i-vector ASV system- wav2vec c i-vector: wav2vec pretrain feature c with i-vector ASV system- wav2vec z i-vector: wav2vec pretrain feature z with i-vector ASV system</code></pre><p>Group 3: x-vector</p><pre><code>- baseline MFCC x-vector: MFCC feature with x-vector ASV system- wav2vec c x-vector: wav2vec pretrain feature c with x-vector ASV system- wav2vec z x-vector: wav2vec pretrain feature z with x-vector ASV system</code></pre><ol start="4"><li><p>Result</p></li><li><p>Analyze</p></li></ol><p>The Result show wav2vec pretrain Speech feature.</p><p>See <a href="">Yang Zhang’s Chinese Blog</a> for more detail.</p><hr><p>Contrastive Learning for ASV</p><p>Contrastive learning has recently shown encouraging progress in Self-Supervised Learning, e.g., in Momentum Contrast (MoCo) and SimCLR.</p><p>SimCLR</p><p>老师，想打扰您一下。今天听了两位学长学姐的报告深受启发。感觉目前预训练的方法大多使用的的是 bert-style 的方法 mask 和 predict 进行数据 reconstruct。</p><p>我想尝试借助于 CPC 的思想，通过最大化互信息(而非对数据重构)进行语音预训练；同时引入一些语音数据增强生成不同的 view 进行训练。<br>我觉得这样做可以提高 ASV 系统的鲁棒性和泛化性，同时有一定 anti-spoofing 效果。</p>]]></content>
+    <content type="html"><![CDATA[<p>Self-Supervised Pretrain speech representation for Speaker Recogntion</p><p>The ongoing success of deep learning techniques depends on the quality of the representations automatically discovered from data. What is a good representation?</p><ol><li>high-performing on a diverse set of downstream tasks using simple models.</li><li>useful in transfer learning with small amounts of data for a new task.</li></ol><p>[1] Introduction</p><p>Recently, Self-Supervised Learning(SSL) shows a promising approach for data representation. Self-Supervised Learning is a version of unsupervised learning where data provides the supervision, and the goal of SSL is learning represent the world before learning tasks. For instance, BERT is a well-know NLP model developed by Google for pre-training language representations. It leverages an enormous amount of plain text data publicly available on the web and is trained in an unsupervised manner, and it can map a variable-length sentence or word to a fixed-length vector for many NLP downstream tasks.</p><p>In speech processing filed, the extraction and selection of the best parametric representation of acoustic signals is an important task in the design of any speech recognition system or speaker recognition sysytem. However, the characteristics of the speakers in speech signal are poorly captured by the traditional acoustic features, such as the amplitudes of a wave signal, log Mel spectrograms, Mel frequency cepstral coefficients(MFCCs), or Filter banks(Fbanks). </p><p>The goal of Self-Supervised speech representation is to leverages an enormous amount of unlabeled speech data publicly available on the web and is trained in an unsupervised manner and find a transformation from the surface features that makes high-level properties of speech more accessible to downstream tasks, such as speech recognition and speaker recognition.</p><p>Therefore, inspired by the idea of Self-Supervised Learning, I did some experiments about Self-Supervised Speech Representation Feature for Speaker Recongnition task.</p><p>[2] Experiment</p><ol><li><p>Toolkits</p><ul><li>fairseq: fairseq is powerful seq2seq model toolkit developed by Facebook AI research. wav2vec is a subset project in fairseq, which is trained on large amounts of unlabeled audio data and the resulting representations are then used to improve acoustic model training.</li><li>Kaldi: Kaldi is a powerful toolkit for speech signal processing, speech recognition and speaker recognition.</li></ul></li><li><p>Dataset</p><ul><li>P100: a small speech command dataset which contains 100 speakers.</li><li>P80(dev): for ASV system training, subset of P100 which contains 80 speakers</li><li>P20(enroll &amp; test): for ASV system evalutation, subset of P100 which contains 20 speakers</li></ul></li><li><p>Config</p></li></ol><p>Group 1: Average Pooling</p><pre><code>- baseline MFCC average: MFCC feature with average pooling- wav2vec c average: wav2vec pretrain feature c with average pooling- wav2vec z average: wav2vec pretrain feature z with average pooling</code></pre><p>Group 2: i-vector</p><pre><code>- baseline MFCC i-vector: MFCC feature with i-vector ASV system- wav2vec c i-vector: wav2vec pretrain feature c with i-vector ASV system- wav2vec z i-vector: wav2vec pretrain feature z with i-vector ASV system</code></pre><p>Group 3: x-vector</p><pre><code>- baseline MFCC x-vector: MFCC feature with x-vector ASV system- wav2vec c x-vector: wav2vec pretrain feature c with x-vector ASV system- wav2vec z x-vector: wav2vec pretrain feature z with x-vector ASV system</code></pre><ol start="4"><li><p>Result</p></li><li><p>Analyze</p></li></ol><p>The Result show wav2vec pretrain Speech feature.</p><p>See <a href="">Yang Zhang’s Chinese Blog</a> for more detail.</p><hr><p>Contrastive Learning for ASV</p><p>Contrastive learning has recently shown encouraging progress in Self-Supervised Learning, e.g., in Momentum Contrast (MoCo) and SimCLR.</p>]]></content>
     
     
     

@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>Contrastive Learning for Speaker Recogition - zyzisyz</title>
+  <title>Trainer - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2000-01-01 00:00">
-      2000年1月1日 凌晨
+    <time datetime="2020-11-01 00:00">
+      2020年11月1日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      759 字
+      323 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      3
        分钟
     </span>
   
@@ -216,38 +216,53 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <ul>
-<li>We don’t know something is blue until we see red.</li>
-<li>We don’t know something is music until we hear noise.</li>
+              <p>编写一个具有可复用性的机器学习代码模版。</p>
+<p>当前机器学习特别是深度学习的代码大部分工作流程都是相同或是类似的。我想在 PyTorch 的基础构建一个通用的代码模板统一和规范，通过对模版的代码复用快速复现其他人的论文的结果，或是用于生产环境。</p>
+<h2 id="PyTorch-Lightning"><a href="#PyTorch-Lightning" class="headerlink" title="PyTorch-Lightning"></a>PyTorch-Lightning</h2><p>调研了一下，我认为使用 <a href="https://pytorchlightning.ai/" target="_blank" rel="noopener">PyTorch-Lightning</a> 会是一个不错的选择。</p>
+<h2 id="工程文件结构"><a href="#工程文件结构" class="headerlink" title="工程文件结构"></a>工程文件结构</h2><h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><ol>
+<li>CheckPoint 和 超参数 的 save 和 reload</li>
+<li>数据可视化(loss, T-sne)</li>
+<li>高效率的DataLoader</li>
+<li>分布式多 GPU 训练</li>
+<li>自动生成文档</li>
+<li>warmup, early stop, lr_scheduler</li>
+</ol>
+<h2 id="CheckPoint-和-超参数-的-save-和-reload"><a href="#CheckPoint-和-超参数-的-save-和-reload" class="headerlink" title="CheckPoint 和 超参数 的 save 和 reload"></a>CheckPoint 和 超参数 的 save 和 reload</h2><p>看了很多别人的代码，很多都是使用 yaml 文件配置超参数和模型结构，使用特定的命令去调用，例如 opennmt-py。</p>
+<p>但这并不是我想要的， 我认为首先应该约定模型 checkpoint 的存放文件夹和超参数的存放文件名</p>
+<h2 id="数据可视化-loss-T-sne"><a href="#数据可视化-loss-T-sne" class="headerlink" title="数据可视化(loss, T-sne)"></a>数据可视化(loss, T-sne)</h2><ul>
+<li>wandb</li>
+<li>TensorBoardX</li>
 </ul>
-<p>在过去，无监督学习以例如 VAE、GAN 这样的生成式模型比较多，生成式模型期望利用数据表征重构完整数据。但最近判别式模型逐渐走进了人们的视野。对比学习是何恺明、Hinton、LeCun等大佬最近关注的研究重点之一。对比学习通过数据之间的对比进行表示学习，期望数据表征包含足够多信息即可。近日，唐杰老师对 Self-Supervised Learning 发表了一篇综述性的文章。</p>
-<p>CN-Celeb 数据集的发布展现出当前说话人识别系统在真实环境下的性能表现可能并不理想，系统的鲁棒性还有待增强。<strong>我认为 SimCLR 为代表的对比学习方法可以更好的提高当前说话人识别系统的鲁棒性，特别是可以提高在 CN-Celeb 数据集上的表现。</strong></p>
-<h2 id="Contrastive-Learning"><a href="#Contrastive-Learning" class="headerlink" title="Contrastive Learning"></a>Contrastive Learning</h2><p>对比学习的思路可以用一句话来概括 “We don’t know something is blue until we see red”。它通过数据之间的对比进行表示学习，从而让像的样本所得表示差异小，让不像的样本所得表示差异大。“对比学习”中的“对比”是 positive 样本 和 negative 样本的对比。在学习到的“表示空间”内，增大某样本与其 positive 样本之间的相似度，减少与negative 样本的相似度：</p>
-<p>$$\textrm{score}(f(x),f(x^{+})) &gt;&gt; \textrm{score}(f(x), f(x^{-}))$$</p>
-<p>其中，互信息(Mutual Information, MI)在对比学习中是一个非常重要的概念，是指一个随机变量由于已知另一个随机变量而减少的不确定性，通过最大化互信息进行表征学习，从而期望数据表征包含足够多信息。 $MI(x;c) = \sum_{x,c}p(x,c)log\frac{p(x|c)}{p(x)}$ 。很多大佬也提出了一系列对比学习的 Loss，其中比较有代表性的是：</p>
-<ul>
-<li>InfoNCE (InfoNCE 是 MI 的下界)</li>
-<li>NCE</li>
-<li>Margin Triplet</li>
+<h2 id="高效率的DataLoader"><a href="#高效率的DataLoader" class="headerlink" title="高效率的DataLoader"></a>高效率的DataLoader</h2><p>基于 PyTorch 编写的很多代码模型训练速度瓶颈常在于数据 IO</p>
+<h3 id="DataLoader-在-RNN-和-LSTM-上的不同"><a href="#DataLoader-在-RNN-和-LSTM-上的不同" class="headerlink" title="DataLoader 在 RNN 和 LSTM 上的不同"></a>DataLoader 在 RNN 和 LSTM 上的不同</h3><h2 id="分布式多GPU训练"><a href="#分布式多GPU训练" class="headerlink" title="分布式多GPU训练"></a>分布式多GPU训练</h2><ul>
+<li>dp</li>
+<li>ddp</li>
+<li>ddp2</li>
 </ul>
-<p>在对比学习中，我认为有 3 个非常典型的学习框架可以应用于说话人识别这样的语音信号处理领域中，分别如下:</p>
-<h3 id="1-CPC"><a href="#1-CPC" class="headerlink" title="1. CPC"></a>1. CPC</h3><ul>
-<li>Anchor: 自回归模型历史时序</li>
-<li>Positive: 同一时序未来时刻的信息</li>
-<li>Negative: 不同时序未来时刻的信息</li>
-</ul>
-<h3 id="2-MoCo"><a href="#2-MoCo" class="headerlink" title="2. MoCo"></a>2. MoCo</h3><p>MoCo 是由何恺明一作提出用于 CV 领域的方法。它的网络训练的方法和我之前用 Pytorch 写的 flow 的训练模式很像</p>
-<h3 id="3-SimCLR"><a href="#3-SimCLR" class="headerlink" title="3. SimCLR"></a>3. SimCLR</h3><p>SimCLR 是由 Hinton 参与提出的一个 Constractive Learning 通用学习框架，我认为它的核心是<strong>Data Argument</strong>。</p>
-<h2 id="CN-Celeb-Pretrain-Experiment"><a href="#CN-Celeb-Pretrain-Experiment" class="headerlink" title="CN-Celeb Pretrain Experiment"></a>CN-Celeb Pretrain Experiment</h2><p>CN-Celeb 数据集的发布展现出当前说话人识别系统在真实环境下的性能表现可能并不理想，系统的鲁棒性还有待增强。</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="https://amitness.com/2020/03/illustrated-simclr/" target="_blank" rel="noopener">[Amit Chaudhary] illustrated-simclr</a></p>
-<p>[2] <a href="https://amitness.com/2020/02/illustrated-self-supervised-learning/" target="_blank" rel="noopener">[Amit Chaudhary] SSL</a></p>
-<p>[3] <a href="https://sthalles.github.io/simple-self-supervised-learning/" target="_blank" rel="noopener">[sthalles] simple-self-supervised-learning</a></p>
 
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+                    
+                  </div>
                 
               </div>
               
@@ -256,18 +271,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2000/10/31/research_note/16_new_flow/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Weekly</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2000/01/01/research_note/15_cpc_asv_work/">
-                        <span class="hidden-mobile">CPC Work Plan</span>
+                      <a href="/2020/08/30/2020/200830_rpc_rest/">
+                        <span class="hidden-mobile">RPC 与 REST</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -406,7 +415,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Contrastive Learning for Speaker Recogition&nbsp;",
+        "Trainer&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
