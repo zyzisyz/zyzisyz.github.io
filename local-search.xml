@@ -33,6 +33,31 @@
   
   
   <entry>
+    <title>Python 矩阵乘法</title>
+    <link href="/2020/11/01/2020/2021101_mul/"/>
+    <url>/2020/11/01/2020/2021101_mul/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Test-Data"><a href="#Test-Data" class="headerlink" title="Test Data"></a>Test Data</h2><p>$$<br>A =<br> \left[<br> \begin{matrix}<br>   1 &amp; 2 \\<br>   3 &amp; 4<br>  \end{matrix}<br>  \right]<br>\ \ \ <br>B =<br> \left[<br> \begin{matrix}<br>   1 &amp; 2 \\<br>   3 &amp; 4<br>  \end{matrix}<br>  \right]<br>$$</p><h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><pre><code class="hljs Python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> npmat_a = np.matrix([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])mat_b = np.matrix([[<span class="hljs-number">4</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">1</span>]])print(<span class="hljs-string">"mat_a"</span>)print(mat_a)print(<span class="hljs-string">"mat_b"</span>)print(mat_b)print(<span class="hljs-string">"dot"</span>)print(np.dot(mat_a, mat_b))print(<span class="hljs-string">"matmul"</span>)print(np.matmul(mat_a, mat_b))print(<span class="hljs-string">"multiply"</span>)print(np.multiply(mat_a, mat_b))print(<span class="hljs-string">"*"</span>)print(mat_a * mat_b)print(<span class="hljs-string">"@"</span>)print(mat_a @ mat_b)</code></pre><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>除了<code>np.multiply</code>是$ \left[ \begin{matrix} 4 &amp; 6 \\ 6 &amp; 4 \end{matrix}\right]$ 外，其它都是$ \left[ \begin{matrix} 8 &amp; 5 \\ 20 &amp; 13 \end{matrix}\right]$</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>RPC 与 REST</title>
     <link href="/2020/08/30/2020/200830_rpc_rest/"/>
     <url>/2020/08/30/2020/200830_rpc_rest/</url>
