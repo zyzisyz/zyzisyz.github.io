@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>Trainer - zyzisyz</title>
+  <title>Hidden Markov Model - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-11-01 00:00">
-      2020年11月1日 凌晨
+    <time datetime="2020-11-02 00:00">
+      2020年11月2日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      323 字
+      397 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      5
        分钟
     </span>
   
@@ -216,29 +216,29 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>编写一个具有可复用性的机器学习代码模版。</p>
-<p>当前机器学习特别是深度学习的代码大部分工作流程都是相同或是类似的。我想在 PyTorch 的基础构建一个通用的代码模板统一和规范，通过对模版的代码复用快速复现其他人的论文的结果，或是用于生产环境。</p>
-<h2 id="PyTorch-Lightning"><a href="#PyTorch-Lightning" class="headerlink" title="PyTorch-Lightning"></a>PyTorch-Lightning</h2><p>调研了一下，我认为使用 <a href="https://pytorchlightning.ai/" target="_blank" rel="noopener">PyTorch-Lightning</a> 会是一个不错的选择。</p>
-<h2 id="工程文件结构"><a href="#工程文件结构" class="headerlink" title="工程文件结构"></a>工程文件结构</h2><h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><ol>
-<li>CheckPoint 和 超参数 的 save 和 reload</li>
-<li>数据可视化(loss, T-sne)</li>
-<li>高效率的DataLoader</li>
-<li>分布式多 GPU 训练</li>
-<li>自动生成文档</li>
-<li>warmup, early stop, lr_scheduler</li>
+              <h2 id="隐马尔可夫模型（Hidden-Markov-Model）"><a href="#隐马尔可夫模型（Hidden-Markov-Model）" class="headerlink" title="隐马尔可夫模型（Hidden Markov Model）"></a>隐马尔可夫模型（Hidden Markov Model）</h2><p>$$\lambda = f(\boldsymbol{\pi}, \boldsymbol{A}, \boldsymbol{B})$$</p>
+<ul>
+<li>隐藏状态初始概率分布 $\boldsymbol{\pi}$</li>
+<li>状态转移概率矩阵 $\boldsymbol{A}$</li>
+<li>观测状态概率矩阵 $\boldsymbol{B}$</li>
+</ul>
+<h3 id="三个基本问题"><a href="#三个基本问题" class="headerlink" title="三个基本问题"></a>三个基本问题</h3><h4 id="1-概率计算："><a href="#1-概率计算：" class="headerlink" title="1. 概率计算："></a>1. 概率计算：</h4><p>已知系统输出 $\boldsymbol{Y}$ 及模型 $\lambda = f(\boldsymbol{\pi}, \boldsymbol{A}, \boldsymbol{B})$ 计算产生 $Y$ 的概率 $P(\boldsymbol{Y}|\lambda) $</p>
+<h4 id="2-参数估计：训练"><a href="#2-参数估计：训练" class="headerlink" title="2. 参数估计：训练"></a>2. 参数估计：训练</h4><p>给定若干输出（训练样本）$Y$，确定模型 $\lambda = f(\boldsymbol{\pi}, \boldsymbol{A}, \boldsymbol{B})$ 的参数 </p>
+<h4 id="3-最优状态序列搜索：识别"><a href="#3-最优状态序列搜索：识别" class="headerlink" title="3. 最优状态序列搜索：识别"></a>3. 最优状态序列搜索：识别</h4><p>已知输出 $\boldsymbol{Y}$ 及模型$\lambda = f(\boldsymbol{\pi}, \boldsymbol{A}, \boldsymbol{B})$，估计系统产生 $\boldsymbol{Y}$ 最可能的状态序列 $\boldsymbol{X}$</p>
+<h3 id="两个假设"><a href="#两个假设" class="headerlink" title="两个假设"></a>两个假设</h3><p><strong>1. 齐次马尔可夫假设</strong>：即任意时刻的状态只依赖于前一时刻的状态，与其他时刻的状态无关（初始时刻的状态由参数 $\boldsymbol{\pi}$ 决定）</p>
+<p><strong>2. 观测独立假设</strong>：即任意时刻的观测只依赖于该时刻的状态，与其他无关</p>
+<h3 id="概率计算"><a href="#概率计算" class="headerlink" title="概率计算"></a>概率计算</h3><h4 id="1-前向概率"><a href="#1-前向概率" class="headerlink" title="1. 前向概率"></a>1. 前向概率</h4><p>$$\alpha_t(j)=P(o_1o_2 \dots o_{t-1}o{t}, q_t=s_j|\lambda)$$</p>
+<h4 id="2-后向概率"><a href="#2-后向概率" class="headerlink" title="2. 后向概率"></a>2. 后向概率</h4><p>$$\beta_t(j)=P(o_1o_2 \dots o_{t-1}o{t} | q_t=s_j, \lambda)$$</p>
+<h3 id="Viterbi-算法"><a href="#Viterbi-算法" class="headerlink" title="Viterbi 算法"></a>Viterbi 算法</h3><p>维特比算法是基于动态规划的求序列最短路径的方法</p>
+<ul>
+<li>输入：HMM模型 $\lambda = f(\boldsymbol{\pi}, \boldsymbol{A}, \boldsymbol{B})$，观测序列$O = o_1o_2 \dots o_T $</li>
+<li>输出：最️有可能的隐藏状态序列</li>
+</ul>
+<h3 id="Baum-Welch-算法"><a href="#Baum-Welch-算法" class="headerlink" title="Baum-Welch 算法"></a>Baum-Welch 算法</h3><p>$$O = o_1o_2 \dots o_T $$</p>
+<p>$$\lambda = arg max P(O|\lambda)$$</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li><a href="https://zhuanlan.zhihu.com/p/85454896" target="_blank" rel="noopener">知乎：一站式解决：隐马尔可夫模型（HMM）全过程推导及实现</a></li>
 </ol>
-<h2 id="CheckPoint-和-超参数-的-save-和-reload"><a href="#CheckPoint-和-超参数-的-save-和-reload" class="headerlink" title="CheckPoint 和 超参数 的 save 和 reload"></a>CheckPoint 和 超参数 的 save 和 reload</h2><p>看了很多别人的代码，很多都是使用 yaml 文件配置超参数和模型结构，使用特定的命令去调用，例如 opennmt-py。</p>
-<p>但这并不是我想要的， 我认为首先应该约定模型 checkpoint 的存放文件夹和超参数的存放文件名</p>
-<h2 id="数据可视化-loss-T-sne"><a href="#数据可视化-loss-T-sne" class="headerlink" title="数据可视化(loss, T-sne)"></a>数据可视化(loss, T-sne)</h2><ul>
-<li>wandb</li>
-<li>TensorBoardX</li>
-</ul>
-<h2 id="高效率的DataLoader"><a href="#高效率的DataLoader" class="headerlink" title="高效率的DataLoader"></a>高效率的DataLoader</h2><p>基于 PyTorch 编写的很多代码模型训练速度瓶颈常在于数据 IO</p>
-<h3 id="DataLoader-在-RNN-和-LSTM-上的不同"><a href="#DataLoader-在-RNN-和-LSTM-上的不同" class="headerlink" title="DataLoader 在 RNN 和 LSTM 上的不同"></a>DataLoader 在 RNN 和 LSTM 上的不同</h3><h2 id="分布式多GPU训练"><a href="#分布式多GPU训练" class="headerlink" title="分布式多GPU训练"></a>分布式多GPU训练</h2><ul>
-<li>dp</li>
-<li>ddp</li>
-<li>ddp2</li>
-</ul>
 
             </article>
             <hr>
@@ -256,11 +256,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+                      <a class="hover-with-bg" href="/tags/%E6%AF%95%E4%B8%9A%E8%A6%81%E7%B4%A7/">毕业要紧</a>
                     
                   </div>
                 
@@ -271,18 +267,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/11/02/2020/20201102_hmm/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hidden Markov Model</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/11/01/2020/2021101_mul/">
-                        <span class="hidden-mobile">Python 矩阵乘法</span>
+                      <a href="/2020/11/01/research_note/17_trainer/">
+                        <span class="hidden-mobile">Trainer</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -421,7 +411,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Trainer&nbsp;",
+        "Hidden Markov Model&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
