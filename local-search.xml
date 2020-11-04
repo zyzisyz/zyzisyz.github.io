@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Matrix Decomposition</title>
+    <link href="/2020/11/04/2020/20201104_matrix_factorization/"/>
+    <url>/2020/11/04/2020/20201104_matrix_factorization/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Matrix-Decomposition"><a href="#Matrix-Decomposition" class="headerlink" title="Matrix Decomposition"></a>Matrix Decomposition</h2><ul><li><strong>PCA</strong>: Principle Component Analysis</li><li><strong>SVD</strong>: Singular Value Decomposition</li><li><strong>LDA</strong>: Linear Discriminant Analysis</li><li><strong>NMF</strong>: Non-negative Matrix Factorization</li><li><strong>NMF</strong>: with Sparse Constraints</li><li>Linear Sparse Coding</li></ul><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>$$A_{n \times m} = B_{n \times k}C_{k \times m}$$</p><ul><li>$B$ captures the common features in $A$</li><li>$C$ carries specific characteristics of the original samples </li><li>$n \times m \rightarrow (n+m) \times k$</li><li>$ k&lt;&lt;n $</li></ul><p><img src="/img/matrix.jpg" srcset="/img/loading.gif" alt="avatar"></p><ul><li>In PCA: $B$ is eigenvectors</li><li>In SVD: $B$ is right (column) eigenvectors </li><li>In LDA: $B$ is discriminant directions </li><li>In NMF: $B$ is local features</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>毕业要紧</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>毕业要紧</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hidden Markov Model</title>
     <link href="/2020/11/02/2020/20201102_hmm/"/>
     <url>/2020/11/02/2020/20201102_hmm/</url>
