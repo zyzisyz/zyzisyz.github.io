@@ -8,7 +8,7 @@
     <link href="/2020/11/19/2020/20201119_kill/"/>
     <url>/2020/11/19/2020/20201119_kill/</url>
     
-    <content type="html"><![CDATA[<pre><code class="hljs bash">ps -ef | grep firefox | awk <span class="hljs-string">'&#123;print $2&#125;'</span> | xargs <span class="hljs-built_in">kill</span> -9</code></pre><pre><code class="hljs vim"><span class="hljs-keyword">ps</span> -ef | <span class="hljs-keyword">grep</span> <span class="hljs-symbol">&lt;key-word&gt;</span> | awk <span class="hljs-string">'&#123;print $2&#125;'</span> | xargs kill -<span class="hljs-number">9</span></code></pre>]]></content>
+    <content type="html"><![CDATA[<h2 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h2><pre><code class="hljs coq">ps -ef | <span class="hljs-type">grep</span> firefox | <span class="hljs-type">awk</span> '&#123;print $<span class="hljs-number">2</span>&#125;' | <span class="hljs-type">xargs</span> kill <span class="hljs-number">-9</span></code></pre><pre><code class="hljs vim"><span class="hljs-keyword">ps</span> -ef | <span class="hljs-keyword">grep</span> <span class="hljs-symbol">&lt;key-word&gt;</span> | awk <span class="hljs-string">'&#123;print $2&#125;'</span> | xargs kill -<span class="hljs-number">9</span></code></pre>]]></content>
     
     
     <categories>
