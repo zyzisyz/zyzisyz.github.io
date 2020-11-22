@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>NLP Tasks and PyTorch Data Parallel Modes</title>
+    <link href="/2020/11/22/2020/20201122_useful_tips/"/>
+    <url>/2020/11/22/2020/20201122_useful_tips/</url>
+    
+    <content type="html"><![CDATA[<h2 id="NLP-Tasks"><a href="#NLP-Tasks" class="headerlink" title="NLP Tasks"></a><a href="https://huggingface.co/transformers/quicktour.html" target="_blank" rel="noopener">NLP Tasks</a></h2><ul><li><strong>Sentiment analysis</strong>: is a text positive or negative?</li><li><strong>Text generation (in English)</strong>: provide a prompt and the model will generate what follows.</li><li><strong>Name entity recognition (NER)</strong>: in an input sentence, label each word with the entity it represents (person, place, etc.)</li><li><strong>Question answering</strong>: provide the model with some context and a question, extract the answer from the context.</li><li><strong>Filling masked text</strong>: given a text with masked words (e.g., replaced by [MASK]), fill the blanks.</li><li><strong>Summarization</strong>: generate a summary of a long text.</li><li><strong>Translation</strong>: translate a text in another language.</li><li><strong>Feature extraction</strong>: return a tensor representation of the text.</li></ul><h2 id="PyTorch-Data-Parallel-Modes"><a href="#PyTorch-Data-Parallel-Modes" class="headerlink" title="PyTorch Data Parallel Modes"></a><a href="https://pytorch-lightning.readthedocs.io/en/latest/multi_gpu.html" target="_blank" rel="noopener">PyTorch Data Parallel Modes</a></h2><ul><li>Data Parallel (accelerator=’dp’) (multiple-gpus, 1 machine)</li><li>DistributedDataParallel (accelerator=’ddp’) (multiple-gpus across many machines (python script based)).</li><li>DistributedDataParallel (accelerator=’ddp_spawn’) (multiple-gpus across many machines (spawn based)).</li><li>DistributedDataParallel 2 (accelerator=’ddp2’) (DP in a machine, DDP across machines).</li><li>Horovod (accelerator=’horovod’) (multi-machine, multi-gpu, configured at runtime)</li><li>TPUs (tpu_cores=8|x) (tpu or TPU pod)</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Tips</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Tips</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>按关键词杀死进程</title>
     <link href="/2020/11/19/2020/20201119_kill/"/>
     <url>/2020/11/19/2020/20201119_kill/</url>

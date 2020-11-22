@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>按关键词杀死进程 - zyzisyz</title>
+  <title>NLP Tasks and PyTorch Data Parallel Modes - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-11-19 00:00">
-      2020年11月19日 凌晨
+    <time datetime="2020-11-22 00:00">
+      2020年11月22日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      27 字
+      163 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      3
        分钟
     </span>
   
@@ -216,9 +216,25 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h2><pre><code class="hljs coq">ps -ef | <span class="hljs-type">grep</span> firefox | <span class="hljs-type">awk</span> '&#123;print $<span class="hljs-number">2</span>&#125;' | <span class="hljs-type">xargs</span> kill <span class="hljs-number">-9</span></code></pre>
+              <h2 id="NLP-Tasks"><a href="#NLP-Tasks" class="headerlink" title="NLP Tasks"></a><a href="https://huggingface.co/transformers/quicktour.html" target="_blank" rel="noopener">NLP Tasks</a></h2><ul>
+<li><strong>Sentiment analysis</strong>: is a text positive or negative?</li>
+<li><strong>Text generation (in English)</strong>: provide a prompt and the model will generate what follows.</li>
+<li><strong>Name entity recognition (NER)</strong>: in an input sentence, label each word with the entity it represents (person, place, etc.)</li>
+<li><strong>Question answering</strong>: provide the model with some context and a question, extract the answer from the context.</li>
+<li><strong>Filling masked text</strong>: given a text with masked words (e.g., replaced by [MASK]), fill the blanks.</li>
+<li><strong>Summarization</strong>: generate a summary of a long text.</li>
+<li><strong>Translation</strong>: translate a text in another language.</li>
+<li><strong>Feature extraction</strong>: return a tensor representation of the text.</li>
+</ul>
+<h2 id="PyTorch-Data-Parallel-Modes"><a href="#PyTorch-Data-Parallel-Modes" class="headerlink" title="PyTorch Data Parallel Modes"></a><a href="https://pytorch-lightning.readthedocs.io/en/latest/multi_gpu.html" target="_blank" rel="noopener">PyTorch Data Parallel Modes</a></h2><ul>
+<li>Data Parallel (accelerator=’dp’) (multiple-gpus, 1 machine)</li>
+<li>DistributedDataParallel (accelerator=’ddp’) (multiple-gpus across many machines (python script based)).</li>
+<li>DistributedDataParallel (accelerator=’ddp_spawn’) (multiple-gpus across many machines (spawn based)).</li>
+<li>DistributedDataParallel 2 (accelerator=’ddp2’) (DP in a machine, DDP across machines).</li>
+<li>Horovod (accelerator=’horovod’) (multi-machine, multi-gpu, configured at runtime)</li>
+<li>TPUs (tpu_cores=8|x) (tpu or TPU pod)</li>
+</ul>
 
-<pre><code class="hljs vim"><span class="hljs-keyword">ps</span> -ef | <span class="hljs-keyword">grep</span> <span class="hljs-symbol">&lt;key-word&gt;</span> | awk <span class="hljs-string">'&#123;print $2&#125;'</span> | xargs kill -<span class="hljs-number">9</span></code></pre>
             </article>
             <hr>
             <div>
@@ -227,7 +243,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                      <a class="hover-with-bg" href="/categories/Tips/">Tips</a>
                     
                   </div>
                 
@@ -235,7 +251,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                      <a class="hover-with-bg" href="/tags/Tips/">Tips</a>
                     
                   </div>
                 
@@ -246,18 +262,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/11/22/2020/20201122_useful_tips/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">NLP Tasks and PyTorch Data Parallel Modes</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/11/19/2020/20201119_htop/">
-                        <span class="hidden-mobile">htop</span>
+                      <a href="/2020/11/19/2020/20201119_kill/">
+                        <span class="hidden-mobile">按关键词杀死进程</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -396,7 +406,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "按关键词杀死进程&nbsp;",
+        "NLP Tasks and PyTorch Data Parallel Modes&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
