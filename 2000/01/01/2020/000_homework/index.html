@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yang Zhang">
   <meta name="keywords" content="">
-  <title>Git Tips - zyzisyz</title>
+  <title>Python 矩阵乘法 - zyzisyz</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,8 +164,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-11-05 00:00">
-      2020年11月5日 凌晨
+    <time datetime="2000-01-01 00:00">
+      2000年1月1日 凌晨
     </time>
   </div>
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      477 字
+      224 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      2
        分钟
     </span>
   
@@ -216,44 +216,13 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>实验室wiki上静北师兄整理的，copy一下</p>
-<h2 id="Git-使用哲学"><a href="#Git-使用哲学" class="headerlink" title="Git 使用哲学"></a>Git 使用哲学</h2><p>简单来说，Git 的使用哲学和目的就是有条理地说清楚你都干了什么事，然后把它们一一存储成独立的改动。 这么做以后，如果你之前发现你做的某一件事可能是错的，你可以基于这个独立的改动创建一个分支，同时还保留其他改动。 同时，你还可以实现回滚到某个版本，应用其他同学的改动等等。但就核心而言，是练就你有条理地说清楚你都干了什么事的能力。</p>
-<h2 id="Git-基本使用方法"><a href="#Git-基本使用方法" class="headerlink" title="Git 基本使用方法"></a>Git 基本使用方法</h2><h3 id="创建-Git-仓库"><a href="#创建-Git-仓库" class="headerlink" title="创建 Git 仓库"></a>创建 Git 仓库</h3><p>越来越多的实验代码都使用 Git 来管理和分享。对于一个已经存在的远程仓库，执行下述命令即可将其克隆到本地。</p>
-<pre><code class="hljs bash">$ git <span class="hljs-built_in">clone</span> &lt;url&gt;</code></pre>
-
-<p>对于一份没有被 Git 管理的本地代码，切换到代码所在文件夹，执行下述命令即可创建一个 Git 仓库。</p>
-<pre><code class="hljs bash">$ git init</code></pre>
-
-<h3 id="配置-SSH-密钥"><a href="#配置-SSH-密钥" class="headerlink" title="配置 SSH 密钥"></a>配置 SSH 密钥</h3><p><code>&lt;url&gt;</code> 一般有两种。一种是基于 HTTP 协议的，一种是基于 Git 协议的。基于 Git 协议的可以通过密钥认证来避免输密码。 绝大多数在线的 Git 仓库托管站点都支持密钥认证，从而可以避免可能要输入的密码。 这里推荐参考 <a href="https://docs.github.com/cn/free-pro-team@latest/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent" target="_blank" rel="noopener">GitHub 密钥配置文档</a> 。</p>
-<h3 id="创建改动"><a href="#创建改动" class="headerlink" title="创建改动"></a>创建改动</h3><p>当你对 Git 仓库内的文件进行修改后，你可以通过下述命令来查看目前的改动。</p>
-<pre><code class="hljs bash">$ git status</code></pre>
-
-<p>你可以通过下述命令来暂存你的改动。</p>
-<pre><code class="hljs bash">$ git add &lt;pattern&gt;</code></pre>
-
-<p>其中 <code>&lt;pattern&gt;</code> 可以是文件路径，文件夹路径，通配符等等。 如果所有文件都需要被提交，你可以使用下述命令。</p>
-<pre><code class="hljs bash">$ git add .</code></pre>
-
+              <p><strong>摘 要</strong>：    《中国制造2025》报告中明确指出，智能网联汽车是我国将要重点发展的新兴事物之一，它与传统汽车最大的区别在于它运用了AI技术，有着人工智能的加持。随着人工智能的不断发展和低时延高带宽5G网络的普及，自动驾驶在未来必将迎来新的发展。然而整个社会交通的智能化、自动驾驶化整个过程并不是一蹴而就的，需要长时间的不断构建、迭代和转型。因此我结合本门课程所学的“社会—技术”系统分析的相关知识，并结合自己的理解对当前的自动驾驶产业发展进行分析和进一步的深入解读，并提出了自己对这个产业未来发展的看法。</p>
 
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Git/">Git</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Git/">Git</a>
-                    
-                  </div>
                 
               </div>
               
@@ -262,21 +231,15 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/11/05/2020/20201105_NMT/">
+                      <a href="/2000/01/01/research_note/014_self/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Neural Network Translation</span>
+                        <span class="hidden-mobile">Self-Supervised Pretrain Speech Representation for Speaker Recongnition</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </div>
                   <div class="post-next col-6">
                     
-                    
-                      <a href="/2020/11/04/2020/20201104_matrix_factorization/">
-                        <span class="hidden-mobile">Matrix Decomposition</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </div>
                 </div>
@@ -412,7 +375,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Git Tips&nbsp;",
+        "Python 矩阵乘法&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
