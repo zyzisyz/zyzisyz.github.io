@@ -233,7 +233,7 @@
 <p>设有来自某分布族${F(x,\theta)|\theta\in\Theta}$的样本$x_1,…,x_n$，其中$\Theta$为参数空间，设$\Theta_0\in\Theta$，且$\Theta_0\neq\phi$，则命题$H_0:\theta\in\Theta_0$称为<strong>原假设</strong>或<strong>零假设（null hypothesis）</strong>，若有另一个$\Theta_1$（$\Theta_1\in\Theta,\Theta_1\Theta_0=\phi$，常见的一种情况是$\Theta_1=\Theta-\Theta_0$），则命题$H_1:\theta\in\Theta_1$称为$H_0$的<strong>对立假设</strong>或<strong>备择假设（alternative hypotheis）</strong>，当$H_0$为简单假设，即$\Theta_0$只含一个点时，备择假设有三种可能：$H_1’:\theta\neq\theta_0$，$H_1’’:\theta&lt;\theta_0$，$H_1’’’:\theta&gt;\theta_0$。</p>
 <h4 id="Step-2：选择检验统计量，给出拒绝域形式"><a href="#Step-2：选择检验统计量，给出拒绝域形式" class="headerlink" title="Step 2：选择检验统计量，给出拒绝域形式"></a>Step 2：选择检验统计量，给出拒绝域形式</h4><p>根据样本计算统计量$Z$（如样本均值、标准差等，称为<strong>检验统计量</strong>），并基于某个法则既可以决定接受$H_0$还是拒绝$H_0$，具体地，当统计量在拒绝域$W$中即拒绝$H_0$，在接受域$\overline{W}$中即接受$H_0$。由此可见，<strong>一个拒绝域$W$唯一确定一个检验法则，反之，一个检验法则也唯一确定一个拒绝域。</strong></p>
 <p><strong>注：</strong>不能用一个样本（例子）证明一个命题（假设成立），但是可以用一个样本（例子）去推翻一个命题。此外，拒绝域与接受域之间有一个模糊域，即统计量恰好符合法则，通常将模糊域归为接受域，因此接受域是复杂的。</p>
-<h4 id="Step-3：选择显著性水平"><a href="#Step-3：选择显著性水平" class="headerlink" title="Step 3：选择显著性水平*"></a>Step 3<em>：选择显著性水平*</em></h4><p>假设检验基于<strong>小概率事件</strong>，即小概率事件在一次试验中几乎不会发生，因此选择一个很小的概率值$\alpha$，令$p(拒绝H_0|H_0为真)\leq\alpha$，表示$Z\in W$是一个小概率事件，在一次试验中不应该发生。如果通过样本得到的统计量$z\in W$，即不该发生的小概率事件竟然发生了，那么应该拒绝$H_0$。</p>
+<h4 id="Step-3：选择显著性水平"><a href="#Step-3：选择显著性水平" class="headerlink" title="Step 3：选择显著性水平"></a>Step 3：选择显著性水平</h4><p>假设检验基于<strong>小概率事件</strong>，即小概率事件在一次试验中几乎不会发生，因此选择一个很小的概率值$\alpha$，令$p(拒绝H_0|H_0为真)\leq\alpha$，表示$Z\in W$是一个小概率事件，在一次试验中不应该发生。如果通过样本得到的统计量$z\in W$，即不该发生的小概率事件竟然发生了，那么应该拒绝$H_0$。</p>
 <p>由于向本是随机的，通常做检验时可能做出错误判断，由此引入了两个错误，分别为<strong>第一类错误</strong>和<strong>第二类错误</strong>，如下表所示：</p>
 <table>
 <thead>
@@ -259,8 +259,8 @@
 <td align="center">犯第二类错误（取伪）</td>
 </tr>
 </tbody></table>
-<p>犯第一类错误概率：$\alpha=P(X\in W|H_0)$，即$\alpha=P(拒绝H_0|H_0为真)$；</p>
-<p>犯第二类错误概率：$\beta=P(X\in \overline{W}|H_1)$，即$\beta=P(接受H_0|H_0为假)$。</p>
+<p><strong>犯第一类错误概率</strong>：$\alpha=P(X\in W|H_0)$，即$\alpha=P(拒绝H_0|H_0为真)$；</p>
+<p><strong>犯第二类错误概率</strong>：$\beta=P(X\in \overline{W}|H_1)$，即$\beta=P(接受H_0|H_0为假)$。</p>
 <p>可以证明的，在一定样本量下，两类错误概率无法共同减小，但是当样本增加时，可以同时减小。</p>
 <p>证明该问题需要引入是函数，下面将简单介绍势函数，但不对上述结论证明。<br>定义：设检验问题$H_0:\theta\in\Theta_0\quad vs\quad H_1:\theta \in \Theta_1$的拒绝域为$W$，则样本观测值$\mathbf{X}$落在拒绝域$W$内的概率称为该检验的<strong>势函数</strong>，记为</p>
 <p>$$<br>g(\theta)=P_\theta(\mathbf{X}\in W),\ \theta\in\Theta=\Theta_0\cup\Theta_1<br>$$</p>
